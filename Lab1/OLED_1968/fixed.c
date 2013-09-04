@@ -38,3 +38,23 @@ unsigned int i;
   }
   for(;;) {} /* wait forever */
 }
+
+void Fixed_uDecOut2s(unsigned long n,  char *string)
+{
+	if (n >= 100000)
+		sprintf(string, "***.**");
+	else{
+		int rem = n%100;
+		int div = n/100;
+		if (rem < 10)
+			sprintf(string, "%d.0%d", div, rem);
+		else
+			sprintf(string, "%d.%d", div, rem);
+			}
+}
+
+void Fixed_sDecOut3s(long n, char *string)
+{
+}
+void Fixed_uBinOut8s(unsigned long n,  char *string){
+}
