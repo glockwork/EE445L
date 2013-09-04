@@ -46,10 +46,17 @@ void Fixed_uDecOut2s(unsigned long n,  char *string)
 	else{
 		int rem = n%100;
 		int div = n/100;
+		char * pre;
+		if (div < 1000)
+			pre = "  ";
+		else if (div < 10000)
+			pre = " ";
+		else pre = "";
+		
 		if (rem < 10)
-			sprintf(string, "%d.0%d", div, rem);
+			sprintf(string, "%s%d.0%d",pre, div, rem);
 		else
-			sprintf(string, "%d.%d", div, rem);
+			sprintf(string, "%s%d.%d",pre, div, rem);
 			}
 }
 

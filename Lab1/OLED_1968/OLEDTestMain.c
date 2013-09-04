@@ -47,30 +47,30 @@
 
 #endif
 
-int main(void){
-  int i;
-  Output_Init();
-  Output_Color(15);
-  printf("Hello, world.");
-  printf("%c", NEWLINE);
-  Delay(4000000);           // delay ~1 sec at 12 MHz
-  Output_Color(8);
-  printf("A really long string should go to the next line.\r");
-  printf("Oxxx(:::::::::::::::>%c", NEWLINE);
-  Delay(4000000);           // delay ~1 sec at 12 MHz
-  Output_Color(15);
-  printf("Color Table:%c", NEWLINE);
-  Delay(4000000);           // delay ~1 sec at 12 MHz
-  Output_Color(8);
-  printf("<:::::::::::::::)xxxO%c", NEWLINE);
-  for(i=15; i>=1; i=i-2){
-    Delay(4000000);         // delay ~1 sec at 12 MHz
-    Output_Color(i);
-    printf("Color: %u%c", i, TAB);
-    Output_Color(i-1);
-    printf("Color: %u%c", i-1, NEWLINE);
-  }
-  Delay(4000000);           // delay ~1 sec at 12 MHz
-  Output_Clear();
-  while(1){};
-}
+//int main(void){
+//  int i;
+//  Output_Init();
+//  Output_Color(15);
+//  printf("Hello, world.");
+//  printf("%c", NEWLINE);
+//  Delay(4000000);           // delay ~1 sec at 12 MHz
+//  Output_Color(8);
+//  printf("A really long string should go to the next line.\r");
+//  printf("Oxxx(:::::::::::::::>%c", NEWLINE);
+//  Delay(4000000);           // delay ~1 sec at 12 MHz
+//  Output_Color(15);
+//  printf("Color Table:%c", NEWLINE);
+//  Delay(4000000);           // delay ~1 sec at 12 MHz
+//  Output_Color(8);
+//  printf("<:::::::::::::::)xxxO%c", NEWLINE);
+//  for(i=15; i>=1; i=i-2){
+//    Delay(4000000);         // delay ~1 sec at 12 MHz
+//    Output_Color(i);
+//    printf("Color: %u%c", i, TAB);
+//    Output_Color(i-1);
+//    printf("Color: %u%c", i-1, NEWLINE);
+//  }
+//  Delay(4000000);           // delay ~1 sec at 12 MHz
+//  Output_Clear();
+//  while(1){};
+//}
