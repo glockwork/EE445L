@@ -62,6 +62,21 @@ void Fixed_uDecOut2s(unsigned long n,  char *string)
 
 void Fixed_sDecOut3s(long n, char *string)
 {
+	if( n >= 10000 || n <= -10000)
+		sprintf(string, "***.**");
+	else{
+		sprintf(string, "%1.3d", n);
+	}
 }
+
 void Fixed_uBinOut8s(unsigned long n,  char *string){
+	unsigned long d = n/256;
+	if(d < 10)
+		sprintf(string, "  %1.2d", d);
+	else if(d<100)
+		sprintf(string, " %2.2d", d);
+	else if(d<1000)
+		sprintf(string, "%3.2d", d);
+	else 
+		sprintf(string, "***.**");
 }
