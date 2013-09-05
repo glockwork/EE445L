@@ -65,18 +65,23 @@ void Fixed_sDecOut3s(long n, char *string)
 	if( n >= 10000 || n <= -10000)
 		sprintf(string, "***.**");
 	else{
-		sprintf(string, "%1.3d", n);
+		int pre = n/1000;
+		int post = n%1000;
+		if(n<0)
+			sprintf(string, "-%d.%d", pre, post);
+		else
+			sprintf(string, " %d.%d", pre, post);
 	}
 }
 
 void Fixed_uBinOut8s(unsigned long n,  char *string){
-	unsigned long d = n/256;
-	if(d < 10)
-		sprintf(string, "  %1.2d", d);
-	else if(d<100)
-		sprintf(string, " %2.2d", d);
-	else if(d<1000)
-		sprintf(string, "%3.2d", d);
+	int d = n*100/256;
+	if(d < 1000)
+		sprintf(string, "  %d.%d", d/100, d%100);
+	else if(d<10000)
+		sprintf(string, " %d.%d", d/100, d%100);
+	else if(d<100000)
+		sprintf(string, "%d.%d", d/100, d%100);
 	else 
 		sprintf(string, "***.**");
 }
