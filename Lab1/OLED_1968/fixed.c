@@ -21,8 +21,8 @@ outTestCaseType outTests3[16]={
 { 32768,  "128.00" }, //  32768/256 = 128
 { 34567,  "135.02" }, //  34567/256 = 135.02
 {123456,  "482.25" }, // 123456/256 = 482.25
-{99999,  "999.99" }, // 255998/256 = 999.99
-{99999,  "***.**" }  // error
+{255998,  "999.99" }, // 255998/256 = 999.99
+{256000,  "***.**" }  // error
 };
 
 outTestCaseType outTests2[10]={ 
@@ -38,15 +38,28 @@ outTestCaseType outTests2[10]={
 {10000, " *.***"} // error
 };
 
+outTestCaseType outTests1[10]={ 
+{0 ,"  0.00"},
+{1 ,"  0.01"},
+{99 ,"  0.99"},
+{100,"  1.00"},
+{999 ,"  9.99"},
+{1000 ," 10.00"},
+{9999 ," 99.99"},
+{10000 ,"100.00"},
+{99999 ,"999.99"},
+{100000 ,"***.**"},
+};
+
 unsigned int Errors,AnError;
 char Buffer[10];
 void main(void){ // possible main program that tests your functions
 unsigned int i;
   Errors = 0;
-  for(i=0; i<10; i++){
-		Fixed_sDecOut3s(outTests2[i].InNumber, Buffer);
+  for(i=0; i<16; i++){
+		Fixed_uBinOut8s(outTests3[i].InNumber, Buffer);
 	
-    if(strcmp(Buffer, outTests2[i].OutBuffer)){
+    if(strcmp(Buffer, outTests3[i].OutBuffer)){
       Errors++;
      AnError = i;
     }

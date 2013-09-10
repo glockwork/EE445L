@@ -17,7 +17,7 @@ I (C:\Users\Nikhil\Dropbox\Current Documents\college stuff\2013 Fall\EE445L\EE44
 I (C:\Users\Nikhil\Dropbox\Current Documents\college stuff\2013 Fall\EE445L\EE445Labs\Lab1\driverlib\sysctl.h)(0x4C6193FA)
 I (C:\Users\Nikhil\Dropbox\Current Documents\college stuff\2013 Fall\EE445L\EE445Labs\Lab1\OLED_1968\rit128x96x4.h)(0x4C51F492)
 F (.\Startup.s)(0x52261836)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1"-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\startup.o --depend .\startup.d)
-F (.\fixed.c)(0x522815D3)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\fixed.o --omf_browse .\fixed.crf --depend .\fixed.d)
+F (.\fixed.c)(0x522D3276)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\fixed.o --omf_browse .\fixed.crf --depend .\fixed.d)
 I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C86E14)
 I (C:\Users\Nikhil\Dropbox\Current Documents\college stuff\2013 Fall\EE445L\EE445Labs\Lab1\OLED_1968\fixed.h)(0x5226982E)
 F (.\fixed.h)(0x5226982E)()
