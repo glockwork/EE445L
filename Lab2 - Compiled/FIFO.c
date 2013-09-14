@@ -141,8 +141,8 @@ int RxFifo_Get(rxDataType *datapt){
   return(RXFIFOSUCCESS);
 }
 
-// Version 2) with debugging print  
-//int RxFifo_Get2(rxDataType *datapt){ 
+//// Version 2) with debugging print  
+//int RxFifo_Get(rxDataType *datapt){ 
 //  if(RxPutPt == RxGetPt ){ 
 //    return(RXFIFOFAIL);  // Empty  
 //  } 
@@ -161,7 +161,7 @@ int RxFifo_Get(rxDataType *datapt){
 //unsigned long ptBuf[10]; 
 //rxDataType dataBuf[10]; 
 //unsigned long Debug_n=0; 
-//int RxFifo_Get3(rxDataType *datapt){ 
+//int RxFifo_Get(rxDataType *datapt){ 
 //  if(RxPutPt == RxGetPt ){ 
 //    return(RXFIFOFAIL);  // Empty  
 //  } 

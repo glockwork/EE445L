@@ -408,11 +408,6 @@
               <FilePath>.\Output.c</FilePath>
             </File>
             <File>
-              <FileName>Performance.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Performance.c</FilePath>
-            </File>
-            <File>
               <FileName>rit128x96x4.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\rit128x96x4.c</FilePath>
@@ -421,6 +416,21 @@
               <FileName>SysTick.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\SysTick.c</FilePath>
+            </File>
+            <File>
+              <FileName>FIFOTestMain.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FIFOTestMain.c</FilePath>
+            </File>
+            <File>
+              <FileName>BadFifo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\BadFifo.c</FilePath>
+            </File>
+            <File>
+              <FileName>Performance.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Performance.c</FilePath>
             </File>
           </Files>
         </Group>
