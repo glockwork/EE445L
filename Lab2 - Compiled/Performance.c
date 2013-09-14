@@ -132,4 +132,21 @@ int main(void){ rxDataType data; int volatile result;
  elapsed = (before-NVIC_ST_CURRENT_R)&0x00FFFFFF; 
  printf("Time is %u bus cycles.\n", elapsed); 
  while(1){}; 
-} 
+}
+
+// part E
+//void main(void){ int result; 
+//rxDataType data; 
+//  SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | 
+//                 SYSCTL_XTAL_8MHZ);        // 50 MHz 
+//  SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOF; // activate port F 
+//  RxFifo_Init();  // initialize  
+//  GPIO_PORTF_DIR_R |= 0x01;        // make PF0 out (connect to scope/logic analyzer) 
+//  GPIO_PORTF_DEN_R |= 0x01;        // enable digital I/O on PF0  
+//  for(;;){ 
+//    RxFifo_Put(1); 
+//    GPIO_PORTF0 = 1;      
+//    result = RxFifo_Get(&data); 
+//    GPIO_PORTF0 = 0;    
+//  } 
+//} 

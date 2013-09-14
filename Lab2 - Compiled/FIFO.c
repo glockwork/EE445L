@@ -26,7 +26,9 @@
  */
 
 #include "FIFO.h"
-
+#define GPIO_PORTF_DIR_R        (*((volatile unsigned long *)0x40025400))
+#define GPIO_PORTF_DEN_R        (*((volatile unsigned long *)0x4002551C))
+#define GPIO_PORTF0             (*((volatile unsigned long *)0x40025004))
 
 // Two-index implementation of the transmit FIFO
 // can hold 0 to TXFIFOSIZE elements
@@ -50,6 +52,21 @@ int TxFifo_Put(txDataType data){
   TxPutI++;  // Success, update
   return(TXFIFOSUCCESS);
 }
+
+//part H
+//int TxFifo_Put(txDataType data){ 
+//  GPIO_PORTF3 = 0x08; 
+//  if((TxPutI-TxGetI) & ~(TXFIFOSIZE-1)){ 
+//    GPIO_PORTF3 = 0x00; 
+//    return(TXFIFOFAIL); // fifo full 
+//  } 
+//  TxFifo[TxPutI&(TXFIFOSIZE-1)] = data;  
+//  TxPutI++;  // Success, update 
+//  GPIO_PORTF3 = 0x00; 
+//  return(TXFIFOSUCCESS); 
+//} 
+
+
 // remove element from front of index FIFO
 // return TXFIFOSUCCESS if successful
 int TxFifo_Get(txDataType *datapt){
@@ -60,6 +77,20 @@ int TxFifo_Get(txDataType *datapt){
   TxGetI++;  // Success, update
   return(TXFIFOSUCCESS);
 }
+
+//part H
+//int TxFifo_Get(txDataType *datapt){ 
+//  GPIO_PORTF0 = 0x01; 
+//  if(TxPutI == TxGetI ){ 
+//    GPIO_PORTF0 = 0x00; 
+//    return(TXFIFOFAIL); // Empty 
+//  } 
+//  *datapt = TxFifo[TxGetI&(TXFIFOSIZE-1)]; 
+//  TxGetI++;  // Success, update 
+//  GPIO_PORTF0 = 0x00; 
+//  return(TXFIFOSUCCESS); 
+//} 
+
 // number of elements in index FIFO
 // 0 to TXFIFOSIZE-1
 unsigned short TxFifo_Size(void){
@@ -98,6 +129,7 @@ int RxFifo_Put(rxDataType data){
 }
 // remove element from front of pointer FIFO
 // return RXFIFOSUCCESS if successful
+//Version 1
 int RxFifo_Get(rxDataType *datapt){
   if(RxPutPt == RxGetPt ){
     return(RXFIFOFAIL);      // Empty if PutPt=GetPt
@@ -108,8 +140,42 @@ int RxFifo_Get(rxDataType *datapt){
   }
   return(RXFIFOSUCCESS);
 }
+
+// Version 2) with debugging print  
+//int RxFifo_Get2(rxDataType *datapt){ 
+//  if(RxPutPt == RxGetPt ){ 
+//    return(RXFIFOFAIL);  // Empty  
+//  } 
+//  *datapt = *(RxGetPt++); 
+//  if(RxGetPt == &RxFifo[RXFIFOSIZE]){ 
+//     RxGetPt = &RxFifo[0];   // wrap 
+//  } 
+//  printf("RxGetPt = %x , data= %d\n", RxGetPt, *datapt); 
+//  return(RXFIFOSUCCESS); 
+//}  
+
 // number of elements in pointer FIFO
 // 0 to RXFIFOSIZE-1
+
+// Version 3) with debugging dump 
+//unsigned long ptBuf[10]; 
+//rxDataType dataBuf[10]; 
+//unsigned long Debug_n=0; 
+//int RxFifo_Get3(rxDataType *datapt){ 
+//  if(RxPutPt == RxGetPt ){ 
+//    return(RXFIFOFAIL);  // Empty  
+//  } 
+//  *datapt = *(RxGetPt++); 
+//  if(RxGetPt == &RxFifo[RXFIFOSIZE]){ 
+//     RxGetPt = &RxFifo[0];   // wrap 
+//  } 
+//  if(Debug_n<10){ 
+//    ptBuf[Debug_n] = (unsigned long) RxGetPt; 
+//    dataBuf[Debug_n] = *datapt; 
+//    Debug_n++; 
+//  } 
+//  return(RXFIFOSUCCESS); 
+//}   
 unsigned short RxFifo_Size(void){
   if(RxPutPt < RxGetPt){
     return ((unsigned short)(RxPutPt-RxGetPt+(RXFIFOSIZE*sizeof(rxDataType)))/sizeof(rxDataType));

@@ -55,6 +55,7 @@
 #include "SysTick.h"
 #include "Output.h"
 
+
 #define NVIC_EN0_INT19          0x00080000  // Interrupt 19 enable
 #define NVIC_EN0_R              (*((volatile unsigned long *)0xE000E100))  // IRQ 0 to 31 Set Enable Register
 #define NVIC_PRI4_R             (*((volatile unsigned long *)0xE000E410))  // IRQ 16 to 19 Priority Register
@@ -76,7 +77,9 @@
 #define TIMER_ICR_TATOCINT      0x00000001  // GPTM TimerA Time-Out Raw
                                             // Interrupt
 #define TIMER_TAILR_TAILRL_M    0x0000FFFF  // GPTM TimerA Interval Load
-                                            // Register Low
+   
+
+// Register Low
 #define GPIO_PORTF_DATA_R       (*((volatile unsigned long *)0x400253FC))
 #define GPIO_PORTF_DIR_R        (*((volatile unsigned long *)0x40025400))
 #define GPIO_PORTF_DEN_R        (*((volatile unsigned long *)0x4002551C))

@@ -1,27 +1,29 @@
 Dependencies for Project 'FIFO_1968', Target 'FIFO': (DO NOT MODIFY !)
-F (.\Startup.s)(0x52312E7B)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork -I "G:\Program Files\Keil\ARM\RV31\INC"-I "G:\Program Files\Keil\ARM\CMSIS\Include"-I "G:\Program Files\Keil\ARM\Inc\Luminary"--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
-F (.\FIFO.c)(0x52312E7B)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.. -I..\..\.. -I..\inc -I..\driverlib-I "G:\Program Files\Keil\ARM\RV31\INC"-I "G:\Program Files\Keil\ARM\CMSIS\Include"-I "G:\Program Files\Keil\ARM\Inc\Luminary"-o .\fifo.o --omf_browse .\fifo.crf --depend .\fifo.d)
-I (C:\Users\Nikhil\Documents\GitHub\EE445L\Lab2 - Compiled\FIFO.h)(0x52312E7B)
-F (.\Output.c)(0x5233DB82)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.. -I..\..\.. -I..\inc -I..\driverlib-I "G:\Program Files\Keil\ARM\RV31\INC"-I "G:\Program Files\Keil\ARM\CMSIS\Include"-I "G:\Program Files\Keil\ARM\Inc\Luminary"-o .\output.o --omf_browse .\output.crf --depend .\output.d)
-I (G:\Program Files\Keil\ARM\ARMCC\include\stdio.h)(0x51C86E14)
-I (C:\Users\Nikhil\Documents\GitHub\EE445L\Lab2 - Compiled\rit128x96x4.h)(0x5233DB83)
-I (C:\Users\Nikhil\Documents\GitHub\EE445L\Lab2 - Compiled\Output.h)(0x5233DB82)
-F (.\Performance.c)(0x5233E3D3)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.. -I..\..\.. -I..\inc -I..\driverlib-I "G:\Program Files\Keil\ARM\RV31\INC"-I "G:\Program Files\Keil\ARM\CMSIS\Include"-I "G:\Program Files\Keil\ARM\Inc\Luminary"-o .\performance.o --omf_browse .\performance.crf --depend .\performance.d)
-I (C:\Users\Nikhil\Documents\GitHub\EE445L\inc\hw_types.h)(0x52312E7B)
-I (C:\Users\Nikhil\Documents\GitHub\EE445L\driverlib\sysctl.h)(0x52312E7B)
-I (C:\Users\Nikhil\Documents\GitHub\EE445L\inc\lm3s1968.h)(0x52312E7B)
-I (C:\Users\Nikhil\Documents\GitHub\EE445L\Lab2 - Compiled\FIFO.h)(0x52312E7B)
-I (C:\Users\Nikhil\Documents\GitHub\EE445L\Lab2 - Compiled\SysTick.h)(0x5233DB97)
-I (C:\Users\Nikhil\Documents\GitHub\EE445L\Lab2 - Compiled\Output.h)(0x5233DB82)
-F (.\rit128x96x4.c)(0x5233DB83)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.. -I..\..\.. -I..\inc -I..\driverlib-I "G:\Program Files\Keil\ARM\RV31\INC"-I "G:\Program Files\Keil\ARM\CMSIS\Include"-I "G:\Program Files\Keil\ARM\Inc\Luminary"-o .\rit128x96x4.o --omf_browse .\rit128x96x4.crf --depend .\rit128x96x4.d)
-I (C:\Users\Nikhil\Documents\GitHub\EE445L\inc\hw_ssi.h)(0x52312E7B)
-I (C:\Users\Nikhil\Documents\GitHub\EE445L\inc\hw_memmap.h)(0x52312E7B)
-I (C:\Users\Nikhil\Documents\GitHub\EE445L\inc\hw_sysctl.h)(0x52312E7B)
-I (C:\Users\Nikhil\Documents\GitHub\EE445L\inc\hw_types.h)(0x52312E7B)
-I (C:\Users\Nikhil\Documents\GitHub\EE445L\driverlib\debug.h)(0x52312E7B)
-I (C:\Users\Nikhil\Documents\GitHub\EE445L\driverlib\gpio.h)(0x52312E7B)
-I (C:\Users\Nikhil\Documents\GitHub\EE445L\driverlib\ssi.h)(0x52312E7B)
-I (C:\Users\Nikhil\Documents\GitHub\EE445L\driverlib\sysctl.h)(0x52312E7B)
-I (C:\Users\Nikhil\Documents\GitHub\EE445L\Lab2 - Compiled\rit128x96x4.h)(0x5233DB83)
-F (.\SysTick.c)(0x5233DB97)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.. -I..\..\.. -I..\inc -I..\driverlib-I "G:\Program Files\Keil\ARM\RV31\INC"-I "G:\Program Files\Keil\ARM\CMSIS\Include"-I "G:\Program Files\Keil\ARM\Inc\Luminary"-o .\systick.o --omf_browse .\systick.crf --depend .\systick.d)
-F (..\driverlib\rvmdk\driverlib.lib)(0x5233DBE1)()
+F (.\Startup.s)(0x5233F72E)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
+F (.\FIFO.c)(0x5233FF9E)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.. -I..\..\.. -I..\inc -I..\driverlib-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\fifo.o --omf_browse .\fifo.crf --depend .\fifo.d)
+I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab2 - Compiled\FIFO.h)(0x5233F72E)
+F (.\Output.c)(0x5233F72E)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.. -I..\..\.. -I..\inc -I..\driverlib-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\output.o --omf_browse .\output.crf --depend .\output.d)
+I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C86E14)
+I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab2 - Compiled\rit128x96x4.h)(0x5233F72E)
+I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab2 - Compiled\Output.h)(0x5233F72E)
+F (.\rit128x96x4.c)(0x5233F72E)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.. -I..\..\.. -I..\inc -I..\driverlib-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\rit128x96x4.o --omf_browse .\rit128x96x4.crf --depend .\rit128x96x4.d)
+I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\inc\hw_ssi.h)(0x4C6193FC)
+I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\inc\hw_memmap.h)(0x4C6193FC)
+I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\inc\hw_sysctl.h)(0x4C6193FC)
+I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\inc\hw_types.h)(0x4C6193FC)
+I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\driverlib\debug.h)(0x4C6193FA)
+I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\driverlib\gpio.h)(0x4C6193FA)
+I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\driverlib\ssi.h)(0x4D640716)
+I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\driverlib\sysctl.h)(0x4C6193FA)
+I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab2 - Compiled\rit128x96x4.h)(0x5233F72E)
+F (.\SysTick.c)(0x5233F72E)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.. -I..\..\.. -I..\inc -I..\driverlib-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\systick.o --omf_browse .\systick.crf --depend .\systick.d)
+F (.\FIFOTestMain.c)(0x5233FEDC)()
+I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\inc\hw_types.h)(0x4C6193FC)
+I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\driverlib\sysctl.h)(0x4C6193FA)
+I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\inc\lm3s1968.h)(0x4C6193FC)
+I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab2 - Compiled\FIFO.h)(0x5233F72E)
+I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab2 - Compiled\SysTick.h)(0x5233F72E)
+I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab2 - Compiled\Output.h)(0x5233F72E)
+F (.\BadFifo.c)(0x5233FC44)()
+F (.\Performance.c)(0x5233FFDC)()
+F (..\driverlib\rvmdk\driverlib.lib)(0x5226A7CD)()
