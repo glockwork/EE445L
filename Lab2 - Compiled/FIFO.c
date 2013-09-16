@@ -29,6 +29,7 @@
 #define GPIO_PORTF_DIR_R        (*((volatile unsigned long *)0x40025400))
 #define GPIO_PORTF_DEN_R        (*((volatile unsigned long *)0x4002551C))
 #define GPIO_PORTF0             (*((volatile unsigned long *)0x40025004))
+#define GPIO_PORTF3             (*((volatile unsigned long *)0x40025020))
 
 // Two-index implementation of the transmit FIFO
 // can hold 0 to TXFIFOSIZE elements
@@ -87,7 +88,6 @@ int TxFifo_Get(txDataType *datapt){
 //  } 
 //  *datapt = TxFifo[TxGetI&(TXFIFOSIZE-1)]; 
 //  TxGetI++;  // Success, update 
-//  GPIO_PORTF0 = 0x00; 
 //  return(TXFIFOSUCCESS); 
 //} 
 

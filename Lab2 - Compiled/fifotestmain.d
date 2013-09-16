@@ -3,5 +3,3 @@
 .\fifotestmain.o: ..\driverlib\sysctl.h
 .\fifotestmain.o: ..\inc\lm3s1968.h
 .\fifotestmain.o: FIFO.h
-.\fifotestmain.o: SysTick.h
-.\fifotestmain.o: Output.h

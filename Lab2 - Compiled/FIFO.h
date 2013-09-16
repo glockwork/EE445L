@@ -39,6 +39,18 @@ void EndCritical(long sr);    // restore I bit to previous value
 typedef char txDataType;
 
 // initialize index FIFO
+void BadFifo_Init(void);
+// add element to end of index FIFO
+// return TXFIFOSUCCESS if successful
+int BadFifo_Put(txDataType data);
+// remove element from front of index FIFO
+// return TXFIFOSUCCESS if successful
+int BadFifo_Get(txDataType *datapt);
+// number of elements in index FIFO
+// 0 to TXFIFOSIZE-1
+unsigned short BadFifo_Size(void);
+
+// initialize index FIFO
 void TxFifo_Init(void);
 // add element to end of index FIFO
 // return TXFIFOSUCCESS if successful

@@ -114,6 +114,10 @@ unsigned long EnteredCount;  // number of times Put has interrupted Get
                              // record of lines where interrupt occurred
 unsigned long LineHistogram[HISTOGRAMSIZE];
 unsigned long LineHistogramAddress[HISTOGRAMSIZE];
+unsigned long LineHistogramErrors[HISTOGRAMSIZE];
+unsigned long LineHistogramErrorsTemp[HISTOGRAMSIZE];
+
+unsigned long lastAddress = 0;
 // foreground variables
 char ForeExpected;           // expected data
 char ForeActual;             // actual data
@@ -162,7 +166,7 @@ void Timer0A_Handler(void){
     EnteredCount = EnteredCount + 1;
   }
   for(i=0; i<=BackCounter; i=i+1){
-    if(TxFifo_Put(BackData)){
+    if(BadFifo_Put(BackData)){
       BackData = BackData + 1; // sequence is 0,1,2,3,...,254,255,0,1,...
     }                          // ignore full FIFO
   }
@@ -171,10 +175,12 @@ void Timer0A_Handler(void){
     BackCounter = 0;   // 0 to 9
   }
   returnaddress = Who();
-  if((returnaddress < (unsigned long)&TxFifo_Get) || (returnaddress >= (unsigned long)&TxFifo_Size)){
-    returnaddress = (unsigned long)&TxFifo_Size;
+  if((returnaddress < (unsigned long)&BadFifo_Get) || (returnaddress >= (unsigned long)&BadFifo_Size)){
+    returnaddress = (unsigned long)&BadFifo_Size;
   }
-  LineHistogram[(returnaddress - (unsigned long)&TxFifo_Get)/2]++;
+  lastAddress = returnaddress;
+  LineHistogramErrorsTemp[(returnaddress - (unsigned long)&BadFifo_Get)/2]++;
+  //LineHistogram[(returnaddress - (unsigned long)&RxFifo_Get)/2]++;
   GPIO_PORTF2 = 0x00;
 }
 
@@ -213,10 +219,10 @@ int main(void){
   NVIC_EN0_R |= NVIC_EN0_INT19;    // enable interrupt 19 in NVIC
 
   // *************** Test #5: test interrupt vulnerability ************
-  TxFifo_Init();
+  RxFifo_Init();
   for(i=0; i<HISTOGRAMSIZE; i=i+1){ unsigned long returnaddress;
     LineHistogram[i] = 0;
-    returnaddress = ((unsigned long)&TxFifo_Get + 2*i)&0xFFFFFFFE;
+    returnaddress = ((unsigned long)&RxFifo_Get + 2*i)&0xFFFFFFFE;
     LineHistogramAddress[i] = returnaddress;   // possible places in Get that could be interrupted
   }
   TIMER0_ICR_R = TIMER_ICR_TATOCINT;// clear timer0A timeout flag
@@ -226,7 +232,7 @@ int main(void){
     do{
       GPIO_PORTF0 = 1;       // profile of main program
       EnterGet = 1;
-      i = TxFifo_Get(&ForeActual);  // i = 0 (FIFOFAIL) if error
+      i = BadFifo_Get(&ForeActual);  // i = 0 (FIFOFAIL) if error
       EnterGet = 0;
       GPIO_PORTF0 = 0; 
     }
@@ -235,6 +241,9 @@ int main(void){
 
     if(ForeExpected != ForeActual){
       Errors = Errors + 1;           // critical section found
+			if ((lastAddress - (unsigned long)&BadFifo_Get)/2 != 31)
+				for (i=0;i<31;i++)
+					LineHistogramErrors[i] += LineHistogramErrorsTemp[i];
       ForeExpected = ForeActual + 1; // resych to lost/bad data
       GPIO_PORTG2 = 0x04;            // set PG2, means error
     }
