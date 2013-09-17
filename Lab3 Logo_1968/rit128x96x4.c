@@ -892,13 +892,20 @@ RIT128x96x4DisplayOn(void)
 }
 
 
+unsigned char buffer[64][128];
 
 //*************RIT128x96x4_ClearImage************************************** 
 //  Clears the RAM version of the image 
 //  Inputs: none 
 //  Outputs: none 
 void RIT128x96x4_ClearImage(void){
-	
+	int i = 0;
+	int j = 0;
+	for(i = 0; i < 64; i++){
+		for(j = 0; j < 128; j++){
+			buffer[i][j] = 0x00;
+		}
+	}
 }
  
 //*************RIT128x96x4_Line******************************************** 
@@ -910,15 +917,75 @@ void RIT128x96x4_ClearImage(void){
 //  Outputs: none 
 
 void RIT128x96x4_Line(int x1, int y1, int x2, int y2, unsigned char color){
+	int minx;
+	int	miny;
+	int maxx;
+	int maxy;
+	int f_x;
+	int f_y;
+	float i;
+	float inc;
+	float m = (y2-y1) / (x2-x1);
+	float b = y1 - m*x1;		
 	
+	minx = x1;
+	maxx = x2;
+	if(x1 > x2){
+		minx = x2;
+		maxx = x1;
+	}
+
+	miny = y1;
+	maxy = y2;
+	if(y1 > y2){
+		miny = y2;
+		maxy = y1;
+	}
+
+	inc = m;
+	if(m < 1/m)
+		inc = 1/m;
+
+
+	//y = mx + b
+	//fills in y values based on x
+	for(i = (float)minx; i < maxx; i+=inc){
+		f_y = (int)m*i+b;
+		f_x = (int)i;
+
+		bufferSet(f_x, f_y, color);
+	}
+
+	//x = (y-b)/m
+	//fills in x values based on y
+	for(i = (float)miny; i < maxy; i+=inc){
+		f_x = (int)(i-b)/m;
+		f_y = (int)i;
+
+		bufferSet(f_x, f_y, color);
+	}
 }
+
+//sets location in buffer to color
+void bufferSet(int f_x, int f_y, unsigned char color){
+	unsigned char color2 = color << 4;
+
+	if(f_x%2==0){
+		buffer[(int)f_x/2][f_y] &= 0x01;
+		buffer[(int)f_x/2][f_y] |= color2;
+	}
+	else{
+		buffer[(int)f_x/2][f_y] &= 0x10;
+		buffer[(int)f_x/2][f_y] |= color;	
+	}
+}
+
 //*************RIT128x96x4_ShowImage************************************** 
 //  Copies the RAM version of the image to the OLED 
 //  Inputs: none 
 //  Outputs: none 
 void RIT128x96x4_ShowImage(void){
-	
-	
+	RIT128x96x4ImageDraw((unsigned char*)buffer, 0, 0, 128, 96);
 }
 
 //*****************************************************************************

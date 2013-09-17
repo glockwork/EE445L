@@ -149,8 +149,15 @@ const unsigned char ECE[] ={
 
 int main(void){ int i;
 	Output_Init();
-	printf("hi\n");
-	mainTestInterrupt();
+	
+	RIT128x96x4_ClearImage(); 
+ 
+	RIT128x96x4_Line(0,0,50,50,15); 
+
+	RIT128x96x4_ShowImage(); 		
+	
+	//printf("hi\n");
+	//mainTestInterrupt();
 //  SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
 //  RIT128x96x4Init(1000000);
 ////  RIT128x96x4_Logo(60);	   // place in middle

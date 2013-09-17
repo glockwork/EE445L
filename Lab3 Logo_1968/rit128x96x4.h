@@ -42,6 +42,7 @@ extern void RIT128x96x4ImageDraw(const unsigned char *pucImage,
                                    unsigned long ulWidth,
                                    unsigned long ulHeight);
 
+extern void bufferSet(int f_x, int f_y, unsigned char color);
 extern void RIT128x96x4_ClearImage(void); 
  
 extern void RIT128x96x4_Line(int x1, int y1, int x2, int y2, unsigned char color); 
