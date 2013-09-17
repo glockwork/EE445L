@@ -147,6 +147,9 @@ void Timer0A_Handler(void){
   unsigned long returnaddress;
   unsigned char i;
   static char periodShift = 1;
+	unsigned long tempF0 = GPIO_PORTF0;
+	unsigned long tempF1 = GPIO_PORTF1;
+  GPIO_PORTF0 = 0x00;
 	GPIO_PORTF1 = 0x00;
   GPIO_PORTF2 = 0x04;               // debuging profile
   TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
@@ -177,7 +180,9 @@ void Timer0A_Handler(void){
   }
   LineHistogram[(returnaddress - (unsigned long)&RxFifo_Get)/2]++;
   GPIO_PORTF2 = 0x00;
-	GPIO_PORTF1 = 0x02;
+	GPIO_PORTF1 = tempF1;
+  GPIO_PORTF0 = tempF0;
+
 }
 
 int main(void){

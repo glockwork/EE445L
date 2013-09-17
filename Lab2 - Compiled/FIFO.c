@@ -29,6 +29,7 @@
 #define GPIO_PORTF_DIR_R        (*((volatile unsigned long *)0x40025400))
 #define GPIO_PORTF_DEN_R        (*((volatile unsigned long *)0x4002551C))
 #define GPIO_PORTF0             (*((volatile unsigned long *)0x40025004))
+#define GPIO_PORTF1             (*((volatile unsigned long *)0x40025008))
 #define GPIO_PORTF3             (*((volatile unsigned long *)0x40025020))
 
 // Two-index implementation of the transmit FIFO
@@ -45,51 +46,57 @@ void TxFifo_Init(void){ long sr;
 }
 // add element to end of index FIFO
 // return TXFIFOSUCCESS if successful
-int TxFifo_Put(txDataType data){
-  if((TxPutI-TxGetI) & ~(TXFIFOSIZE-1)){
-    return(TXFIFOFAIL); // Failed, fifo full
-  }
-  TxFifo[TxPutI&(TXFIFOSIZE-1)] = data; // put
-  TxPutI++;  // Success, update
-  return(TXFIFOSUCCESS);
-}
+//int TxFifo_Put(txDataType data){
+//  if((TxPutI-TxGetI) & ~(TXFIFOSIZE-1)){
+//    return(TXFIFOFAIL); // Failed, fifo full
+//  }
+//  TxFifo[TxPutI&(TXFIFOSIZE-1)] = data; // put
+//  TxPutI++;  // Success, update
+//  return(TXFIFOSUCCESS);
+//}
 
 //part H
-//int TxFifo_Put(txDataType data){ 
-//  GPIO_PORTF3 = 0x08; 
-//  if((TxPutI-TxGetI) & ~(TXFIFOSIZE-1)){ 
-//    GPIO_PORTF3 = 0x00; 
-//    return(TXFIFOFAIL); // fifo full 
-//  } 
-//  TxFifo[TxPutI&(TXFIFOSIZE-1)] = data;  
-//  TxPutI++;  // Success, update 
-//  GPIO_PORTF3 = 0x00; 
-//  return(TXFIFOSUCCESS); 
-//} 
+int TxFifo_Put(txDataType data){ 
+  GPIO_PORTF3 = 0x08; 
+  if((TxPutI-TxGetI) & ~(TXFIFOSIZE-1)){ 
+		GPIO_PORTF3 = 0x00; 
+    return(TXFIFOFAIL); // fifo full 
+  } 
+  TxFifo[TxPutI&(TXFIFOSIZE-1)] = data;  
+  TxPutI++;  // Success, update 
+  GPIO_PORTF3 = 0x00; 
+  return(TXFIFOSUCCESS); 
+} 
 
 
 // remove element from front of index FIFO
 // return TXFIFOSUCCESS if successful
-int TxFifo_Get(txDataType *datapt){
-  if(TxPutI == TxGetI ){
-    return(TXFIFOFAIL); // Empty if TxPutI=TxGetI
-  }
-  *datapt = TxFifo[TxGetI&(TXFIFOSIZE-1)];
-  TxGetI++;  // Success, update
-  return(TXFIFOSUCCESS);
-}
+//int TxFifo_Get(txDataType *datapt){
+//  if(TxPutI == TxGetI ){
+//    return(TXFIFOFAIL); // Empty if TxPutI=TxGetI
+//  }
+//  *datapt = TxFifo[TxGetI&(TXFIFOSIZE-1)];
+//  TxGetI++;  // Success, update
+//  return(TXFIFOSUCCESS);
+//}
 
 //part H
-//int TxFifo_Get(txDataType *datapt){ 
-//  GPIO_PORTF0 = 0x01; 
-//  if(TxPutI == TxGetI ){ 
-//    GPIO_PORTF0 = 0x00; 
-//    return(TXFIFOFAIL); // Empty 
-//  } 
-//  *datapt = TxFifo[TxGetI&(TXFIFOSIZE-1)]; 
-//  TxGetI++;  // Success, update 
-//  return(TXFIFOSUCCESS); 
-//} 
+int TxFifo_Get(txDataType *datapt){ 
+	GPIO_PORTF1 = 0x00;
+  GPIO_PORTF0 = 0x01; 
+  if(TxPutI == TxGetI ){ 
+    GPIO_PORTF0 = 0x00; 
+    GPIO_PORTF1 = 0x02; 
+
+    return(TXFIFOFAIL); // Empty 
+  } 
+  *datapt = TxFifo[TxGetI&(TXFIFOSIZE-1)]; 
+  TxGetI++;  // Success, update 
+  GPIO_PORTF0 = 0x00; 
+    GPIO_PORTF1 = 0x02; 
+
+  return(TXFIFOSUCCESS); 
+} 
 
 // number of elements in index FIFO
 // 0 to TXFIFOSIZE-1

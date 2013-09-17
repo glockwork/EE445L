@@ -3,11 +3,15 @@
 #define BadFIFOSUCCESS 1
 #define BadFIFOFAIL    0
 
+long StartCritical (void);    // previous I bit, disable interrupts
+void EndCritical(long sr);    // restore I bit to previous value
 typedef unsigned char BaddataType;
 unsigned long static volatile BadSize; /* number of elements in FIFO */
 BaddataType static volatile *BadPutPt;    /* Pointer of where to put next */
 BaddataType static volatile *BadGetPt;    /* Pointer of where to get next */
 BaddataType static BadFifo[BadFIFOSIZE];
+void DisableInterrupts(void); // Disable interrupts
+void EnableInterrupts(void);  // Enable interrupts
 
 /*-----------------------BadFifo_Init----------------------------
   Initialize fifo to be empty
@@ -33,7 +37,9 @@ int BadFifo_Put(BaddataType data){
   if(BadPutPt == &BadFifo[BadFIFOSIZE]){ // need to wrap?
     BadPutPt = &BadFifo[0];
   }
+
   BadSize++;   // one more element
+
   return(BadFIFOSUCCESS);
 }
 
@@ -42,8 +48,10 @@ int BadFifo_Put(BaddataType data){
   Inputs: pointer to place to return data
   Outputs: true if data is valid, 
            false if fifo was empty at the time of the call*/
-int BadFifo_Get(BaddataType *datapt){ 
+int BadFifo_Get(BaddataType *datapt){
+	long sr=0;
   if(BadSize == 0){
+
     return(BadFIFOFAIL);     // Empty if no elements in FIFO 
   }
   *datapt = *(BadGetPt);  // return by reference
@@ -51,7 +59,9 @@ int BadFifo_Get(BaddataType *datapt){
   if(BadGetPt == &BadFifo[BadFIFOSIZE]){ 
     BadGetPt = &BadFifo[0];  // wrap
   }
+	sr = StartCritical();                 \
   BadSize--;   // one less element
+	EndCritical(sr);
   return(BadFIFOSUCCESS); 
 }
 

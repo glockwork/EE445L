@@ -1,2 +1,2 @@
-logo.o: logo.c
-logo.o: rit128x96x4.h
+.\logo.o: logo.c
+.\logo.o: rit128x96x4.h

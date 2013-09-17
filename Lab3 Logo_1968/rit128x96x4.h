@@ -41,10 +41,18 @@ extern void RIT128x96x4ImageDraw(const unsigned char *pucImage,
                                    unsigned long ulY,
                                    unsigned long ulWidth,
                                    unsigned long ulHeight);
+
+extern void RIT128x96x4_ClearImage(void); 
+ 
+extern void RIT128x96x4_Line(int x1, int y1, int x2, int y2, unsigned char color); 
+
+extern void RIT128x96x4_ShowImage(void); 								 
+																	 
 extern void RIT128x96x4Init(unsigned long ulFrequency);
 extern void RIT128x96x4Enable(unsigned long ulFrequency);
 extern void RIT128x96x4Disable(void);
 extern void RIT128x96x4DisplayOn(void);
 extern void RIT128x96x4DisplayOff(void);
+
 
 #endif // __RIT128X96X4_H__

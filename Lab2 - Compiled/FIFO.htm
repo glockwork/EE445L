@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\FIFO.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\FIFO.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Mon Sep 16 09:11:04 2013
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Mon Sep 16 13:41:46 2013
 <BR><P>
 <H3>Maximum Stack Usage =         24 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -471,6 +471,7 @@ Global Symbols
 <P><STRONG><a name="[53]"></a>StartCritical</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Rx2Fifo_Init
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Tx2Fifo_Init
+<LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BadFifo_Get
 <LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RxFifo_Init
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TxFifo_Init
 </UL>
@@ -478,6 +479,7 @@ Global Symbols
 <P><STRONG><a name="[54]"></a>EndCritical</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Rx2Fifo_Init
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Tx2Fifo_Init
+<LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BadFifo_Get
 <LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RxFifo_Init
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TxFifo_Init
 </UL>
@@ -495,11 +497,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main2
 </UL>
 
-<P><STRONG><a name="[5f]"></a>TxFifo_Put</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, fifo.o(.text), UNUSED)
+<P><STRONG><a name="[5f]"></a>TxFifo_Put</STRONG> (Thumb, 64 bytes, Stack size 0 bytes, fifo.o(.text), UNUSED)
 <BR><BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main2
 </UL>
 
-<P><STRONG><a name="[5e]"></a>TxFifo_Get</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, fifo.o(.text), UNUSED)
+<P><STRONG><a name="[5e]"></a>TxFifo_Get</STRONG> (Thumb, 76 bytes, Stack size 0 bytes, fifo.o(.text), UNUSED)
 <BR><BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main2
 </UL>
 
@@ -537,8 +539,14 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer0A_Handler
 </UL>
 
-<P><STRONG><a name="[3d]"></a>BadFifo_Get</STRONG> (Thumb, 62 bytes, Stack size 0 bytes, badfifo.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<P><STRONG><a name="[3d]"></a>BadFifo_Get</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, badfifo.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16 + Unknown Stack Size
+<LI>Call Chain = BadFifo_Get
+</UL>
+<BR>[Calls]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EndCritical
+<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartCritical
+</UL>
+<BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> badfifotestmain.o(.text)
 </UL>
