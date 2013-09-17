@@ -156,6 +156,8 @@ int main(void){ int i;
 
 	RIT128x96x4_ShowImage(); 		
 	
+	while(1);
+	
 	//printf("hi\n");
 	//mainTestInterrupt();
 //  SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
