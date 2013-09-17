@@ -3,108 +3,47 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
-C:\Users\Nikhil\Documents\GitHub\EE445L\Lab3 Logo_1968\Logo.uvproj
+C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab3 Logo_1968\Logo.uvproj
 Project File Date:  09/16/2013
 
 <h2>Output:</h2>
-Build target 'Logo'
-compiling rit128x96x4.c...
-rit128x96x4.c(902): error:  #29: expected an expression
-rit128x96x4.c(902): error:  #20: identifier "i" is undefined
-rit128x96x4.c(903): error:  #29: expected an expression
-rit128x96x4.c(903): error:  #20: identifier "j" is undefined
-rit128x96x4.c(928): error:  #268: declaration may not appear after executable statement in block
-rit128x96x4.c(929): error:  #268: declaration may not appear after executable statement in block
-rit128x96x4.c(935): error:  #268: declaration may not appear after executable statement in block
-rit128x96x4.c(942): error:  #29: expected an expression
-rit128x96x4.c(942): error:  #20: identifier "i" is undefined
-rit128x96x4.c(951): error:  #29: expected an expression
-rit128x96x4.c(921): warning:  #550-D: variable "minx" was set but never used
-rit128x96x4.c(928): warning:  #550-D: variable "miny" was set but never used
-compiling LogoTestMain.c...
-LogoTestMain.c(152): warning:  #223-D: function "printf" declared implicitly
-LogoTestMain.c(153): warning:  #223-D: function "mainTestInterrupt" declared implicitly
-LogoTestMain.c(150): warning:  #177-D: variable "i" was declared but never referenced
-LogoTestMain.c(175): warning:  #223-D: function "printf" declared implicitly
-LogoTestMain.c(183): warning:  #223-D: function "printf" declared implicitly
-compiling logo.c...
-compiling PLL.c...
-compiling SysTick.c...
-SysTick.c(54): warning:  #223-D: function "EnableInterrupts" declared implicitly
-compiling Output.c...
-".\Logo.axf" - 10 Errors, 8 Warning(s).
-Target not created
-Build target 'Logo'
-compiling rit128x96x4.c...
-rit128x96x4.c(902): error:  #29: expected an expression
-rit128x96x4.c(902): error:  #20: identifier "i" is undefined
-rit128x96x4.c(903): error:  #29: expected an expression
-rit128x96x4.c(903): error:  #20: identifier "j" is undefined
-rit128x96x4.c(918): error:  #65: expected a ";"
-rit128x96x4.c(931): error:  #20: identifier "maxy" is undefined
-rit128x96x4.c(945): error:  #20: identifier "f_y" is undefined
-rit128x96x4.c(946): error:  #20: identifier "f_x" is undefined
-rit128x96x4.c(954): error:  #20: identifier "f_x" is undefined
-rit128x96x4.c(955): error:  #20: identifier "f_y" is undefined
-".\Logo.axf" - 10 Errors, 0 Warning(s).
-Target not created
-Build target 'Logo'
-compiling rit128x96x4.c...
-rit128x96x4.c(902): error:  #29: expected an expression
-rit128x96x4.c(902): error:  #20: identifier "i" is undefined
-rit128x96x4.c(903): error:  #29: expected an expression
-rit128x96x4.c(903): error:  #20: identifier "j" is undefined
-rit128x96x4.c(918): error:  #65: expected a ";"
-rit128x96x4.c(931): error:  #20: identifier "maxy" is undefined
-rit128x96x4.c(945): error:  #20: identifier "f_y" is undefined
-rit128x96x4.c(946): error:  #20: identifier "f_x" is undefined
-rit128x96x4.c(954): error:  #20: identifier "f_x" is undefined
-rit128x96x4.c(955): error:  #20: identifier "f_y" is undefined
-".\Logo.axf" - 10 Errors, 0 Warning(s).
-Target not created
-Build target 'Logo'
-compiling rit128x96x4.c...
-rit128x96x4.c(902): error:  #29: expected an expression
-rit128x96x4.c(902): error:  #20: identifier "i" is undefined
-rit128x96x4.c(903): error:  #29: expected an expression
-rit128x96x4.c(903): error:  #20: identifier "j" is undefined
-".\Logo.axf" - 4 Errors, 0 Warning(s).
-Target not created
-Build target 'Logo'
-compiling rit128x96x4.c...
-linking...
-.\Logo.axf: Error: L6218E: Undefined symbol __use_two_region_memory (referred from startup.o).
-.\Logo.axf: Error: L6218E: Undefined symbol __initial_sp (referred from entry2.o).
-".\Logo.axf" - 2 Errors, 0 Warning(s).
-Target not created
-Clean started: Project: 'Logo'
-   deleting intermediate output files for target 'Logo'
 Rebuild target 'Logo'
 assembling Startup.s...
-compiling rit128x96x4.c...
-compiling LogoTestMain.c...
-LogoTestMain.c(152): warning:  #223-D: function "printf" declared implicitly
-LogoTestMain.c(153): warning:  #223-D: function "mainTestInterrupt" declared implicitly
-LogoTestMain.c(150): warning:  #177-D: variable "i" was declared but never referenced
-LogoTestMain.c(175): warning:  #223-D: function "printf" declared implicitly
-LogoTestMain.c(183): warning:  #223-D: function "printf" declared implicitly
-compiling logo.c...
-compiling PLL.c...
-compiling SysTick.c...
-SysTick.c(54): warning:  #223-D: function "EnableInterrupts" declared implicitly
-compiling Output.c...
-linking...
-Program Size: Code=5136 RO-data=760 RW-data=28 ZI-data=9724  
-".\Logo.axf" - 0 Errors, 6 Warning(s).
-Build target 'Logo'
 compiling rit128x96x4.c...
 compiling LogoTestMain.c...
 LogoTestMain.c(150): warning:  #177-D: variable "i" was declared but never referenced
 LogoTestMain.c(182): warning:  #223-D: function "printf" declared implicitly
 LogoTestMain.c(190): warning:  #223-D: function "printf" declared implicitly
+compiling logo.c...
+compiling PLL.c...
+compiling SysTick.c...
+SysTick.c(54): warning:  #223-D: function "EnableInterrupts" declared implicitly
+compiling Output.c...
+linking...
+Program Size: Code=5156 RO-data=760 RW-data=28 ZI-data=9724  
+".\Logo.axf" - 0 Errors, 4 Warning(s).
+Load "C:\\Users\\Nikhil\\Dropbox\\Current Documents\\College stuff\\2013 Fall\\EE445L\\EE445Labs\\Lab3 Logo_1968\\Logo.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Rebuild target 'Logo'
+assembling Startup.s...
+compiling rit128x96x4.c...
+compiling LogoTestMain.c...
+LogoTestMain.c(150): warning:  #177-D: variable "i" was declared but never referenced
+LogoTestMain.c(182): warning:  #223-D: function "printf" declared implicitly
+LogoTestMain.c(190): warning:  #223-D: function "printf" declared implicitly
+compiling logo.c...
+compiling PLL.c...
+compiling SysTick.c...
+SysTick.c(54): warning:  #223-D: function "EnableInterrupts" declared implicitly
+compiling Output.c...
 linking...
 Program Size: Code=5152 RO-data=760 RW-data=28 ZI-data=9724  
-".\Logo.axf" - 0 Errors, 3 Warning(s).
-Load "C:\\Users\\Nikhil\\Documents\\GitHub\\EE445L\\Lab3 Logo_1968\\Logo.axf" 
+".\Logo.axf" - 0 Errors, 4 Warning(s).
+Load "C:\\Users\\Nikhil\\Dropbox\\Current Documents\\College stuff\\2013 Fall\\EE445L\\EE445Labs\\Lab3 Logo_1968\\Logo.axf" 
 Connecting: Mode=JTAG, Speed=1000000Hz
-Connection failed!, error code=&d
+Erase Done.
+Programming Done.
+Verify OK.

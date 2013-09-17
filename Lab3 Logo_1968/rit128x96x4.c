@@ -925,7 +925,7 @@ void RIT128x96x4_Line(int x1, int y1, int x2, int y2, unsigned char color){
 	int f_y;
 	float i;
 	float inc;
-	float m = (y2-y1) / (x2-x1);
+	float m = ((float)(y2-y1)) / (x2-x1);
 	float b = y1 - m*x1;		
 	
 	minx = x1;
@@ -950,7 +950,7 @@ void RIT128x96x4_Line(int x1, int y1, int x2, int y2, unsigned char color){
 	//y = mx + b
 	//fills in y values based on x
 	for(i = (float)minx; i < maxx; i+=inc){
-		f_y = (int)m*i+b;
+		f_y = (int)((m*i)+b);
 		f_x = (int)i;
 
 		bufferSet(f_x, f_y, color);
