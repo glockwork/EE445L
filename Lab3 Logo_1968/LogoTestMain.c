@@ -25,6 +25,8 @@
 #include "lm3s1968.h"
 #include "rit128x96x4.h"
 #include "logo.h"
+#include "Output.h"
+#include "SysTick.h"
 
 // which delays 3*ulCount cycles
 #ifdef __TI_COMPILER_VERSION__
@@ -145,20 +147,39 @@ const unsigned char ECE[] ={
 
 };
 
-
 int main(void){ int i;
-  SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
-  RIT128x96x4Init(1000000);
-//  RIT128x96x4_Logo(60);	   // place in middle
-  RIT128x96x4_BMP(0, 60, ECE);
-  Delay(50000000);        // delay 3 sec at 50 MHz 
-  RIT128x96x4Clear();
-  for(i=90; i>5; i=i-2){
-     RIT128x96x4_BMP(i, 80, Horse);
-     Delay(1000000);        // delay 0.3 sec at 50 MHz 
-  }
-  Delay(1000000000);        // delay 60 sec at 50 MHz 
-  RIT128x96x4DisplayOff(); // screen saver
-  while(1){};
+	Output_Init();
+	printf("hi\n");
+	mainTestInterrupt();
+//  SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
+//  RIT128x96x4Init(1000000);
+////  RIT128x96x4_Logo(60);	   // place in middle
+//  RIT128x96x4_BMP(0, 60, ECE);
+//  Delay(50000000);        // delay 3 sec at 50 MHz 
+//  RIT128x96x4Clear();
+//  for(i=90; i>5; i=i-2){
+//     RIT128x96x4_BMP(i, 80, Horse);
+//     Delay(1000000);        // delay 0.3 sec at 50 MHz 
+//  }
+//  Delay(1000000000);        // delay 60 sec at 50 MHz 
+//  RIT128x96x4DisplayOff(); // screen saver
+//  while(1){};
+}
+int count;
+
+
+int mainTestInterrupt(void){
+	count = 0;
+	//SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
+  //RIT128x96x4Init(1000000);
+	printf("start\n");
+	SysTick_InitSeconds(1);
+	 while(1){};
+
 }
 
+
+void SysTick_Handler(void){
+	printf("in interrupt %d \n", count);
+	count ++;
+}

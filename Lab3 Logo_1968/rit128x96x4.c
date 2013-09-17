@@ -891,6 +891,8 @@ RIT128x96x4DisplayOn(void)
     }
 }
 
+
+
 //*************RIT128x96x4_ClearImage************************************** 
 //  Clears the RAM version of the image 
 //  Inputs: none 

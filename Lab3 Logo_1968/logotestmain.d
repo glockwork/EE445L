@@ -4,3 +4,5 @@
 .\logotestmain.o: ..\inc\lm3s1968.h
 .\logotestmain.o: rit128x96x4.h
 .\logotestmain.o: logo.h
+.\logotestmain.o: Output.h
+.\logotestmain.o: SysTick.h
