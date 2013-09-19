@@ -37,7 +37,7 @@ void digitalClockDraw(){
 	time[2] = ':';
 	time[1] = seconds/10;
 	time[0] = seconds%10;
- 	RIT128x96x4StringDraw(time, 52, 44, color)
+ 	RIT128x96x4StringDraw(time, 52, 44, color);
 }
 
 
