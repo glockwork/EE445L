@@ -7,3 +7,4 @@
 .\clockmain.o: Output.h
 .\clockmain.o: SysTick.h
 .\clockmain.o: globals.h
+.\clockmain.o: OLEDdraw.h

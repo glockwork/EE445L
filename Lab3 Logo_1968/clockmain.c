@@ -7,6 +7,7 @@
 #include "SysTick.h"
 #include "globals.h"
 #include "helper.h"
+#include "OLEDdraw.h"
 
 // which delays 3*ulCount cycles
 #ifdef __TI_COMPILER_VERSION__
@@ -70,6 +71,17 @@ int setMode = 0;
 
 int main(){
 	while(1){
+		if(!displayMode){
+			if(!timeMode){
+				analogClockDraw();
+			}
+			else if(timeMode==1){
+					digitalClockDraw();
+			}
+		}
+		else if(displayMode==1){
+			
+		}
 	}
 }
 
