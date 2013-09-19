@@ -213,7 +213,11 @@
       <Focus>0</Focus>
       <ColumnNumber>19</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
+<<<<<<< HEAD
       <TopLine>947</TopLine>
+=======
+      <TopLine>941</TopLine>
+>>>>>>> 728550c72f0b4a6537e8529b2229f651977f9882
       <CurrentLine>961</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\rit128x96x4.c</PathWithFileName>
@@ -229,8 +233,13 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
+<<<<<<< HEAD
       <TopLine>151</TopLine>
       <CurrentLine>159</CurrentLine>
+=======
+      <TopLine>59</TopLine>
+      <CurrentLine>187</CurrentLine>
+>>>>>>> 728550c72f0b4a6537e8529b2229f651977f9882
       <bDave2>0</bDave2>
       <PathWithFileName>.\LogoTestMain.c</PathWithFileName>
       <FilenameWithoutPath>LogoTestMain.c</FilenameWithoutPath>
@@ -277,7 +286,11 @@
       <Focus>0</Focus>
       <ColumnNumber>1</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
+<<<<<<< HEAD
       <TopLine>41</TopLine>
+=======
+      <TopLine>1</TopLine>
+>>>>>>> 728550c72f0b4a6537e8529b2229f651977f9882
       <CurrentLine>55</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\SysTick.c</PathWithFileName>
