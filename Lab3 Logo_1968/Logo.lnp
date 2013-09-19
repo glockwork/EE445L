@@ -8,7 +8,6 @@
 ".\buttons.o"
 ".\clockmain.o"
 ".\helper.o"
-".\logodump.o"
 ".\oled.o"
 ".\oleddraw.o"
 ".\speakers.o"

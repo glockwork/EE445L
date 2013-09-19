@@ -6,3 +6,4 @@
 .\clockmain.o: logo.h
 .\clockmain.o: Output.h
 .\clockmain.o: SysTick.h
+.\clockmain.o: globals.h
