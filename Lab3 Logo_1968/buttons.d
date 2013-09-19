@@ -1,9 +1,0 @@
-.\buttons.o: Buttons.c
-.\buttons.o: rit128x96x4.h
-.\buttons.o: ..\inc\hw_types.h
-.\buttons.o: ..\driverlib\sysctl.h
-.\buttons.o: ..\inc\lm3s1968.h
-.\buttons.o: ..\driverlib\gpio.h
-.\buttons.o: ..\inc/hw_memmap.h
-.\buttons.o: globals.h
-.\buttons.o: helper.h
