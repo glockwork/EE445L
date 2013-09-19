@@ -36,12 +36,14 @@ void handlerSW3 ()
 			displayMode = 1;
 			setMode = 0;
 	}
-	else
+	else{
+				inacTimer = 0;
+
 		if (setMode == 0) //set time
 			hours24_temp = incrementHours(hours24_temp);
 		else //set alarm
 			a_hours24_temp = incrementHours(a_hours24_temp);
-	
+	}
 }
 //handler for SW4 (bottom button)
 // decrements hours in set mode
@@ -55,6 +57,8 @@ void handlerSW4 ()
 		//TODO
 	}
 	else{ //setting time or alarm
+				inacTimer = 0;
+
 		if (setMode == 0) //set time
 			hours24_temp = decrementHours(hours24_temp);
 		else //set alarm
@@ -75,6 +79,7 @@ void handlerSW5 ()
 			setMode = 1;
 	}
 	else{ //setting time or alarm
+		inacTimer = 0;
 		if (setMode == 0) //set time
 				minutes_temp = decrementMinutes(minutes_temp);
 		else //set alarm
@@ -96,6 +101,8 @@ void handlerSW6 ()
 			setMode = 1;
 	}
 	else{ //setting time or alarm
+				inacTimer = 0;
+
 		if (setMode == 0) //set time
 				minutes_temp = decrementMinutes(minutes_temp);
 		else //set alarm

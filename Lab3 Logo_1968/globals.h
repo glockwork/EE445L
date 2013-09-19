@@ -1,3 +1,5 @@
+#ifndef GLOBALS_H
+#define GLOBALS_H
 
 #define hours hours24%12
 int hours24 = 0;
@@ -21,6 +23,9 @@ int a_hours24_temp = 0;
 int a_minutes_temp = 0;
 int a_seconds_temp = 0;
 
+//inactivity timer
+int inacTimer = 0;
+
 //flags for current mode
 
 //displayMode = 0 for display time
@@ -35,3 +40,5 @@ int a_seconds_temp = 0;
 int displayMode = 0;
 int timeMode = 0;
 int setMode = 0;
+
+#endif
