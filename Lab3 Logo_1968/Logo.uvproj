@@ -165,7 +165,7 @@
             <Capability>1</Capability>
             <DriverSelection>4097</DriverSelection>
           </Flash1>
-          <bUseTDR>0</bUseTDR>
+          <bUseTDR>1</bUseTDR>
           <Flash2>BIN\lmidk-agdi.dll</Flash2>
           <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
@@ -403,11 +403,6 @@
               <FilePath>.\rit128x96x4.c</FilePath>
             </File>
             <File>
-              <FileName>LogoTestMain.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\LogoTestMain.c</FilePath>
-            </File>
-            <File>
               <FileName>logo.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\logo.c</FilePath>
@@ -431,6 +426,41 @@
               <FileName>Output.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Output.c</FilePath>
+            </File>
+            <File>
+              <FileName>Buttons.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Buttons.c</FilePath>
+            </File>
+            <File>
+              <FileName>clockmain.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\clockmain.c</FilePath>
+            </File>
+            <File>
+              <FileName>helper.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\helper.c</FilePath>
+            </File>
+            <File>
+              <FileName>LogoDump.C</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LogoDump.C</FilePath>
+            </File>
+            <File>
+              <FileName>OLED.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\OLED.c</FilePath>
+            </File>
+            <File>
+              <FileName>OLEDdraw.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\OLEDdraw.c</FilePath>
+            </File>
+            <File>
+              <FileName>Speakers.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Speakers.c</FilePath>
             </File>
           </Files>
         </Group>
