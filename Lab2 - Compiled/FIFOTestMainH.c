@@ -150,6 +150,9 @@ void Timer0A_Handler(void){
   unsigned long returnaddress;
   unsigned char i;
   static char periodShift = 1;
+	int tempF0 = GPIO_PORTF0;
+	GPIO_PORTF0 = 0;
+	GPIO_PORTF1 = 0;
   GPIO_PORTF2 = 0x04;               // debuging profile
   TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
   if(INTVARIATION != 0){            // set time of next interrupt if needed
@@ -179,6 +182,8 @@ void Timer0A_Handler(void){
   }
   LineHistogram[(returnaddress - (unsigned long)&TxFifo_Get)/2]++;
   GPIO_PORTF2 = 0x00;
+	GPIO_PORTF0 = tempF0;
+	GPIO_PORTF1 = 0x02;
 }
 
 int main(void){
@@ -201,7 +206,7 @@ int main(void){
   GPIO_PORTG_DEN_R |= 0x04;        // enable digital I/O on PG2
   GPIO_PORTG2 = 0x00;              // clear PG2
   GPIO_PORTF0 = 0x00;
-  GPIO_PORTF1 = 0x00;
+  GPIO_PORTF1 = 0x02;
   GPIO_PORTF2 = 0x00;
   TIMER0_CTL_R &= ~TIMER_CTL_TAEN; // disable timer0A during setup
   TIMER0_CFG_R = TIMER_CFG_16_BIT; // configure for 16-bit timer mode
@@ -229,24 +234,19 @@ int main(void){
 
   while(1){
     do{
-      GPIO_PORTF0 = 1;       // profile of main program
       EnterGet = 1;
       i = TxFifo_Get(&ForeActual);  // i = 0 (FIFOFAIL) if error
       EnterGet = 0;
-      GPIO_PORTF0 = 0; 
     }
     while(!i);
-    GPIO_PORTF1 = 2;       // profile of main program
 
     if(ForeExpected != ForeActual){
       Errors = Errors + 1;           // critical section found
       ForeExpected = ForeActual + 1; // resych to lost/bad data
-      GPIO_PORTG2 = 0x04;            // set PG2, means error
     }
     else{
       ForeExpected = ForeExpected + 1;// sequence is 0,1,2,3,...,254,255,0,1,...
     }
-    GPIO_PORTF1 = 0; 
   }
 }
 int main2(void){    int i;

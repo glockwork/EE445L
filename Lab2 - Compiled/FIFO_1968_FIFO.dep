@@ -1,7 +1,7 @@
 Dependencies for Project 'FIFO_1968', Target 'FIFO': (DO NOT MODIFY !)
 F (.\Startup.s)(0x5233F72E)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
-F (.\FIFO.c)(0x523735F7)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.. -I..\..\.. -I..\inc -I..\driverlib-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\fifo.o --omf_browse .\fifo.crf --depend .\fifo.d)
-I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab2 - Compiled\FIFO.h)(0x5236AA31)
+F (.\FIFO.c)(0x523885A1)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.. -I..\..\.. -I..\inc -I..\driverlib-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\fifo.o --omf_browse .\fifo.crf --depend .\fifo.d)
+I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab2 - Compiled\FIFO.h)(0x523750D7)
 F (.\Output.c)(0x5233F72E)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.. -I..\..\.. -I..\inc -I..\driverlib-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\output.o --omf_browse .\output.crf --depend .\output.d)
 I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C86E14)
 I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab2 - Compiled\rit128x96x4.h)(0x5233F72E)
@@ -17,6 +17,6 @@ I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE44
 I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\driverlib\sysctl.h)(0x4C6193FA)
 I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab2 - Compiled\rit128x96x4.h)(0x5233F72E)
 F (.\SysTick.c)(0x5233F72E)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.. -I..\..\.. -I..\inc -I..\driverlib-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\systick.o --omf_browse .\systick.crf --depend .\systick.d)
-F (.\BadFifo.c)(0x5233FC44)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.. -I..\..\.. -I..\inc -I..\driverlib-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\badfifo.o --omf_browse .\badfifo.crf --depend .\badfifo.d)
-F (.\BadFifoTestMain.c)(0x5237116B)()
+F (.\BadFifo.c)(0x523750E7)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.. -I..\..\.. -I..\inc -I..\driverlib-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\badfifo.o --omf_browse .\badfifo.crf --depend .\badfifo.d)
+F (.\FIFOTestMainH.c)(0x5234961C)()
 F (..\driverlib\rvmdk\driverlib.lib)(0x5226A7CD)()

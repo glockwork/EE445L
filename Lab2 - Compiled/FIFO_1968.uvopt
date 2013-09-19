@@ -259,8 +259,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>73</TopLine>
-      <CurrentLine>87</CurrentLine>
+      <TopLine>54</TopLine>
+      <CurrentLine>86</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\FIFO.c</PathWithFileName>
       <FilenameWithoutPath>FIFO.c</FilenameWithoutPath>
@@ -321,10 +321,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>12</ColumnNumber>
+      <ColumnNumber>21</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>47</TopLine>
-      <CurrentLine>52</CurrentLine>
+      <CurrentLine>60</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\BadFifo.c</PathWithFileName>
       <FilenameWithoutPath>BadFifo.c</FilenameWithoutPath>
@@ -337,13 +337,13 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>58</ColumnNumber>
+      <ColumnNumber>21</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>943</TopLine>
-      <CurrentLine>968</CurrentLine>
+      <TopLine>165</TopLine>
+      <CurrentLine>162</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\BadFifoTestMain.c</PathWithFileName>
-      <FilenameWithoutPath>BadFifoTestMain.c</FilenameWithoutPath>
+      <PathWithFileName>.\FIFOTestMainH.c</PathWithFileName>
+      <FilenameWithoutPath>FIFOTestMainH.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

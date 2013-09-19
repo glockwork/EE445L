@@ -956,14 +956,14 @@ void RIT128x96x4_Line(int x1, int y1, int x2, int y2, unsigned char color){
 		bufferSet(f_x, f_y, color);
 	}
 
-	//x = (y-b)/m
-	//fills in x values based on y
-	for(i = (float)miny; i < maxy; i+=inc){
-		f_x = (int)(i-b)/m;
-		f_y = (int)i;
+//	//x = (y-b)/m
+//	//fills in x values based on y
+//	for(i = (float)miny; i < maxy; i+=inc){
+//		f_x = (int)(i-b)/m;
+//		f_y = (int)i;
 
-		bufferSet(f_x, f_y, color);
-	}
+//		bufferSet(f_x, f_y, color);
+//	}
 }
 
 //sets location in buffer to color
@@ -971,11 +971,11 @@ void bufferSet(int f_x, int f_y, unsigned char color){
 	unsigned char color2 = color << 4;
 
 	if(f_x%2==0){
-		buffer[(int)f_x/2][f_y] &= 0x01;
+		buffer[(int)f_x/2][f_y] &= 0x0F;
 		buffer[(int)f_x/2][f_y] |= color2;
 	}
 	else{
-		buffer[(int)f_x/2][f_y] &= 0x10;
+		buffer[(int)f_x/2][f_y] &= 0xF0;
 		buffer[(int)f_x/2][f_y] |= color;	
 	}
 }

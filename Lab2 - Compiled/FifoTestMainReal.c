@@ -205,8 +205,8 @@ int main(void){
   GPIO_PORTG_DIR_R |= 0x04;        // make PG2 out (PG2 built-in LED)
   GPIO_PORTG_DEN_R |= 0x04;        // enable digital I/O on PG2
 //  GPIO_PORTG2 = 0x00;              // clear PG2
-//  GPIO_PORTF0 = 0x00;
-//  GPIO_PORTF1 = 0x00;
+ // GPIO_PORTF0 = 0x00;
+  GPIO_PORTF1 = 0x02;
 //  GPIO_PORTF2 = 0x00;
   TIMER0_CTL_R &= ~TIMER_CTL_TAEN; // disable timer0A during setup
   TIMER0_CFG_R = TIMER_CFG_16_BIT; // configure for 16-bit timer mode

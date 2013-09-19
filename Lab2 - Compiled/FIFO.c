@@ -82,19 +82,15 @@ int TxFifo_Put(txDataType data){
 
 //part H
 int TxFifo_Get(txDataType *datapt){ 
-	GPIO_PORTF1 = 0x00;
   GPIO_PORTF0 = 0x01; 
   if(TxPutI == TxGetI ){ 
+    //GPIO_PORTF1 = 0x00; 
     GPIO_PORTF0 = 0x00; 
-    GPIO_PORTF1 = 0x02; 
-
     return(TXFIFOFAIL); // Empty 
   } 
   *datapt = TxFifo[TxGetI&(TXFIFOSIZE-1)]; 
   TxGetI++;  // Success, update 
   GPIO_PORTF0 = 0x00; 
-    GPIO_PORTF1 = 0x02; 
-
   return(TXFIFOSUCCESS); 
 } 
 
