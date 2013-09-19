@@ -41,4 +41,6 @@ extern int displayMode;
 extern int timeMode;
 extern int setMode;
 
+extern int ringAlarms;
+
 #endif
