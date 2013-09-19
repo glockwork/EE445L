@@ -1,45 +1,0 @@
-Dependencies for Project 'Logo', Target 'Logo': (DO NOT MODIFY !)
-F (.\Startup.s)(0x523A8DEA)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1"-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
-F (.\rit128x96x4.c)(0x523A8DEB)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\.. -I..\inc -I..\driverlib\rvmdk -I..\driverlib-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\rit128x96x4.o --omf_browse .\rit128x96x4.crf --depend .\rit128x96x4.d)
-I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\inc\hw_ssi.h)(0x4C6193FC)
-I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\inc\hw_memmap.h)(0x4C6193FC)
-I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\inc\hw_sysctl.h)(0x4C6193FC)
-I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\inc\hw_types.h)(0x4C6193FC)
-I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\driverlib\debug.h)(0x4C6193FA)
-I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\driverlib\gpio.h)(0x4C6193FA)
-I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\driverlib\ssi.h)(0x4D640716)
-I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\driverlib\sysctl.h)(0x4C6193FA)
-I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab3 Logo_1968\rit128x96x4.h)(0x5237D69A)
-F (.\LogoTestMain.c)(0x523A8DEA)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\.. -I..\inc -I..\driverlib\rvmdk -I..\driverlib-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\logotestmain.o --omf_browse .\logotestmain.crf --depend .\logotestmain.d)
-I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\inc\hw_types.h)(0x4C6193FC)
-I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\driverlib\sysctl.h)(0x4C6193FA)
-I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\inc\lm3s1968.h)(0x4C6193FC)
-I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab3 Logo_1968\rit128x96x4.h)(0x5237D69A)
-I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab3 Logo_1968\logo.h)(0x50A1E268)
-I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab3 Logo_1968\Output.h)(0x5233F72E)
-I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab3 Logo_1968\SysTick.h)(0x5237CB6B)
-F (.\logo.c)(0x523A8DE9)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\.. -I..\inc -I..\driverlib\rvmdk -I..\driverlib-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\logo.o --omf_browse .\logo.crf --depend .\logo.d)
-I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab3 Logo_1968\rit128x96x4.h)(0x5237D69A)
-F (.\PLL.c)(0x4F456F94)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\.. -I..\inc -I..\driverlib\rvmdk -I..\driverlib-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\pll.o --omf_browse .\pll.crf --depend .\pll.d)
-F (.\SysTick.c)(0x523A8DE8)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\.. -I..\inc -I..\driverlib\rvmdk -I..\driverlib-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\systick.o --omf_browse .\systick.crf --depend .\systick.d)
-F (.\SysTick.h)(0x5237CB6B)()
-F (.\Output.c)(0x5233F72E)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\.. -I..\inc -I..\driverlib\rvmdk -I..\driverlib-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-o .\output.o --omf_browse .\output.crf --depend .\output.d)
-I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C86E14)
-I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab3 Logo_1968\rit128x96x4.h)(0x5237D69A)
-I (C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab3 Logo_1968\Output.h)(0x5233F72E)
-F (.\Buttons.c)(0x523A8E97)()
-F (.\clockmain.c)(0x523A8EB0)()
-F (.\helper.c)(0x523A8E98)()
-F (.\LogoDump.C)(0x50A1E072)()
-F (.\OLED.c)(0x523A8DE6)()
-F (.\OLEDdraw.c)(0x523A8EB0)()
-F (.\Speakers.c)(0x523A8DE5)()
-F (.\globals.h)(0x523A8E98)()
-F (.\helper.h)(0x523A8E98)()
-F (.\horse.txt)(0x50A1DFF8)()
-F (.\logo.h)(0x50A1E268)()
-F (.\LogoReadme.txt)(0x50A1E0E4)()
-F (.\Output.h)(0x5233F72E)()
-F (.\PLL.h)(0x4F456F3C)()
-F (.\rit128x96x4.h)(0x5237D69A)()
-F (..\driverlib\rvmdk\driverlib.lib)(0x5226A7CD)()

@@ -6,9 +6,12 @@
 ".\systick.o"
 ".\output.o"
 ".\buttons.o"
-".\oled.o"
-".\speakers.o"
+".\clockmain.o"
 ".\helper.o"
+".\logodump.o"
+".\oled.o"
+".\oleddraw.o"
+".\speakers.o"
 "..\driverlib\rvmdk\driverlib.lib"
 --library_type=microlib --ro-base 0x00000000 --entry 0x00000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
