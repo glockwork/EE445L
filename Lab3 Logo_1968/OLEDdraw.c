@@ -10,6 +10,7 @@ float sinlut[60] = {
 	0.000, 0.105, 0.208, 0.309, 0.407, 0.500, 0.588, 0.669, 0.743, 0.809, 0.866, 0.914, 0.951, 0.978, 0.995, 1.000, 0.995, 0.978, 0.951, 0.914, 0.866, 0.809, 0.743, 0.669, 0.588, 0.500, 0.407, 0.309, 0.208, 0.105, 0.000, -0.105, -0.208, -0.309, -0.407, -0.500, -0.588, -0.669, -0.743, -0.809, -0.866, -0.914, -0.951, -0.978, -0.995, -1.000, -0.995, -0.978, -0.951, -0.914, -0.866, -0.809, -0.743, -0.669, -0.588, -0.500, -0.407, -0.309, -0.208, -0.105
 };
 
+void drawCircle(int x, int y, int radius);
 
 int miniteRadius = 40;
 int secondRadius = 44;
@@ -23,6 +24,7 @@ void analogClockDraw(){
 	int y_m = (int)(sinlut[minutes]*miniteRadius + 96);
 	int x_h = (int)(coslut[hours*5]*hourRadius + 64);
 	int y_h = (int)(sinlut[hours*5]*hourRadius + 96);
+	drawCircle(64, 48, 45);
 
 	//draws clock hands
 	RIT128x96x4_Line(64, 48, x_s, y_s, color);

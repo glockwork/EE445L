@@ -26,6 +26,12 @@ extern int a_seconds_temp;
 //inactivity timer
 extern int inacTimer;
 
+//ring alarms
+extern int ringAlarms;
+
+//is sound playing currently
+extern int soundPlaying;
+
 //flags for current mode
 
 //displayMode = 0 for display time

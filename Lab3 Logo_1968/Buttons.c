@@ -6,6 +6,7 @@
 #include "inc/hw_memmap.h"
 #include "globals.h"
 #include "helper.h"
+#include "sound.h"
 
 void switchHandler();
 
@@ -53,7 +54,12 @@ void handlerSW4 ()
 {
 	if (displayMode ==0) //displaying time 
 	{
-		//turn alarm on/off
+		//if sound is playing, simply turn sound off.
+		
+		if (soundPlaying)
+			stopSound();
+		
+		//if sound is not playing, then toggle alarm on/off
 		//TODO
 	}
 	else{ //setting time or alarm

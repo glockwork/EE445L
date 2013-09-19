@@ -8,6 +8,7 @@
 #include "globals.h"
 #include "helper.h"
 #include "OLEDdraw.h"
+#include "sound.h"
 
 // which delays 3*ulCount cycles
 #ifdef __TI_COMPILER_VERSION__
@@ -50,6 +51,8 @@ int a_hours24_temp =0;
 int a_minutes_temp =0;
 int a_seconds_temp =0;
 
+int ringAlarms = 0;
+
 //inactivity timer
 int inacTimer =0;
 
@@ -68,25 +71,56 @@ int displayMode =0;
 int timeMode = 0;
 int setMode = 0;
 
+void displayClock();
+void displaySet();
 
 int main(){
 	while(1){
-		if(!displayMode){
-			if(!timeMode){
+		if (ringAlarms)
+			playSound();
+		if(displayMode==0)
+			displayClock();
+		else if(displayMode==1){
+			//TODO write some sort of time choosing mechanism
+		}
+	}
+}
+
+void displayClock(){
+	if(timeMode==0){
 				analogClockDraw();
 			}
 			else if(timeMode==1){
 					digitalClockDraw();
 			}
-		}
-		else if(displayMode==1){
-			
-		}
+}
+
+void displaySet(){
+	
+	while(inacTimer < 10){
+	
+		//TODO
+		//display some sort of header (setting time or alarm)
+		//display the time currently setting
+
 	}
+	if (setMode ==0) // set time
+	{
+		hours24 = hours24_temp;
+		minutes = minutes_temp;
+		seconds = seconds_temp;
+	}
+	else if (setMode ==1) //set alarm
+	{
+		a_hours24 = a_hours24_temp;
+		a_minutes = a_minutes_temp;
+		a_seconds = a_seconds_temp;
+	}
+		
 }
 
 void timerHandler(){
-	
+	ringAlarms = 0;
 	//incrementing time
 	if (seconds == 59){
 		if (minutes == 59)
