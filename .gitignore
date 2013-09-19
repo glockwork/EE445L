@@ -23,3 +23,5 @@
 *.axf
 *.uvgui*
 *.bak
+*.crf
+*.d
