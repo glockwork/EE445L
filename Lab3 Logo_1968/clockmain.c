@@ -6,6 +6,7 @@
 #include "Output.h"
 #include "SysTick.h"
 #include "globals.h"
+#include "helper.h"
 
 // which delays 3*ulCount cycles
 #ifdef __TI_COMPILER_VERSION__
@@ -27,7 +28,8 @@
 	}
 
 #endif
-	
+
+void timerHandler();	
 	
 int hours24 =0;
 int minutes =0;
@@ -69,4 +71,18 @@ int setMode = 0;
 int main(){
 	while(1){
 	}
+}
+
+void timerHandler(){
+	
+	//incrementing time
+	if (seconds == 59){
+		if (minutes == 59)
+			hours24 = incrementHours(hours24);
+		minutes = incrementMinutes(minutes); 
+	}
+  seconds = incrementMinutes(seconds);
+	
+	if (hours24 == a_hours24 && minutes == a_minutes && seconds == a_seconds)
+		ringAlarms = 1;
 }
