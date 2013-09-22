@@ -40,9 +40,12 @@ void PolledButtons_Init(void){
 //  }
 //}
 
+unsigned long oldPressTime;
+
 
 void initButtons (){
 	//TODO
+	oldPressTime = 0;
 	GPIO_PORTG_PUR_R = 0x78;
 	GPIO_PORTG_DIR_R &=~ 0x78;
 	GPIO_PORTF_DEN_R |= 0x78;
@@ -99,13 +102,15 @@ void main(void){
 	while(1);
 }
 
-void switchHandler(void){
-	
-	int values = GPIO_PORTG_DATA_R;
-}
 int count = 0;
 void GPIOPortG_Handler(void){
 	printf("handler");
+	
+	unsigned long pressTime = NVIC_ST_CURRENT_R;
+	unsigned long elapsedTime = (oldPressTime-pressTime)&0x00FFFFFF;
+	oldPressTime = pressTime;
+	if (elapsedTime < 500000) return; //TODO fix time when figure out SysTick
+
 	if(GPIO_PORTG_RIS_R&0x40){  // poll PD4
     GPIO_PORTG_ICR_R = 0x40;  // acknowledge flag4
 		handlerSW6();

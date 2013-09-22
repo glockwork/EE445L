@@ -36,15 +36,6 @@ void analogClockDraw(){
 void digitalClockDraw(){
 	char time[20];
 	sprintf(time, "%d:%d:%d\n", hours, minutes, seconds);
-//	time[8] = hours/10;
-//	time[7] = hours%10;
-//	time[6] = ':';
-//	time[5] = minutes/10;
-//	time[4] = minutes%10;
-//	time[3] = ':';
-//	time[2] = seconds/10;
-//	time[1] = seconds%10;
-//	time[0] = 0;
  	RIT128x96x4StringDraw(time, 52, 44, color);
 }
 
