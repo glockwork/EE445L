@@ -892,7 +892,7 @@ RIT128x96x4DisplayOn(void)
 }
 
 
-unsigned char buffer[64][128];
+unsigned char buffer[96][64];
 
 //*************RIT128x96x4_ClearImage************************************** 
 //  Clears the RAM version of the image 
@@ -901,8 +901,8 @@ unsigned char buffer[64][128];
 void RIT128x96x4_ClearImage(void){
 	int i = 0;
 	int j = 0;
-	for(i = 0; i < 64; i++){
-		for(j = 0; j < 128; j++){
+	for(i = 0; i < 96; i++){
+		for(j = 0; j < 64; j++){
 			buffer[i][j] = 0x00;
 		}
 	}
@@ -942,9 +942,7 @@ void RIT128x96x4_Line(int x1, int y1, int x2, int y2, unsigned char color){
 		maxy = y1;
 	}
 
-	inc = m;
-	if(m < 1/m)
-		inc = 1/m;
+	inc = .5;
 
 
 	//y = mx + b
@@ -956,14 +954,14 @@ void RIT128x96x4_Line(int x1, int y1, int x2, int y2, unsigned char color){
 		bufferSet(f_x, f_y, color);
 	}
 
-//	//x = (y-b)/m
-//	//fills in x values based on y
-//	for(i = (float)miny; i < maxy; i+=inc){
-//		f_x = (int)(i-b)/m;
-//		f_y = (int)i;
-
-//		bufferSet(f_x, f_y, color);
-//	}
+	//x = (y-b)/m
+	//fills in x values based on y
+	for(i = (float)miny; i < maxy; i+=inc){
+		f_x = (int)(i-b)/m;
+		f_y = (int)i;
+	
+		bufferSet(f_x, f_y, color);
+	}
 }
 
 //sets location in buffer to color
@@ -971,12 +969,12 @@ void bufferSet(int f_x, int f_y, unsigned char color){
 	unsigned char color2 = color << 4;
 
 	if(f_x%2==0){
-		buffer[(int)f_x/2][f_y] &= 0x0F;
-		buffer[(int)f_x/2][f_y] |= color2;
+		buffer[f_y][(int)f_x/2] &= 0x0F;
+		buffer[f_y][(int)f_x/2] |= color2;
 	}
 	else{
-		buffer[(int)f_x/2][f_y] &= 0xF0;
-		buffer[(int)f_x/2][f_y] |= color;	
+		buffer[f_y][(int)f_x/2] &= 0xF0;
+		buffer[f_y][(int)f_x/2] |= color;	
 	}
 }
 

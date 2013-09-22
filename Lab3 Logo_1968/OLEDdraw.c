@@ -13,7 +13,7 @@ float sinlut[60] = {
 void drawCircle(int x, int y, int radius);
 
 int miniteRadius = 40;
-int secondRadius = 44;
+int secondRadius = 20;
 int hourRadius = 30;
 unsigned char color  = 15;
 
@@ -24,12 +24,17 @@ void analogClockDraw(){
 	int y_m = (int)(sinlut[minutes]*miniteRadius + 96);
 	int x_h = (int)(coslut[hours*5]*hourRadius + 64);
 	int y_h = (int)(sinlut[hours*5]*hourRadius + 96);
+	
+	DisableInterrupts();
+	RIT128x96x4_ClearImage();
 	drawCircle(64, 48, 45);
 
 	//draws clock hands
 	RIT128x96x4_Line(64, 48, x_s, y_s, color);
 	RIT128x96x4_Line(64, 48, x_m, y_m, color);
 	RIT128x96x4_Line(64, 48, x_h, y_h, color);
+	RIT128x96x4_ShowImage();
+	EnableInterrupts();
 }
 
 //hh:mm:ss

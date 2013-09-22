@@ -80,7 +80,7 @@ int main(){
 	SYSCTL_XTAL_8MHZ); // 50 MHz 
 	
 	for (i = 0; i < 1000; i++){}
-	
+
 	DisableInterrupts();
   SYSCTL_RCGC1_R |= SYSCTL_RCGC1_TIMER0;// activate timer0
   SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOF+SYSCTL_RCGC2_GPIOG; // activate ports F and G
@@ -90,8 +90,9 @@ int main(){
 	EnableInterrupts();
 	displayMode = 0;
 	ringAlarms = 0;
-	timeMode = 1;
-	
+	timeMode = 0;
+
+		
 	while(1){
 		if (ringAlarms)
 			playSound();
