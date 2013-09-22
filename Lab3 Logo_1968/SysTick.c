@@ -105,7 +105,7 @@ void SysTick_Init(unsigned long period){
 
 void Timer0A_Handler(void){
 	static char periodShift = 1;
-	if (++Count % 500000 != 0) return;
+	if (++Count % 5000000 != 0) return;
   TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
     TIMER0_TAILR_R = INTPERIOD; //TIMER0_TAILR_R + periodShift;
                                     // check upper bound
@@ -135,7 +135,7 @@ void Timer0A_Handler(void){
 //}
 void SysTick_InitSeconds(unsigned long seconds){
 	//SysTick_Init(50000000*seconds);
-	SysTick_Init(1000);
+	SysTick_Init(10000);
 }
 
 // Time delay using busy wait.

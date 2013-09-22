@@ -75,6 +75,7 @@ void displayClock();
 void displaySet();
 
 int main(){
+
 	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | 
 	SYSCTL_XTAL_8MHZ); // 50 MHz 
 	DisableInterrupts();
@@ -82,6 +83,7 @@ int main(){
   SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOF+SYSCTL_RCGC2_GPIOG; // activate ports F and G
 	Output_Init(); 
 	SysTick_InitSeconds(1);
+  PolledButtons_Init();
 	EnableInterrupts();
 	displayMode = 0;
 	ringAlarms = 0;

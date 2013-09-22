@@ -7,22 +7,123 @@
 #include "globals.h"
 #include "helper.h"
 #include "sound.h"
+#include "Output.h"
+#include "Buttons.h"
 
 void switchHandler();
 
+int SW1 = 0;
+int SW2 = 0;
+
+void PolledButtons_Init(void){
+  SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOG; // activate port G
+ GPIO_PORTG_PUR_R = 0x78;
+  GPIO_PORTG_DIR_R &= ~0x78;  // make PD5-4 in (PD5-4 buttons)
+  GPIO_PORTG_DEN_R |= 0x78;   // enable digital I/O on PD5-4
+  GPIO_PORTG_IS_R &= ~0x78;   // PD5-4 is edge-sensitive (default setting)
+  GPIO_PORTG_IBE_R &= ~0x78;  // PD5-4 is not both edges (default setting)
+  GPIO_PORTG_IEV_R &= ~0x78;  // PD5-4 falling edge event (default setting)
+  GPIO_PORTG_ICR_R = 0x78;    // clear flag5-4
+  GPIO_PORTG_IM_R |= 0x78;    // enable interrupt on PD5-4
+                              // GPIO PortD=priority 2
+  NVIC_PRI0_R = (NVIC_PRI0_R&0x00FFFFFF)|0x40000000; // bits 29-31
+  NVIC_EN0_R |= 0x80000000;// enable interrupt 3 in NVIC
+}
+//void GPIOPortG_Handler(void){
+//  if(GPIO_PORTG_RIS_R&0x10){  // poll PD4
+//    GPIO_PORTG_ICR_R = 0x10;  // acknowledge flag4
+//    SW1 = 1;                  // signal SW1 occurred
+//  }
+//  if(GPIO_PORTG_RIS_R&0x20){  // poll PD5
+//    GPIO_PORTG_ICR_R = 0x20;  // acknowledge flag5
+//    SW2 = 1;                  // signal SW2 occurred
+//  }
+//}
+
+
 void initButtons (){
 	//TODO
-	GPIO_PORTG_PUR_R = 0xF8;
-	GPIODirModeSet(GPIO_PORTG_BASE, 0xF8, GPIO_DIR_MODE_HW);
-	GPIOPinIntEnable(GPIO_PORTG_BASE, 0xF8);
-	GPIOIntTypeSet(GPIO_PORTG_BASE, 0xF8,GPIO_FALLING_EDGE);
+	GPIO_PORTG_PUR_R = 0x78;
+	GPIO_PORTG_DIR_R &=~ 0x78;
+	GPIO_PORTF_DEN_R |= 0x78;
+	GPIO_PORTG_IS_R &= ~0x78;
+  GPIO_PORTG_IBE_R &= ~0x78;
+	GPIO_PORTG_IEV_R &= ~0x78;
+	GPIO_PORTG_ICR_R &= 0x78;
+	GPIO_PORTG_IM_R &= 0x78;
+
+	GPIODirModeSet(GPIO_PORTG_BASE, 0x78, GPIO_DIR_MODE_HW);
+	GPIOPinIntEnable(GPIO_PORTG_BASE, 0x78);
+	GPIOIntTypeSet(GPIO_PORTG_BASE, 0x78,GPIO_FALLING_EDGE);
 	GPIOPortIntRegister(GPIO_PORTG_BASE, &switchHandler);
 
+}
+int hours24 =0;
+int minutes =0;
+int seconds =0;
+
+
+int a_hours24 =0;
+int a_minutes =0;
+int a_seconds =0;
+
+int hours24_temp =0;
+int minutes_temp =0;
+int seconds_temp =0;
+
+
+int a_hours24_temp =0;
+int a_minutes_temp =0;
+int a_seconds_temp =0;
+
+int ringAlarms = 0;
+
+//inactivity timer
+int inacTimer =0;
+int displayMode =0;
+int timeMode = 0;
+int setMode = 0;
+
+void main(void){
+	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | 
+	SYSCTL_XTAL_8MHZ); // 50 MHz 
+	DisableInterrupts();
+	Output_Init(); 
+	displayMode = 0;
+	ringAlarms = 0;
+	timeMode = 1;
+	printf("here");
+	PolledButtons_Init();
+	EnableInterrupts();
+//	initButtons();
+	while(1);
 }
 
 void switchHandler(void){
 	
 	int values = GPIO_PORTG_DATA_R;
+}
+int count = 0;
+void GPIOPortG_Handler(void){
+	printf("handler");
+	if(GPIO_PORTG_RIS_R&0x40){  // poll PD4
+    GPIO_PORTG_ICR_R = 0x40;  // acknowledge flag4
+		handlerSW6();
+  }
+	if(GPIO_PORTG_RIS_R&0x20){  // poll PD4
+    GPIO_PORTG_ICR_R = 0x20;  // acknowledge flag4
+		handlerSW5();
+  }
+	if(GPIO_PORTG_RIS_R&0x10){  // poll PD4
+    GPIO_PORTG_ICR_R = 0x10;  // acknowledge flag4
+		handlerSW4();
+  }
+	if(GPIO_PORTG_RIS_R&0x08){  // poll PD4
+    GPIO_PORTG_ICR_R = 0x08;  // acknowledge flag4
+		handlerSW3();
+  }
+//	printf("%d\n", count++);
+//	printf("%x", values);
 }
 
 //handler for SW3 (top button)
@@ -31,6 +132,7 @@ void switchHandler(void){
 
 void handlerSW3 ()
 {
+	printf("top");
 	if (displayMode ==0) //displaying time 
 	{
 		//go to display time set mode
@@ -52,6 +154,7 @@ void handlerSW3 ()
 
 void handlerSW4 ()
 {
+	printf("bottom");
 	if (displayMode ==0) //displaying time 
 	{
 		//if sound is playing, simply turn sound off.
@@ -78,6 +181,7 @@ void handlerSW4 ()
 
 void handlerSW5 ()
 {
+	printf("left");
 	if (displayMode ==0) //displaying time 
 	{
 		//go to display alarm set mode
@@ -100,6 +204,7 @@ void handlerSW5 ()
 
 void handlerSW6 ()
 {
+	printf("right");
 	if (displayMode ==0) //displaying time 
 	{
 		//go to display alarm set mode
