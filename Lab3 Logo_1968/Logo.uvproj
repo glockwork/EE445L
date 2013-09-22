@@ -433,11 +433,6 @@
               <FilePath>.\Buttons.c</FilePath>
             </File>
             <File>
-              <FileName>clockmain.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\clockmain.c</FilePath>
-            </File>
-            <File>
               <FileName>helper.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\helper.c</FilePath>
@@ -456,6 +451,16 @@
               <FileName>Speakers.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Speakers.c</FilePath>
+            </File>
+            <File>
+              <FileName>Sound.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sound.c</FilePath>
+            </File>
+            <File>
+              <FileName>clockmain.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\clockmain.c</FilePath>
             </File>
           </Files>
         </Group>

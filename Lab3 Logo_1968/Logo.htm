@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Logo.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Logo.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Thu Sep 19 02:20:29 2013
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Sun Sep 22 13:16:08 2013
 <BR><P>
 <H3>Maximum Stack Usage =        204 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -13,6 +13,11 @@ main &rArr; displayClock &rArr; analogClockDraw &rArr; drawCircle &rArr; RIT128x
 Functions with no stack information
 </H3><UL>
  <LI><a href="#[3b]">Reset_Handler</a>
+ <LI><a href="#[75]">DisableInterrupts</a>
+ <LI><a href="#[61]">EnableInterrupts</a>
+ <LI><a href="#[82]">StartCritical</a>
+ <LI><a href="#[83]">EndCritical</a>
+ <LI><a href="#[84]">WaitForInterrupt</a>
 </UL>
 </UL>
 <P>
@@ -28,7 +33,8 @@ Mutually Recursive functions
  <LI><a href="#[8]">PendSV_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[8]">PendSV_Handler</a><BR>
  <LI><a href="#[9]">SysTick_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[9]">SysTick_Handler</a><BR>
  <LI><a href="#[18]">ADC0_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[18]">ADC0_Handler</a><BR>
- <LI><a href="#[42]">SSIDataPut</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[42]">SSIDataPut</a><BR>
+ <LI><a href="#[3f]">SysCtlDelay</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[3f]">SysCtlDelay</a><BR>
+ <LI><a href="#[43]">SSIDataPut</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[43]">SSIDataPut</a><BR>
 </UL>
 <P>
 <H3>
@@ -76,7 +82,7 @@ Function Pointers
  <LI><a href="#[6]">SVC_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[26]">SysCtl_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[9]">SysTick_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
- <LI><a href="#[1d]">Timer0A_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
+ <LI><a href="#[1d]">Timer0A_Handler</a> from systick.o(.text) referenced from startup.o(RESET)
  <LI><a href="#[1e]">Timer0B_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[1f]">Timer1A_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[20]">Timer1B_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
@@ -268,9 +274,6 @@ Global Symbols
 <P><STRONG><a name="[26]"></a>SysCtl_Handler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup.o(RESET))
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
-<P><STRONG><a name="[1d]"></a>Timer0A_Handler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup.o(RESET))
-<BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
-</UL>
 <P><STRONG><a name="[1e]"></a>Timer0B_Handler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup.o(RESET))
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
@@ -317,404 +320,535 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Reset_Handler
 </UL>
 
-<P><STRONG><a name="[6f]"></a>_main_stk</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry2.o(.ARM.Collect$$$$00000001))
+<P><STRONG><a name="[7c]"></a>_main_stk</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry2.o(.ARM.Collect$$$$00000001))
 
 <P><STRONG><a name="[3d]"></a>_main_scatterload</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry5.o(.ARM.Collect$$$$00000004))
 <BR><BR>[Calls]<UL><LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
 </UL>
 
-<P><STRONG><a name="[6d]"></a>__main_after_scatterload</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry5.o(.ARM.Collect$$$$00000004))
+<P><STRONG><a name="[7a]"></a>__main_after_scatterload</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry5.o(.ARM.Collect$$$$00000004))
 <BR><BR>[Called By]<UL><LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
 </UL>
 
-<P><STRONG><a name="[70]"></a>_main_clock</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry7b.o(.ARM.Collect$$$$00000008))
+<P><STRONG><a name="[7d]"></a>_main_clock</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry7b.o(.ARM.Collect$$$$00000008))
 
-<P><STRONG><a name="[71]"></a>_main_cpp_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry8b.o(.ARM.Collect$$$$0000000A))
+<P><STRONG><a name="[7e]"></a>_main_cpp_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry8b.o(.ARM.Collect$$$$0000000A))
 
-<P><STRONG><a name="[72]"></a>_main_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry9a.o(.ARM.Collect$$$$0000000B))
+<P><STRONG><a name="[7f]"></a>_main_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry9a.o(.ARM.Collect$$$$0000000B))
 
-<P><STRONG><a name="[73]"></a>__rt_final_cpp</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry10a.o(.ARM.Collect$$$$0000000D))
+<P><STRONG><a name="[80]"></a>__rt_final_cpp</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry10a.o(.ARM.Collect$$$$0000000D))
 
-<P><STRONG><a name="[74]"></a>__rt_final_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry11a.o(.ARM.Collect$$$$0000000F))
+<P><STRONG><a name="[81]"></a>__rt_final_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry11a.o(.ARM.Collect$$$$0000000F))
 
-<P><STRONG><a name="[44]"></a>RIT128x96x4Clear</STRONG> (Thumb, 64 bytes, Stack size 16 bytes, rit128x96x4.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteData
-<LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteCommand
+<P><STRONG><a name="[3f]"></a>SysCtlDelay</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, sysctl.o(.emb_text))
+<BR><BR>[Calls]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlDelay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Init
+<BR>[Called By]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlClockSet
+<LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlDelay
 </UL>
 
-<P><STRONG><a name="[45]"></a>RIT128x96x4StringDraw</STRONG> (Thumb, 218 bytes, Stack size 32 bytes, rit128x96x4.o(.text))
+<P><STRONG><a name="[75]"></a>DisableInterrupts</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[61]"></a>EnableInterrupts</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Init
+</UL>
+
+<P><STRONG><a name="[82]"></a>StartCritical</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text), UNUSED)
+
+<P><STRONG><a name="[83]"></a>EndCritical</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text), UNUSED)
+
+<P><STRONG><a name="[84]"></a>WaitForInterrupt</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text), UNUSED)
+
+<P><STRONG><a name="[45]"></a>RIT128x96x4Clear</STRONG> (Thumb, 64 bytes, Stack size 16 bytes, rit128x96x4.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = RIT128x96x4Clear &rArr; RITWriteData
+</UL>
+<BR>[Calls]<UL><LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteData
+<LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteCommand
+</UL>
+<BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Output_Clear
+<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Init
+</UL>
+
+<P><STRONG><a name="[46]"></a>RIT128x96x4StringDraw</STRONG> (Thumb, 218 bytes, Stack size 32 bytes, rit128x96x4.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = RIT128x96x4StringDraw &rArr; RITWriteData
 </UL>
-<BR>[Calls]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteData
-<LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteCommand
+<BR>[Calls]<UL><LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteData
+<LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteCommand
 </UL>
-<BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;digitalClockDraw
-</UL>
-
-<P><STRONG><a name="[46]"></a>RIT128x96x4ImageDraw</STRONG> (Thumb, 106 bytes, Stack size 24 bytes, rit128x96x4.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteData
-<LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteCommand
-</UL>
-<BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4_ShowImage
+<BR>[Called By]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;digitalClockDraw
+<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fputc
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shiftEverythingUp
 </UL>
 
-<P><STRONG><a name="[47]"></a>RIT128x96x4Enable</STRONG> (Thumb, 90 bytes, Stack size 24 bytes, rit128x96x4.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlClockGet
-<LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSIEnable
-<LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSIDisable
-<LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSIConfigSetExpClk
-<LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeSSI
-<LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPadConfigSet
+<P><STRONG><a name="[47]"></a>RIT128x96x4ImageDraw</STRONG> (Thumb, 106 bytes, Stack size 24 bytes, rit128x96x4.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteData
+<LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteCommand
 </UL>
-<BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Init
+<BR>[Called By]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4_ShowImage
 </UL>
 
-<P><STRONG><a name="[4e]"></a>RIT128x96x4Disable</STRONG> (Thumb, 84 bytes, Stack size 8 bytes, rit128x96x4.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSIDisable
-<LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSIDataGetNonBlocking
-<LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinWrite
-<LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeGPIOOutput
-<LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPadConfigSet
+<P><STRONG><a name="[48]"></a>RIT128x96x4Enable</STRONG> (Thumb, 90 bytes, Stack size 24 bytes, rit128x96x4.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = RIT128x96x4Enable &rArr; GPIOPinTypeSSI
+</UL>
+<BR>[Calls]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlClockGet
+<LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSIEnable
+<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSIDisable
+<LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSIConfigSetExpClk
+<LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeSSI
+<LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPadConfigSet
+</UL>
+<BR>[Called By]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Init
 </UL>
 
-<P><STRONG><a name="[51]"></a>RIT128x96x4Init</STRONG> (Thumb, 146 bytes, Stack size 16 bytes, rit128x96x4.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlPeripheralEnable
-<LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinWrite
-<LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeSSI
-<LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeGPIOOutput
-<LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPadConfigSet
-<LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Enable
-<LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Clear
-<LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteCommand
+<P><STRONG><a name="[4f]"></a>RIT128x96x4Disable</STRONG> (Thumb, 84 bytes, Stack size 8 bytes, rit128x96x4.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSIDisable
+<LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSIDataGetNonBlocking
+<LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinWrite
+<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeGPIOOutput
+<LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPadConfigSet
 </UL>
 
-<P><STRONG><a name="[53]"></a>RIT128x96x4DisplayOn</STRONG> (Thumb, 84 bytes, Stack size 8 bytes, rit128x96x4.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteCommand
+<P><STRONG><a name="[52]"></a>RIT128x96x4Init</STRONG> (Thumb, 146 bytes, Stack size 16 bytes, rit128x96x4.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = RIT128x96x4Init &rArr; RIT128x96x4Enable &rArr; GPIOPinTypeSSI
+</UL>
+<BR>[Calls]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlPeripheralEnable
+<LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinWrite
+<LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeSSI
+<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeGPIOOutput
+<LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPadConfigSet
+<LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Enable
+<LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Clear
+<LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteCommand
+</UL>
+<BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Output_Init
 </UL>
 
-<P><STRONG><a name="[75]"></a>RIT128x96x4_ClearImage</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, rit128x96x4.o(.text), UNUSED)
+<P><STRONG><a name="[54]"></a>RIT128x96x4DisplayOn</STRONG> (Thumb, 84 bytes, Stack size 8 bytes, rit128x96x4.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteCommand
+</UL>
+<BR>[Called By]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Output_On
+</UL>
 
-<P><STRONG><a name="[5c]"></a>bufferSet</STRONG> (Thumb, 146 bytes, Stack size 20 bytes, rit128x96x4.o(.text))
+<P><STRONG><a name="[85]"></a>RIT128x96x4_ClearImage</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, rit128x96x4.o(.text), UNUSED)
+
+<P><STRONG><a name="[5d]"></a>bufferSet</STRONG> (Thumb, 146 bytes, Stack size 20 bytes, rit128x96x4.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = bufferSet
 </UL>
-<BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4_Line
+<BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4_Line
 </UL>
 
-<P><STRONG><a name="[54]"></a>RIT128x96x4_Line</STRONG> (Thumb, 214 bytes, Stack size 72 bytes, rit128x96x4.o(.text))
+<P><STRONG><a name="[55]"></a>RIT128x96x4_Line</STRONG> (Thumb, 214 bytes, Stack size 72 bytes, rit128x96x4.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = RIT128x96x4_Line &rArr; __aeabi_fsub &rArr; __aeabi_fadd &rArr; _float_epilogue
 </UL>
-<BR>[Calls]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
-<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
-<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
-<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
-<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
-<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfrcmple
-<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bufferSet
+<BR>[Calls]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
+<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
+<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
+<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
+<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
+<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
+<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfrcmple
+<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bufferSet
 </UL>
-<BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawCircle
-<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;analogClockDraw
-</UL>
-
-<P><STRONG><a name="[5d]"></a>RIT128x96x4_ShowImage</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, rit128x96x4.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4ImageDraw
+<BR>[Called By]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;analogClockDraw
+<LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawCircle
 </UL>
 
-<P><STRONG><a name="[5e]"></a>RIT128x96x4DisplayOff</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, rit128x96x4.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteCommand
+<P><STRONG><a name="[5e]"></a>RIT128x96x4_ShowImage</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, rit128x96x4.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4ImageDraw
 </UL>
 
-<P><STRONG><a name="[5f]"></a>displayClock</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, clockmain.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 204<LI>Call Chain = displayClock &rArr; analogClockDraw &rArr; drawCircle &rArr; RIT128x96x4_Line &rArr; __aeabi_fsub &rArr; __aeabi_fadd &rArr; _float_epilogue
+<P><STRONG><a name="[5f]"></a>RIT128x96x4DisplayOff</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, rit128x96x4.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteCommand
 </UL>
-<BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;digitalClockDraw
-<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;analogClockDraw
+<BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Output_Off
+</UL>
+
+<P><STRONG><a name="[60]"></a>SysTick_Init</STRONG> (Thumb, 102 bytes, Stack size 8 bytes, systick.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
+<LI>Call Chain = SysTick_Init
+</UL>
+<BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EnableInterrupts
+</UL>
+<BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_InitSeconds
+</UL>
+
+<P><STRONG><a name="[1d]"></a>Timer0A_Handler</STRONG> (Thumb, 142 bytes, Stack size 8 bytes, systick.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Timer0A_Handler &rArr; incrementMinutes
+</UL>
+<BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;incrementMinutes
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;incrementHours
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
+</UL>
+<P><STRONG><a name="[64]"></a>SysTick_InitSeconds</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, systick.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16 + Unknown Stack Size
+<LI>Call Chain = SysTick_InitSeconds &rArr; SysTick_Init
+</UL>
+<BR>[Calls]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[3a]"></a>main</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, clockmain.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 204<LI>Call Chain = main &rArr; displayClock &rArr; analogClockDraw &rArr; drawCircle &rArr; RIT128x96x4_Line &rArr; __aeabi_fsub &rArr; __aeabi_fadd &rArr; _float_epilogue
-</UL>
-<BR>[Calls]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;playSound
-<LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displayClock
-</UL>
-<BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
-</UL>
-<P><STRONG><a name="[76]"></a>displaySet</STRONG> (Thumb, 76 bytes, Stack size 0 bytes, clockmain.o(.text), UNUSED)
-
-<P><STRONG><a name="[63]"></a>timerHandler</STRONG> (Thumb, 104 bytes, Stack size 8 bytes, clockmain.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;incrementMinutes
-<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;incrementHours
+<P><STRONG><a name="[66]"></a>SysTick_Wait</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, systick.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Wait10ms
 </UL>
 
-<P><STRONG><a name="[66]"></a>adjustTime</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, helper.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;incrementMinutes
-<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;incrementHours
-<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;decrementMinutes
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;decrementHours
+<P><STRONG><a name="[65]"></a>SysTick_Wait10ms</STRONG> (Thumb, 22 bytes, Stack size 12 bytes, systick.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Wait
 </UL>
 
-<P><STRONG><a name="[64]"></a>incrementHours</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, helper.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adjustTime
+<P><STRONG><a name="[67]"></a>shiftEverythingUp</STRONG> (Thumb, 186 bytes, Stack size 24 bytes, output.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4StringDraw
 </UL>
-<BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timerHandler
-</UL>
-
-<P><STRONG><a name="[67]"></a>decrementHours</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, helper.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adjustTime
+<BR>[Called By]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fputc
 </UL>
 
-<P><STRONG><a name="[65]"></a>incrementMinutes</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, helper.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adjustTime
-</UL>
-<BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timerHandler
-</UL>
-
-<P><STRONG><a name="[68]"></a>decrementMinutes</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, helper.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adjustTime
+<P><STRONG><a name="[68]"></a>fputc</STRONG> (Thumb, 562 bytes, Stack size 16 bytes, output.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shiftEverythingUp
+<LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4StringDraw
 </UL>
 
-<P><STRONG><a name="[69]"></a>drawCircle</STRONG> (Thumb, 220 bytes, Stack size 56 bytes, oleddraw.o(.text))
+<P><STRONG><a name="[86]"></a>fgetc</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, output.o(.text), UNUSED)
+
+<P><STRONG><a name="[87]"></a>ferror</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, output.o(.text), UNUSED)
+
+<P><STRONG><a name="[69]"></a>Output_Init</STRONG> (Thumb, 82 bytes, Stack size 16 bytes, output.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = Output_Init &rArr; RIT128x96x4Init &rArr; RIT128x96x4Enable &rArr; GPIOPinTypeSSI
+</UL>
+<BR>[Calls]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Init
+</UL>
+<BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[6a]"></a>Output_Clear</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, output.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Clear
+</UL>
+
+<P><STRONG><a name="[6b]"></a>Output_Off</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, output.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4DisplayOff
+</UL>
+
+<P><STRONG><a name="[6c]"></a>Output_On</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, output.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4DisplayOn
+</UL>
+
+<P><STRONG><a name="[88]"></a>Output_Color</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, output.o(.text), UNUSED)
+
+<P><STRONG><a name="[6d]"></a>adjustTime</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, helper.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;decrementMinutes
+<LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;decrementHours
+<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;incrementMinutes
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;incrementHours
+</UL>
+
+<P><STRONG><a name="[62]"></a>incrementHours</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, helper.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = incrementHours
+</UL>
+<BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adjustTime
+</UL>
+<BR>[Called By]<UL><LI><a href="#[1d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer0A_Handler
+</UL>
+
+<P><STRONG><a name="[6e]"></a>decrementHours</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, helper.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adjustTime
+</UL>
+
+<P><STRONG><a name="[63]"></a>incrementMinutes</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, helper.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = incrementMinutes
+</UL>
+<BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adjustTime
+</UL>
+<BR>[Called By]<UL><LI><a href="#[1d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer0A_Handler
+</UL>
+
+<P><STRONG><a name="[6f]"></a>decrementMinutes</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, helper.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adjustTime
+</UL>
+
+<P><STRONG><a name="[70]"></a>drawCircle</STRONG> (Thumb, 220 bytes, Stack size 56 bytes, oleddraw.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 148<LI>Call Chain = drawCircle &rArr; RIT128x96x4_Line &rArr; __aeabi_fsub &rArr; __aeabi_fadd &rArr; _float_epilogue
 </UL>
-<BR>[Calls]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
-<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
-<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
-<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4_Line
+<BR>[Calls]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
+<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
+<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
+<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
+<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4_Line
 </UL>
-<BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;analogClockDraw
+<BR>[Called By]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;analogClockDraw
 </UL>
 
-<P><STRONG><a name="[60]"></a>analogClockDraw</STRONG> (Thumb, 358 bytes, Stack size 48 bytes, oleddraw.o(.text))
+<P><STRONG><a name="[71]"></a>analogClockDraw</STRONG> (Thumb, 358 bytes, Stack size 48 bytes, oleddraw.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 196<LI>Call Chain = analogClockDraw &rArr; drawCircle &rArr; RIT128x96x4_Line &rArr; __aeabi_fsub &rArr; __aeabi_fadd &rArr; _float_epilogue
 </UL>
-<BR>[Calls]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawCircle
-<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
-<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
-<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
-<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4_Line
+<BR>[Calls]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawCircle
+<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
+<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
+<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
+<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
+<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4_Line
 </UL>
-<BR>[Called By]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displayClock
+<BR>[Called By]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displayClock
 </UL>
 
-<P><STRONG><a name="[61]"></a>digitalClockDraw</STRONG> (Thumb, 150 bytes, Stack size 16 bytes, oleddraw.o(.text))
+<P><STRONG><a name="[72]"></a>digitalClockDraw</STRONG> (Thumb, 150 bytes, Stack size 16 bytes, oleddraw.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = digitalClockDraw &rArr; RIT128x96x4StringDraw &rArr; RITWriteData
 </UL>
-<BR>[Calls]<UL><LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4StringDraw
+<BR>[Calls]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4StringDraw
 </UL>
-<BR>[Called By]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displayClock
+<BR>[Called By]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displayClock
 </UL>
 
-<P><STRONG><a name="[77]"></a>soundInit</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, sound.o(.text), UNUSED)
+<P><STRONG><a name="[89]"></a>soundInit</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, sound.o(.text), UNUSED)
 
-<P><STRONG><a name="[62]"></a>playSound</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, sound.o(.text))
+<P><STRONG><a name="[76]"></a>playSound</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, sound.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[78]"></a>stopSound</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, sound.o(.text), UNUSED)
+<P><STRONG><a name="[8a]"></a>stopSound</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, sound.o(.text), UNUSED)
 
-<P><STRONG><a name="[79]"></a>soundTimerHandler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, sound.o(.text), UNUSED)
+<P><STRONG><a name="[8b]"></a>soundTimerHandler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, sound.o(.text), UNUSED)
 
-<P><STRONG><a name="[5a]"></a>__aeabi_fadd</STRONG> (Thumb, 164 bytes, Stack size 16 bytes, fadd.o(.text))
+<P><STRONG><a name="[73]"></a>displayClock</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, clockmain.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 204<LI>Call Chain = displayClock &rArr; analogClockDraw &rArr; drawCircle &rArr; RIT128x96x4_Line &rArr; __aeabi_fsub &rArr; __aeabi_fadd &rArr; _float_epilogue
+</UL>
+<BR>[Calls]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;digitalClockDraw
+<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;analogClockDraw
+</UL>
+<BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[3a]"></a>main</STRONG> (Thumb, 96 bytes, Stack size 0 bytes, clockmain.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 204 + Unknown Stack Size
+<LI>Call Chain = main &rArr; displayClock &rArr; analogClockDraw &rArr; drawCircle &rArr; RIT128x96x4_Line &rArr; __aeabi_fsub &rArr; __aeabi_fadd &rArr; _float_epilogue
+</UL>
+<BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlClockSet
+<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displayClock
+<LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;playSound
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Output_Init
+<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_InitSeconds
+<LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EnableInterrupts
+<LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisableInterrupts
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
+</UL>
+<P><STRONG><a name="[8c]"></a>displaySet</STRONG> (Thumb, 76 bytes, Stack size 0 bytes, clockmain.o(.text), UNUSED)
+
+<P><STRONG><a name="[8d]"></a>timerHandler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, clockmain.o(.text), UNUSED)
+
+<P><STRONG><a name="[5b]"></a>__aeabi_fadd</STRONG> (Thumb, 164 bytes, Stack size 16 bytes, fadd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = __aeabi_fadd &rArr; _float_epilogue
 </UL>
-<BR>[Calls]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_float_round
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_float_epilogue
+<BR>[Calls]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_float_round
+<LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_float_epilogue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawCircle
-<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;analogClockDraw
-<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
-<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4_Line
-<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_frsub
+<BR>[Called By]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;analogClockDraw
+<LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawCircle
+<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
+<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4_Line
+<LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_frsub
 </UL>
 
-<P><STRONG><a name="[58]"></a>__aeabi_fsub</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, fadd.o(.text))
+<P><STRONG><a name="[59]"></a>__aeabi_fsub</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, fadd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = __aeabi_fsub &rArr; __aeabi_fadd &rArr; _float_epilogue
 </UL>
-<BR>[Calls]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
+<BR>[Calls]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4_Line
-</UL>
-
-<P><STRONG><a name="[6c]"></a>__aeabi_frsub</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, fadd.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
+<BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4_Line
 </UL>
 
-<P><STRONG><a name="[57]"></a>__aeabi_fmul</STRONG> (Thumb, 108 bytes, Stack size 8 bytes, fmul.o(.text))
+<P><STRONG><a name="[79]"></a>__aeabi_frsub</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, fadd.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
+</UL>
+
+<P><STRONG><a name="[58]"></a>__aeabi_fmul</STRONG> (Thumb, 108 bytes, Stack size 8 bytes, fmul.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __aeabi_fmul
 </UL>
-<BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawCircle
-<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;analogClockDraw
-<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4_Line
+<BR>[Called By]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;analogClockDraw
+<LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawCircle
+<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4_Line
 </UL>
 
-<P><STRONG><a name="[56]"></a>__aeabi_fdiv</STRONG> (Thumb, 128 bytes, Stack size 8 bytes, fdiv.o(.text))
+<P><STRONG><a name="[57]"></a>__aeabi_fdiv</STRONG> (Thumb, 128 bytes, Stack size 8 bytes, fdiv.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __aeabi_fdiv
 </UL>
-<BR>[Calls]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_float_round
+<BR>[Calls]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_float_round
 </UL>
-<BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4_Line
+<BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4_Line
 </UL>
 
-<P><STRONG><a name="[55]"></a>__aeabi_i2f</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, fflti.o(.text))
+<P><STRONG><a name="[56]"></a>__aeabi_i2f</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, fflti.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = __aeabi_i2f &rArr; _float_epilogue
 </UL>
-<BR>[Calls]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_float_epilogue
+<BR>[Calls]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_float_epilogue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawCircle
-<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;analogClockDraw
-<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4_Line
-</UL>
-
-<P><STRONG><a name="[5b]"></a>__aeabi_f2iz</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, ffixi.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawCircle
-<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;analogClockDraw
-<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4_Line
+<BR>[Called By]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;analogClockDraw
+<LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawCircle
+<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4_Line
 </UL>
 
-<P><STRONG><a name="[59]"></a>__aeabi_cfrcmple</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, cfrcmple.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4_Line
+<P><STRONG><a name="[5c]"></a>__aeabi_f2iz</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, ffixi.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;analogClockDraw
+<LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawCircle
+<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4_Line
 </UL>
 
-<P><STRONG><a name="[7a]"></a>__I$use$fp</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, iusefp.o(.text), UNUSED)
-
-<P><STRONG><a name="[6b]"></a>_float_round</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, fepilogue.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
-<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
+<P><STRONG><a name="[5a]"></a>__aeabi_cfrcmple</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, cfrcmple.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4_Line
 </UL>
 
-<P><STRONG><a name="[6a]"></a>_float_epilogue</STRONG> (Thumb, 90 bytes, Stack size 4 bytes, fepilogue.o(.text))
+<P><STRONG><a name="[8e]"></a>__I$use$fp</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, iusefp.o(.text), UNUSED)
+
+<P><STRONG><a name="[78]"></a>_float_round</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, fepilogue.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
+<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
+</UL>
+
+<P><STRONG><a name="[77]"></a>_float_epilogue</STRONG> (Thumb, 90 bytes, Stack size 4 bytes, fepilogue.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = _float_epilogue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
-<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
+<BR>[Called By]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
+<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
 </UL>
 
 <P><STRONG><a name="[3e]"></a>__scatterload</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, init.o(.text))
-<BR><BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main_after_scatterload
+<BR><BR>[Calls]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main_after_scatterload
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_main_scatterload
 </UL>
 
-<P><STRONG><a name="[7b]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
+<P><STRONG><a name="[8f]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
 
-<P><STRONG><a name="[7c]"></a>__decompress</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __dclz77c.o(.text), UNUSED)
+<P><STRONG><a name="[90]"></a>__decompress</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __dclz77c.o(.text), UNUSED)
 
-<P><STRONG><a name="[7d]"></a>__decompress2</STRONG> (Thumb, 96 bytes, Stack size unknown bytes, __dclz77c.o(.text), UNUSED)
+<P><STRONG><a name="[91]"></a>__decompress2</STRONG> (Thumb, 96 bytes, Stack size unknown bytes, __dclz77c.o(.text), UNUSED)
 
-<P><STRONG><a name="[6e]"></a>GPIODirModeSet</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, gpio.o(i.GPIODirModeSet), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeSSI
-<LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeGPIOOutput
+<P><STRONG><a name="[7b]"></a>GPIODirModeSet</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, gpio.o(i.GPIODirModeSet))
+<BR><BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeSSI
+<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeGPIOOutput
 </UL>
 
-<P><STRONG><a name="[4c]"></a>GPIOPadConfigSet</STRONG> (Thumb, 176 bytes, Stack size 0 bytes, gpio.o(i.GPIOPadConfigSet), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeSSI
-<LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeGPIOOutput
-<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Init
-<LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Disable
-<LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Enable
+<P><STRONG><a name="[4d]"></a>GPIOPadConfigSet</STRONG> (Thumb, 176 bytes, Stack size 0 bytes, gpio.o(i.GPIOPadConfigSet))
+<BR><BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeSSI
+<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeGPIOOutput
+<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Init
+<LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Disable
+<LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Enable
 </UL>
 
-<P><STRONG><a name="[50]"></a>GPIOPinTypeGPIOOutput</STRONG> (Thumb, 28 bytes, Stack size 12 bytes, gpio.o(i.GPIOPinTypeGPIOOutput), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIODirModeSet
-<LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPadConfigSet
+<P><STRONG><a name="[51]"></a>GPIOPinTypeGPIOOutput</STRONG> (Thumb, 28 bytes, Stack size 12 bytes, gpio.o(i.GPIOPinTypeGPIOOutput))
+<BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = GPIOPinTypeGPIOOutput
 </UL>
-<BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Init
-<LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Disable
+<BR>[Calls]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIODirModeSet
+<LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPadConfigSet
 </UL>
-
-<P><STRONG><a name="[4b]"></a>GPIOPinTypeSSI</STRONG> (Thumb, 28 bytes, Stack size 12 bytes, gpio.o(i.GPIOPinTypeSSI), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIODirModeSet
-<LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPadConfigSet
-</UL>
-<BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Init
-<LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Enable
+<BR>[Called By]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Init
+<LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Disable
 </UL>
 
-<P><STRONG><a name="[41]"></a>GPIOPinWrite</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, gpio.o(i.GPIOPinWrite))
-<BR><BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Init
-<LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Disable
-<LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteData
-<LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteCommand
+<P><STRONG><a name="[4c]"></a>GPIOPinTypeSSI</STRONG> (Thumb, 28 bytes, Stack size 12 bytes, gpio.o(i.GPIOPinTypeSSI))
+<BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = GPIOPinTypeSSI
+</UL>
+<BR>[Calls]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIODirModeSet
+<LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPadConfigSet
+</UL>
+<BR>[Called By]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Init
+<LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Enable
 </UL>
 
-<P><STRONG><a name="[40]"></a>SSIBusy</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, ssi.o(i.SSIBusy))
-<BR><BR>[Called By]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteData
-<LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteCommand
+<P><STRONG><a name="[42]"></a>GPIOPinWrite</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, gpio.o(i.GPIOPinWrite))
+<BR><BR>[Called By]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Init
+<LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Disable
+<LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteData
+<LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteCommand
 </UL>
 
-<P><STRONG><a name="[4a]"></a>SSIConfigSetExpClk</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, ssi.o(i.SSIConfigSetExpClk), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Enable
+<P><STRONG><a name="[41]"></a>SSIBusy</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, ssi.o(i.SSIBusy))
+<BR><BR>[Called By]<UL><LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteData
+<LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteCommand
 </UL>
 
-<P><STRONG><a name="[4f]"></a>SSIDataGetNonBlocking</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, ssi.o(i.SSIDataGetNonBlocking), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Disable
+<P><STRONG><a name="[4b]"></a>SSIConfigSetExpClk</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, ssi.o(i.SSIConfigSetExpClk))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = SSIConfigSetExpClk
+</UL>
+<BR>[Called By]<UL><LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Enable
 </UL>
 
-<P><STRONG><a name="[42]"></a>SSIDataPut</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, ssi.o(i.SSIDataPut))
-<BR><BR>[Calls]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSIDataPut
-</UL>
-<BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSIDataPut
-<LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteData
-<LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteCommand
+<P><STRONG><a name="[50]"></a>SSIDataGetNonBlocking</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, ssi.o(i.SSIDataGetNonBlocking), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Disable
 </UL>
 
-<P><STRONG><a name="[48]"></a>SSIDisable</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, ssi.o(i.SSIDisable), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Disable
-<LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Enable
+<P><STRONG><a name="[43]"></a>SSIDataPut</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, ssi.o(i.SSIDataPut))
+<BR><BR>[Calls]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSIDataPut
+</UL>
+<BR>[Called By]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSIDataPut
+<LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteData
+<LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RITWriteCommand
 </UL>
 
-<P><STRONG><a name="[4d]"></a>SSIEnable</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, ssi.o(i.SSIEnable), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Enable
+<P><STRONG><a name="[49]"></a>SSIDisable</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, ssi.o(i.SSIDisable))
+<BR><BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Disable
+<LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Enable
 </UL>
 
-<P><STRONG><a name="[49]"></a>SysCtlClockGet</STRONG> (Thumb, 444 bytes, Stack size 8 bytes, sysctl.o(i.SysCtlClockGet), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Enable
+<P><STRONG><a name="[4e]"></a>SSIEnable</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, ssi.o(i.SSIEnable))
+<BR><BR>[Called By]<UL><LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Enable
 </UL>
 
-<P><STRONG><a name="[52]"></a>SysCtlPeripheralEnable</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, sysctl.o(i.SysCtlPeripheralEnable), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Init
+<P><STRONG><a name="[4a]"></a>SysCtlClockGet</STRONG> (Thumb, 444 bytes, Stack size 8 bytes, sysctl.o(i.SysCtlClockGet))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = SysCtlClockGet
+</UL>
+<BR>[Called By]<UL><LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Enable
 </UL>
 
-<P><STRONG><a name="[7e]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
+<P><STRONG><a name="[74]"></a>SysCtlClockSet</STRONG> (Thumb, 292 bytes, Stack size 24 bytes, sysctl.o(i.SysCtlClockSet))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = SysCtlClockSet
+</UL>
+<BR>[Calls]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlDelay
+</UL>
+<BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
 
-<P><STRONG><a name="[7f]"></a>__scatterload_null</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_null), UNUSED)
+<P><STRONG><a name="[53]"></a>SysCtlPeripheralEnable</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, sysctl.o(i.SysCtlPeripheralEnable))
+<BR><BR>[Called By]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Init
+</UL>
 
-<P><STRONG><a name="[80]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
+<P><STRONG><a name="[92]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
+
+<P><STRONG><a name="[93]"></a>__scatterload_null</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_null), UNUSED)
+
+<P><STRONG><a name="[94]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 <P>
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[3f]"></a>RITWriteCommand</STRONG> (Thumb, 124 bytes, Stack size 16 bytes, rit128x96x4.o(.text))
+<P><STRONG><a name="[40]"></a>RITWriteCommand</STRONG> (Thumb, 124 bytes, Stack size 16 bytes, rit128x96x4.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = RITWriteCommand
 </UL>
-<BR>[Calls]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSIDataPut
-<LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSIBusy
-<LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinWrite
+<BR>[Calls]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSIDataPut
+<LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSIBusy
+<LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinWrite
 </UL>
-<BR>[Called By]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4DisplayOff
-<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4DisplayOn
-<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Init
-<LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4ImageDraw
-<LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4StringDraw
-<LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Clear
+<BR>[Called By]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4DisplayOff
+<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4DisplayOn
+<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Init
+<LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4ImageDraw
+<LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4StringDraw
+<LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Clear
 </UL>
 
-<P><STRONG><a name="[43]"></a>RITWriteData</STRONG> (Thumb, 124 bytes, Stack size 16 bytes, rit128x96x4.o(.text))
+<P><STRONG><a name="[44]"></a>RITWriteData</STRONG> (Thumb, 124 bytes, Stack size 16 bytes, rit128x96x4.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = RITWriteData
 </UL>
-<BR>[Calls]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSIDataPut
-<LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSIBusy
-<LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinWrite
+<BR>[Calls]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSIDataPut
+<LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSIBusy
+<LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinWrite
 </UL>
-<BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4ImageDraw
-<LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4StringDraw
-<LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Clear
+<BR>[Called By]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4ImageDraw
+<LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4StringDraw
+<LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT128x96x4Clear
 </UL>
 <P>
 <H3>

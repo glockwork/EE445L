@@ -9,6 +9,7 @@
 #include "helper.h"
 #include "OLEDdraw.h"
 #include "sound.h"
+#include "pll.h"
 
 // which delays 3*ulCount cycles
 #ifdef __TI_COMPILER_VERSION__
@@ -81,56 +82,7 @@ int main(){
   SYSCTL_RCGC1_R |= SYSCTL_RCGC1_TIMER0;// activate timer0
   SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOF+SYSCTL_RCGC2_GPIOG; // activate ports F and G
 	Output_Init(); 
-	SysTick_InitSeconds(1);
+SysTick_InitSeconds(1);
 	EnableInterrupts();
-	displayMode = 0;
-	ringAlarms = 0;
-	timeMode = 1;
-	
-	while(1){
-		if (ringAlarms)
-			playSound();
-		if(displayMode==0)
-			displayClock();
-		else if(displayMode==1){
-			//TODO write some sort of time choosing mechanism
-		}
-	}
-}
-
-void displayClock(){
-	if(timeMode==0){
-				analogClockDraw();
-			}
-			else if(timeMode==1){
-					digitalClockDraw();
-			}
-}
-
-void displaySet(){
-	
-	while(inacTimer < 10){
-	
-		//TODO
-		//display some sort of header (setting time or alarm)
-		//display the time currently setting
-
-	}
-	if (setMode ==0) // set time
-	{
-		hours24 = hours24_temp;
-		minutes = minutes_temp;
-		seconds = seconds_temp;
-	}
-	else if (setMode ==1) //set alarm
-	{
-		a_hours24 = a_hours24_temp;
-		a_minutes = a_minutes_temp;
-		a_seconds = a_seconds_temp;
-	}
-		
-}
-
-void timerHandler(){
-
+	while(1);
 }
