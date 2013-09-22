@@ -10,8 +10,6 @@
 #include "Output.h"
 #include "Buttons.h"
 
-void switchHandler();
-
 int SW1 = 0;
 int SW2 = 0;
 
@@ -43,73 +41,79 @@ void PolledButtons_Init(void){
 unsigned long oldPressTime;
 
 
-void initButtons (){
-	//TODO
-	oldPressTime = 0;
-	GPIO_PORTG_PUR_R = 0x78;
-	GPIO_PORTG_DIR_R &=~ 0x78;
-	GPIO_PORTF_DEN_R |= 0x78;
-	GPIO_PORTG_IS_R &= ~0x78;
-  GPIO_PORTG_IBE_R &= ~0x78;
-	GPIO_PORTG_IEV_R &= ~0x78;
-	GPIO_PORTG_ICR_R &= 0x78;
-	GPIO_PORTG_IM_R &= 0x78;
+//void initButtons (){
+//	//TODO
+//	oldPressTime = 0;
+//	GPIO_PORTG_PUR_R = 0x78;
+//	GPIO_PORTG_DIR_R &=~ 0x78;
+//	GPIO_PORTF_DEN_R |= 0x78;
+//	GPIO_PORTG_IS_R &= ~0x78;
+//  GPIO_PORTG_IBE_R &= ~0x78;
+//	GPIO_PORTG_IEV_R &= ~0x78;
+//	GPIO_PORTG_ICR_R &= 0x78;
+//	GPIO_PORTG_IM_R &= 0x78;
 
-	GPIODirModeSet(GPIO_PORTG_BASE, 0x78, GPIO_DIR_MODE_HW);
-	GPIOPinIntEnable(GPIO_PORTG_BASE, 0x78);
-	GPIOIntTypeSet(GPIO_PORTG_BASE, 0x78,GPIO_FALLING_EDGE);
-	GPIOPortIntRegister(GPIO_PORTG_BASE, &switchHandler);
+//	GPIODirModeSet(GPIO_PORTG_BASE, 0x78, GPIO_DIR_MODE_HW);
+//	GPIOPinIntEnable(GPIO_PORTG_BASE, 0x78);
+//	GPIOIntTypeSet(GPIO_PORTG_BASE, 0x78,GPIO_FALLING_EDGE);
+//	GPIOPortIntRegister(GPIO_PORTG_BASE, &switchHandler);
 
-}
-int hours24 =0;
-int minutes =0;
-int seconds =0;
-
-
-int a_hours24 =0;
-int a_minutes =0;
-int a_seconds =0;
-
-int hours24_temp =0;
-int minutes_temp =0;
-int seconds_temp =0;
+//}
+//int hours24 =0;
+//int minutes =0;
+//int seconds =0;
 
 
-int a_hours24_temp =0;
-int a_minutes_temp =0;
-int a_seconds_temp =0;
+//int a_hours24 =0;
+//int a_minutes =0;
+//int a_seconds =0;
 
-int ringAlarms = 0;
+//int hours24_temp =0;
+//int minutes_temp =0;
+//int seconds_temp =0;
 
-//inactivity timer
-int inacTimer =0;
-int displayMode =0;
-int timeMode = 0;
-int setMode = 0;
 
-void main(void){
-	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | 
-	SYSCTL_XTAL_8MHZ); // 50 MHz 
-	DisableInterrupts();
-	Output_Init(); 
-	displayMode = 0;
-	ringAlarms = 0;
-	timeMode = 1;
-	printf("here");
-	PolledButtons_Init();
-	EnableInterrupts();
-//	initButtons();
-	while(1);
-}
+//int a_hours24_temp =0;
+//int a_minutes_temp =0;
+//int a_seconds_temp =0;
+
+//int ringAlarms = 0;
+
+////inactivity timer
+//int inacTimer =0;
+//int displayMode =0;
+//int timeMode = 0;
+//int setMode = 0;
+
+//void main(void){
+//	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | 
+//	SYSCTL_XTAL_8MHZ); // 50 MHz 
+//	DisableInterrupts();
+//	Output_Init(); 
+//	displayMode = 0;
+//	ringAlarms = 0;
+//	timeMode = 1;
+//	printf("here");
+//	PolledButtons_Init();
+//	EnableInterrupts();
+////	initButtons();
+//	while(1);
+//}
 
 int count = 0;
 void GPIOPortG_Handler(void){
-	printf("handler");
-	
 	unsigned long pressTime = NVIC_ST_CURRENT_R;
 	unsigned long elapsedTime = (oldPressTime-pressTime)&0x00FFFFFF;
+		printf("handler");
+
 	oldPressTime = pressTime;
-	if (elapsedTime < 500000) return; //TODO fix time when figure out SysTick
+	if (elapsedTime < 500000){
+    GPIO_PORTG_ICR_R = 0x40;  // acknowledge flag4
+    GPIO_PORTG_ICR_R = 0x20;  // acknowledge flag4
+    GPIO_PORTG_ICR_R = 0x10;  // acknowledge flag4
+    GPIO_PORTG_ICR_R = 0x08;  // acknowledge flag4
+		return; //TODO fix time when figure out SysTick
+	}
 
 	if(GPIO_PORTG_RIS_R&0x40){  // poll PD4
     GPIO_PORTG_ICR_R = 0x40;  // acknowledge flag4
@@ -137,7 +141,7 @@ void GPIOPortG_Handler(void){
 
 void handlerSW3 ()
 {
-	printf("top");
+	//printf("top");
 	if (displayMode ==0) //displaying time 
 	{
 		//go to display time set mode
@@ -159,7 +163,7 @@ void handlerSW3 ()
 
 void handlerSW4 ()
 {
-	printf("bottom");
+//	printf("bottom");
 	if (displayMode ==0) //displaying time 
 	{
 		//if sound is playing, simply turn sound off.
@@ -186,7 +190,7 @@ void handlerSW4 ()
 
 void handlerSW5 ()
 {
-	printf("left");
+	//printf("left");
 	if (displayMode ==0) //displaying time 
 	{
 		//go to display alarm set mode
@@ -209,7 +213,7 @@ void handlerSW5 ()
 
 void handlerSW6 ()
 {
-	printf("right");
+	//printf("right");
 	if (displayMode ==0) //displaying time 
 	{
 		//go to display alarm set mode

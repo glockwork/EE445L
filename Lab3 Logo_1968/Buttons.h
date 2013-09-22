@@ -14,7 +14,6 @@ void switchHandler();
 void initButtons ();
 
 
-void switchHandler(void);
 void GPIOPortG_Handler(void);
 
 void handlerSW3 ();

@@ -35,8 +35,13 @@ void analogClockDraw(){
 //hh:mm:ss
 void digitalClockDraw(){
 	char time[20];
+	DisableInterrupts();
 	sprintf(time, "%d:%d:%d\n", hours, minutes, seconds);
+//	printf("time ");
+//	printf("%d:%d:%d\n", hours, minutes, seconds);
+//	printf("time end");
  	RIT128x96x4StringDraw(time, 52, 44, color);
+	EnableInterrupts();
 }
 
 
