@@ -457,6 +457,11 @@
               <FileType>1</FileType>
               <FilePath>.\Sound.c</FilePath>
             </File>
+            <File>
+              <FileName>clockmain.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\clockmain.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

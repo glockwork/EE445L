@@ -14,7 +14,9 @@ int SW1 = 0;
 int SW2 = 0;
 
 void PolledButtons_Init(void){
-  SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOG; // activate port G
+  volatile unsigned long delay;
+	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOG; // activate port G
+	delay = 0x01; //just set it do have a delay;
  GPIO_PORTG_PUR_R = 0x78;
   GPIO_PORTG_DIR_R &= ~0x78;  // make PD5-4 in (PD5-4 buttons)
   GPIO_PORTG_DEN_R |= 0x78;   // enable digital I/O on PD5-4
