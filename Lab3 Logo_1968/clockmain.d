@@ -11,3 +11,4 @@
 .\clockmain.o: sound.h
 .\clockmain.o: pll.h
 .\clockmain.o: pwm.h
+.\clockmain.o: OLEDdraw.h

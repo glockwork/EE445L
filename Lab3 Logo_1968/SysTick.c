@@ -66,6 +66,7 @@
 #include "Globals.h"
 #include "helper.h"
 #include "systick.h"
+#include "RIT128x96x4.h"
 
 volatile unsigned long Counts;
 unsigned int alarmPlayTime = 0;
@@ -139,6 +140,8 @@ void Timer0A_Handler(void){
 	}
 	
 	if (inacTimer == 10){
+		RIT128x96x4Clear();
+		RIT128x96x4_ClearImage();
 		if(displayMode == 1){
 			displayMode = 0;
 			if (setMode==0){ // for time set

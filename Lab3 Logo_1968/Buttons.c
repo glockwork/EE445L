@@ -80,11 +80,17 @@ void handlerSW3 ()
 	{
 		//go to display time set mode
 			displayMode = 1;
-			setMode = 0;
+			if(timeMode <= 1)
+				setMode = 1;
+			else if(timeMode ==3)
+				setMode = 2;
 			inacTimer = 0;
 			hours24_temp = hours24;
 			minutes_temp = minutes;
 			seconds_temp = seconds;
+		RIT128x96x4Clear(); 
+	  RIT128x96x4_ClearImage(); 
+
 	}
 	else{
 		inacTimer = 0;
@@ -100,6 +106,7 @@ void handlerSW3 ()
 //handler for SW4 (bottom button)
 // decrements hours in set mode
 // turns alarm on/off when in display mode
+// in countdown mode, starts countdown
 void handlerSW4 ()
 {
 //	printf("bottom");
@@ -109,6 +116,8 @@ void handlerSW4 ()
 		
 		if (soundPlaying)
 			stopSound();
+		if (timeMode ==3)
+			countStart = 1;
 		
 		//if sound is not playing, then toggle alarm on/off
 		//TODO
@@ -137,11 +146,15 @@ void handlerSW5 ()
 			displayMode = 1;
 			if(timeMode <= 1)
 				setMode = 1;
-			else if(timeMode ==2)
+			else if(timeMode ==3)
 				setMode = 2;
+			inacTimer = 0;
 			a_hours24_temp = a_hours24;
 			a_minutes_temp = a_minutes;
 			a_seconds_temp = a_seconds;
+			RIT128x96x4_ClearImage(); 
+	  RIT128x96x4Clear(); 
+
 	}
 	else{ //setting time or alarm
 		inacTimer = 0;
@@ -166,7 +179,7 @@ void handlerSW6 ()
 		//go to digital clock mode
 		timeMode = (timeMode+1)%4;
 		RIT128x96x4Clear();
-
+	  RIT128x96x4_ClearImage(); 
 	}
 	else{ //setting time or alarm
 		inacTimer = 0;

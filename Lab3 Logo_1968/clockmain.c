@@ -88,7 +88,7 @@ int inacTimer =0;
 //setMode = 2 for countdown
 
 int displayMode =0;
-int timeMode = 0;
+int timeMode = 3;
 int setMode = 0;
 
 void displayClock();
@@ -134,6 +134,7 @@ void displayClock(){
 		char debugmode[20];
 		switch(timeMode){
 		case 0:
+			debugmode[0] = 0;
 			break;
 		case 1:
 			sprintf(debugmode, "Digital Time");
@@ -163,8 +164,23 @@ void displayClock(){
 }
 
 void displaySet(){
+		char debugmode[20];
+		switch(setMode){
+		case 0:
+			sprintf(debugmode, "Set Time");
+			break;
+		case 1:
+			sprintf(debugmode, "Set Alarm");
+			break;
+		case 2:
+			sprintf(debugmode, "Set Timer");
+			break;
+		}
+		RIT128x96x4StringDraw(debugmode, 10, 10, 15);
 			if (setMode ==0) //set time
 				drawDigitalValue(hours24_temp, minutes_temp, seconds_temp);
-			else //set alarm
+			else if (setMode ==1) //set alarm
 				drawDigitalValue(a_hours24_temp, a_minutes_temp, a_seconds_temp);	
+			else if (setMode ==2)
+				drawDigitalValue(0, countMin_temp, countSec_temp);		
 }
