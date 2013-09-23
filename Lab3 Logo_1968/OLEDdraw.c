@@ -18,7 +18,6 @@ void analogClockDraw(){
 	int x_h = (int)(coslut[hours*5]*hourRadius + 64);
 	int y_h = (int)(sinlut[hours*5]*hourRadius + 48);
 	
-	DisableInterrupts();
 	RIT128x96x4_ClearImage();
 	drawCircle(64, 48, 45);
 	//RIT128x96x4_BMP(0, 96, clockface);
@@ -29,7 +28,6 @@ void analogClockDraw(){
 	RIT128x96x4_Line(64, 48, x_m, y_m, color);
 	RIT128x96x4_Line(64, 48, x_h, y_h, color);
 	RIT128x96x4_ShowImage();
-	EnableInterrupts();
 }
 
 //hh:mm:ss

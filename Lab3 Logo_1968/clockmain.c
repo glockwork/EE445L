@@ -8,6 +8,7 @@
 #include "globals.h"
 #include "helper.h"
 #include "sound.h"
+#include "pll.h"
 
 // which delays 3*ulCount cycles
 #ifdef __TI_COMPILER_VERSION__
@@ -76,11 +77,10 @@ void displaySet();
 
 int main(){
 	int i = 0;
+	PLL_Init();
 	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | 
 	SYSCTL_XTAL_8MHZ); // 50 MHz 
 	
-	for (i = 0; i < 1000; i++){}
-
 	DisableInterrupts();
   SYSCTL_RCGC1_R |= SYSCTL_RCGC1_TIMER0;// activate timer0
   SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOF+SYSCTL_RCGC2_GPIOG; // activate ports F and G

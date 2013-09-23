@@ -68,7 +68,7 @@
 
 volatile unsigned long Counts;
 
-int Count = 0;
+int Counta = 0;
 int num;
 unsigned long INTPERIOD;
 #define INTVARIATION 0
@@ -105,15 +105,17 @@ void SysTick_Init(unsigned long period){
 
 void Timer0A_Handler(void){
 	static char periodShift = 1;
-	if (++Count % 50000 != 0) return;
   TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
+	if (++Counta % 1000 != 0) return;
+	Counta = 1;
+
     TIMER0_TAILR_R = INTPERIOD; //TIMER0_TAILR_R + periodShift;
                                     // check upper bound
-//    if(((TIMER0_TAILR_R + periodShift) > (INTPERIOD + INTVARIATION - 1)) ||
-//                                    // check lower bound
-//     ((TIMER0_TAILR_R + periodShift) < (INTPERIOD - INTVARIATION - 1))){
-//      periodShift = -periodShift; // start counting in other direction
-//    }
+    if(((TIMER0_TAILR_R + periodShift) > (INTPERIOD + INTVARIATION - 1)) ||
+                                    // check lower bound
+     ((TIMER0_TAILR_R + periodShift) < (INTPERIOD - INTVARIATION - 1))){
+      periodShift = -periodShift; // start counting in other direction
+    }
 	ringAlarms = 0;
 	//incrementing time
 	if (seconds == 59){
@@ -135,7 +137,7 @@ void Timer0A_Handler(void){
 //}
 void SysTick_InitSeconds(unsigned long seconds){
 	//SysTick_Init(50000000*seconds);
-	SysTick_Init(10000);
+	SysTick_Init(50000);
 }
 
 // Time delay using busy wait.

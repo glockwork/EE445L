@@ -9,3 +9,4 @@
 .\clockmain.o: globals.h
 .\clockmain.o: helper.h
 .\clockmain.o: sound.h
+.\clockmain.o: pll.h
