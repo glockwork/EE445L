@@ -17,7 +17,7 @@ void analogClockDraw(){
 	int y_m = (int)(sinlut[minutes]*miniteRadius + 48);
 	int x_h = (int)(coslut[hours*5 + minutes/12]*hourRadius + 64);
 	int y_h = (int)(sinlut[hours*5 + minutes/12]*hourRadius + 48);
-	
+		
 	RIT128x96x4_ClearImage();
 	drawCircle(64, 48, 45);
 	
@@ -34,6 +34,12 @@ void digitalClockDraw(){
 	char time[20];	
 	sprintf(time, "%02d:%02d:%02d\n", hours, minutes, seconds);
  	RIT128x96x4StringDraw(time, 52, 44, color);
+}
+
+void timerDraw(){
+}
+
+void countdownDraw(){
 }
 
 

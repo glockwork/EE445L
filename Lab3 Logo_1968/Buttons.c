@@ -26,78 +26,9 @@ void PolledButtons_Init(void){
   NVIC_PRI0_R = (NVIC_PRI0_R&0x00FFFFFF)|0x40000000; // bits 29-31
   NVIC_EN0_R |= 0x80000000;// enable interrupt 3 in NVIC
 }
-//void GPIOPortG_Handler(void){
-//  if(GPIO_PORTG_RIS_R&0x10){  // poll PD4
-//    GPIO_PORTG_ICR_R = 0x10;  // acknowledge flag4
-//    SW1 = 1;                  // signal SW1 occurred
-//  }
-//  if(GPIO_PORTG_RIS_R&0x20){  // poll PD5
-//    GPIO_PORTG_ICR_R = 0x20;  // acknowledge flag5
-//    SW2 = 1;                  // signal SW2 occurred
-//  }
-//}
 
 unsigned long oldPressTime;
 
-
-//void initButtons (){
-//	//TODO
-//	oldPressTime = 0;
-//	GPIO_PORTG_PUR_R = 0x78;
-//	GPIO_PORTG_DIR_R &=~ 0x78;
-//	GPIO_PORTF_DEN_R |= 0x78;
-//	GPIO_PORTG_IS_R &= ~0x78;
-//  GPIO_PORTG_IBE_R &= ~0x78;
-//	GPIO_PORTG_IEV_R &= ~0x78;
-//	GPIO_PORTG_ICR_R &= 0x78;
-//	GPIO_PORTG_IM_R &= 0x78;
-
-//	GPIODirModeSet(GPIO_PORTG_BASE, 0x78, GPIO_DIR_MODE_HW);
-//	GPIOPinIntEnable(GPIO_PORTG_BASE, 0x78);
-//	GPIOIntTypeSet(GPIO_PORTG_BASE, 0x78,GPIO_FALLING_EDGE);
-//	GPIOPortIntRegister(GPIO_PORTG_BASE, &switchHandler);
-
-//}
-//int hours24 =0;
-//int minutes =0;
-//int seconds =0;
-
-
-//int a_hours24 =0;
-//int a_minutes =0;
-//int a_seconds =0;
-
-//int hours24_temp =0;
-//int minutes_temp =0;
-//int seconds_temp =0;
-
-
-//int a_hours24_temp =0;
-//int a_minutes_temp =0;
-//int a_seconds_temp =0;
-
-//int ringAlarms = 0;
-
-////inactivity timer
-//int inacTimer =0;
-//int displayMode =0;
-//int timeMode = 0;
-//int setMode = 0;
-
-//void main(void){
-//	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | 
-//	SYSCTL_XTAL_8MHZ); // 50 MHz 
-//	DisableInterrupts();
-//	Output_Init(); 
-//	displayMode = 0;
-//	ringAlarms = 0;
-//	timeMode = 1;
-//	printf("here");
-//	PolledButtons_Init();
-//	EnableInterrupts();
-////	initButtons();
-//	while(1);
-//}
 
 int count = 0;
 volatile unsigned long pressTime = 0;
@@ -139,10 +70,10 @@ void GPIOPortG_Handler(void){
 //	printf("%x", values);
 }
 
+
 //handler for SW3 (top button)
 // increments hours in set mode
 // goes to setTime in display mode
-
 void handlerSW3 ()
 {
 	if (displayMode ==0) //currently displaying time 
@@ -163,10 +94,10 @@ void handlerSW3 ()
 			a_hours24_temp = incrementHours(a_hours24_temp);
 	}
 }
+
 //handler for SW4 (bottom button)
 // decrements hours in set mode
 // turns alarm on/off when in display mode
-
 void handlerSW4 ()
 {
 //	printf("bottom");
@@ -193,7 +124,6 @@ void handlerSW4 ()
 //handler for SW5 (left button)
 // decrements minutes in set mode
 // go to set alarm when in display mode
-
 void handlerSW5 ()
 {
 	//printf("left");
@@ -216,17 +146,31 @@ void handlerSW5 ()
 		}
 }
 
-//handler for SW5 (left button)
+//handler for SW6 (right button)
 // decrements minutes in set mode
 // go to set alarm when in display mode
-
 void handlerSW6 ()
 {
 	//printf("right");
 	if (displayMode ==0) //displaying time 
 	{
 		//go to digital clock mode
-		timeMode = 1;
+		timeMode = (timeMode+1)%4;
+		
+		switch(timeMode){
+		case 0:
+			printf("Analog Mode");
+			break;
+		case 1:
+			printf("Digital Mode");
+			break;
+		case 2:
+			printf("Timer Mode");
+			break;
+		case 3:
+			printf("Countdown Mode");
+			break;
+		}
 	}
 	else{ //setting time or alarm
 		if (setMode == 0) //set time
