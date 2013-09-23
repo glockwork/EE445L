@@ -39,13 +39,13 @@ void GPIOPortG_Handler(void){
 	elapsedTime = (pressTime - oldPressTime)&0x00FFFFFF;
 	
 //	//button bouncing delay 10ms
-//	if (elapsedTime < 500000){
-//    GPIO_PORTG_ICR_R = 0x40;  // acknowledge flag4
-//    GPIO_PORTG_ICR_R = 0x20;  // acknowledge flag4
-//    GPIO_PORTG_ICR_R = 0x10;  // acknowledge flag4
-//    GPIO_PORTG_ICR_R = 0x08;  // acknowledge flag4
-//		return;
-//	}
+	if (elapsedTime < 500000){
+    GPIO_PORTG_ICR_R = 0x40;  // acknowledge flag4
+    GPIO_PORTG_ICR_R = 0x20;  // acknowledge flag4
+    GPIO_PORTG_ICR_R = 0x10;  // acknowledge flag4
+    GPIO_PORTG_ICR_R = 0x08;  // acknowledge flag4
+		return;
+	}
 	//TODO switch debouncing
 	
 	oldPressTime = pressTime;
