@@ -135,7 +135,10 @@ void handlerSW5 ()
 	{
 		//go to display alarm set mode
 			displayMode = 1;
-			setMode = 1;
+			if(timeMode <= 1)
+				setMode = 1;
+			else if(timeMode ==2)
+				setMode = 2;
 			a_hours24_temp = a_hours24;
 			a_minutes_temp = a_minutes;
 			a_seconds_temp = a_seconds;
