@@ -57,11 +57,15 @@ int a_seconds_temp =0;
 //timer variables
 int timerSec=0;
 int timerMin=0;
+int timerStart = 0;
 
 
 //countdown variables
 int countSec=0;
 int countMin=0;
+int countSec_temp = 0;
+int countMin_temp = 0;
+int countStart = 0;
 
 int ringAlarms = 0;
 
@@ -80,6 +84,7 @@ int inacTimer =0;
 
 //setMode = 0 for time
 //setMode = 1 for alarm
+//setMode = 2 for countdown
 
 int displayMode =0;
 int timeMode = 0;
@@ -107,16 +112,16 @@ int main(){
 	while(1){
 		if (ringAlarms)
 			playSound();
-		else
-			stopSound();
+		//else
+		//	stopSound();
 		if(displayMode==0)
 			displayClock();
 		else if(displayMode==1){
 			//TODO - make this prettier, obviously
 			if (setMode ==0)
-				printf("%d:%d:%d\n", hours24_temp, minutes_temp, seconds_temp);
+				printf("%02d:%02d:%02d\n", hours24_temp, minutes_temp, seconds_temp);
 			else 
-				printf("%d:%d:%d\n", a_hours24_temp, a_minutes_temp, a_seconds_temp);
+				printf("%02d:%02d:%02d\n", a_hours24_temp, a_minutes_temp, a_seconds_temp);
 		}
 	}
 }

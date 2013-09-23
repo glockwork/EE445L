@@ -44,6 +44,8 @@ void SysTick_Wait(unsigned long delay);
 // This assumes 50 MHz system clock.
 void SysTick_Wait10ms(unsigned long delay);
 
+void timeUpdate();
+
 //systick interrupt handler
 void SysTick_Handler(void);
 
