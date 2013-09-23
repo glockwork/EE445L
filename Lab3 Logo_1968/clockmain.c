@@ -93,7 +93,6 @@ int main(){
 	ringAlarms = 0;
 	timeMode = 0;
 	PWM0_Init(25000, 12500);         // initialize PWM0, 1000 Hz, 50% duty
-	PMW0_Duty(2500);
 		
 	while(1){
 		if (ringAlarms)

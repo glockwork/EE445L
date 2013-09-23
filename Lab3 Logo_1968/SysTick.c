@@ -67,6 +67,7 @@
 #include "helper.h"
 
 volatile unsigned long Counts;
+unsigned int alarmPlayTime = 0;
 
 int Counta = 0;
 int num;
@@ -125,9 +126,14 @@ void Timer0A_Handler(void){
 		minutes = incrementMinutes(minutes); 
 	}
   seconds = incrementMinutes(seconds);
-	
-	if (hours24 == a_hours24 && minutes == a_minutes && seconds == a_seconds)
+	alarmPlayTime ++ ;
+	if (alarmPlayTime == 5) //play alarm for 5 seconds
+		ringAlarms = 0;
+	if (hours24 == a_hours24 && minutes == a_minutes && seconds == a_seconds){
+		alarmPlayTime = 0;
 		ringAlarms = 1;	
+	}
+	
 	if (inacTimer == 10){
 		displayMode = 0;
 		if (setMode==0){
