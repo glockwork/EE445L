@@ -105,7 +105,7 @@ void SysTick_Init(unsigned long period){
 
 void Timer0A_Handler(void){
 	static char periodShift = 1;
-	if (++Count % 5000000 != 0) return;
+	if (++Count % 50000 != 0) return;
   TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
     TIMER0_TAILR_R = INTPERIOD; //TIMER0_TAILR_R + periodShift;
                                     // check upper bound

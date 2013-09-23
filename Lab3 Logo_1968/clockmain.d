@@ -8,5 +8,4 @@
 .\clockmain.o: SysTick.h
 .\clockmain.o: globals.h
 .\clockmain.o: helper.h
-.\clockmain.o: OLEDdraw.h
 .\clockmain.o: sound.h

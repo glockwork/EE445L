@@ -7,7 +7,6 @@
 #include "SysTick.h"
 #include "globals.h"
 #include "helper.h"
-#include "OLEDdraw.h"
 #include "sound.h"
 
 // which delays 3*ulCount cycles
@@ -30,6 +29,7 @@
 	}
 
 #endif
+
 
 void timerHandler();	
 	
@@ -91,7 +91,6 @@ int main(){
 	displayMode = 0;
 	ringAlarms = 0;
 	timeMode = 0;
-
 		
 	while(1){
 		if (ringAlarms)
