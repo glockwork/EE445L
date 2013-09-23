@@ -65,6 +65,7 @@
 #include "Output.h"
 #include "Globals.h"
 #include "helper.h"
+#include "systick.h"
 
 volatile unsigned long Counts;
 unsigned int alarmPlayTime = 0;
@@ -91,6 +92,7 @@ void SysTick_Init(unsigned long period){
   NVIC_EN0_R |= NVIC_EN0_INT19;    // enable interrupt 19 in NVIC
   TIMER0_ICR_R = TIMER_ICR_TATOCINT;// clear timer0A timeout flag
   TIMER0_CTL_R |= TIMER_CTL_TAEN;  // enable timer0A 16-b, periodic, interrupts
+	ringAlarms = 0;
   EnableInterrupts();
 	
 //	NVIC_ST_CTRL_R = 0;                   // disable SysTick during setup
@@ -118,14 +120,9 @@ void Timer0A_Handler(void){
      ((TIMER0_TAILR_R + periodShift) < (INTPERIOD - INTVARIATION - 1))){
       periodShift = -periodShift; // start counting in other direction
     }
-	ringAlarms = 0;
-	//incrementing time
-	if (seconds == 59){
-		if (minutes == 59)
-			hours24 = incrementHours(hours24);
-		minutes = incrementMinutes(minutes); 
-	}
-  seconds = incrementMinutes(seconds);
+		
+	timeUpdate(); //incrementing time
+
 	alarmPlayTime ++ ;
 	if (alarmPlayTime == 5){ //play alarm for 5 seconds
 		ringAlarms = 0;
@@ -135,29 +132,50 @@ void Timer0A_Handler(void){
 		ringAlarms = 1;	
 	}
 	
+	if (countSec == 0 && countMin == 0 && countStart == 1){
+		alarmPlayTime = 0;
+		ringAlarms = 1;
+		countStart = 0;
+	}
+	
 	if (inacTimer == 10){
 		if(displayMode == 1){
 			displayMode = 0;
-			if (setMode==0){
+			if (setMode==0){ // for time set
 				hours24 = hours24_temp;
 				minutes = minutes_temp;
 				seconds = seconds_temp;
 			}
-			else {
+			else if(setMode ==1) { //for alarm
 				a_hours24 = a_hours24_temp;
 				a_minutes = a_minutes_temp;
 				a_seconds = a_seconds_temp;
 			}
+			else if(setMode ==2) { // for countdown
+				countSec = countSec_temp;
+				countMin = countMin_temp;
+			}
 		}
+	}
 }
-//  num++;
-//	printf("%d\n", num);
-  }
 
-
-//void SysTick_Handler(void){
-
-//}
+void timeUpdate(){
+	if (seconds == 59){
+		if (minutes == 59)
+			hours24 = incrementHours(hours24);
+		
+		minutes = incrementMinutes(minutes); 
+	}
+	seconds = incrementMinutes(seconds);
+		
+	if(timeMode == 3 && countStart == 1){ //if in countdown mode we need to count down
+		if(countSec == 0){
+				countMin = (countMin + 59) % 60;
+		}
+		countSec = (countSec + 59) % 60;
+	}
+}
+	
 void SysTick_InitSeconds(unsigned long seconds){
 	SysTick_Init(50000);
 }

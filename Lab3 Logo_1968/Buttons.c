@@ -90,8 +90,10 @@ void handlerSW3 ()
 		inacTimer = 0;
 		if (setMode == 0) //set time
 			hours24_temp = incrementHours(hours24_temp);
-		else //set alarm
+		else if(setMode ==1)//set alarm
 			a_hours24_temp = incrementHours(a_hours24_temp);
+		else if(setMode ==2)
+			countMin_temp = incrementMinutes(countMin);
 	}
 }
 
@@ -116,8 +118,10 @@ void handlerSW4 ()
 
 		if (setMode == 0) //set time
 			hours24_temp = decrementHours(hours24_temp);
-		else //set alarm
+		else if(setMode ==1) //set alarm
 			a_hours24_temp = decrementHours(a_hours24_temp); 
+		else if(setMode ==2) //set countdown
+			countMin_temp = decrementMinutes(countMin);
 	}
 }
 
@@ -140,10 +144,12 @@ void handlerSW5 ()
 		inacTimer = 0;
 		if (setMode == 0) //set time
 				minutes_temp = decrementMinutes(minutes_temp);
-		else //set alarm
+		else if(setMode==1) //set alarm
 				a_minutes_temp = decrementMinutes(a_minutes_temp);
+		else if(setMode==2)
+				countSec_temp = decrementMinutes(countSec);
 			
-		}
+	}
 }
 
 //handler for SW6 (right button)
@@ -151,32 +157,39 @@ void handlerSW5 ()
 // go to set alarm when in display mode
 void handlerSW6 ()
 {
+	char debugmode[20];
 	//printf("right");
 	if (displayMode ==0) //displaying time 
 	{
 		//go to digital clock mode
 		timeMode = (timeMode+1)%4;
+		RIT128x96x4Clear();
 		
 		switch(timeMode){
 		case 0:
-			printf("Analog Mode");
+			sprintf(debugmode, "Analog Mode");
 			break;
 		case 1:
-			printf("Digital Mode");
+			sprintf(debugmode, "Digital Mode");
 			break;
 		case 2:
-			printf("Timer Mode");
+			sprintf(debugmode, "Timer Mode");
 			break;
 		case 3:
-			printf("Countdown Mode");
+			sprintf(debugmode, "Countdown Mode");
 			break;
 		}
+		
+		RIT128x96x4StringDraw(debugmode, 10, 10, 15);
 	}
 	else{ //setting time or alarm
 		if (setMode == 0) //set time
 				minutes_temp = incrementMinutes(minutes_temp);
-		else //set alarm
+		else if(setMode ==1)//set alarm
 				a_minutes_temp = incrementMinutes(a_minutes_temp);
+		else if(setMode ==2)
+				countSec_temp = incrementMinutes(countSec);
+		
 			
 		}
 }

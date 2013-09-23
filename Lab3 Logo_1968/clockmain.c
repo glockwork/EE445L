@@ -57,11 +57,15 @@ int a_seconds_temp =0;
 //timer variables
 int timerSec=0;
 int timerMin=0;
+int timerStart = 0;
 
 
 //countdown variables
 int countSec=0;
 int countMin=0;
+int countSec_temp = 0;
+int countMin_temp = 0;
+int countStart = 0;
 
 int ringAlarms = 0;
 
@@ -80,6 +84,7 @@ int inacTimer =0;
 
 //setMode = 0 for time
 //setMode = 1 for alarm
+//setMode = 2 for countdown
 
 int displayMode =0;
 int timeMode = 0;

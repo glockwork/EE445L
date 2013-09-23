@@ -40,6 +40,9 @@ void timerDraw(){
 }
 
 void countdownDraw(){
+	char time[20];	
+	sprintf(time, "%02d:%02d\n", countMin, countSec);
+ 	RIT128x96x4StringDraw(time, 52, 44, color);
 }
 
 

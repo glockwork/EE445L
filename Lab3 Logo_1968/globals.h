@@ -55,11 +55,15 @@ extern int setMode;
 //timer variables
 extern int timerSec;
 extern int timerMin;
+extern int timerStart;
 
 
 //countdown variables
 extern int countSec;
 extern int countMin;
+extern int countSec_temp;
+extern int countMin_temp;
+extern int countStart;
 
 
 
