@@ -107,8 +107,8 @@ int main(){
 	while(1){
 		if (ringAlarms)
 			playSound();
-		else
-			stopSound();
+		//else
+		//	stopSound();
 		if(displayMode==0)
 			displayClock();
 		else if(displayMode==1){
