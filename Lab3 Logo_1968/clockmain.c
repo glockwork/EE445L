@@ -9,6 +9,7 @@
 #include "helper.h"
 #include "sound.h"
 #include "pll.h"
+#include "pwm.h"
 
 // which delays 3*ulCount cycles
 #ifdef __TI_COMPILER_VERSION__
@@ -80,7 +81,7 @@ int main(){
 	PLL_Init();
 	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | 
 	SYSCTL_XTAL_8MHZ); // 50 MHz 
-	
+
 	DisableInterrupts();
   SYSCTL_RCGC1_R |= SYSCTL_RCGC1_TIMER0;// activate timer0
   SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOF+SYSCTL_RCGC2_GPIOG; // activate ports F and G
@@ -91,6 +92,8 @@ int main(){
 	displayMode = 0;
 	ringAlarms = 0;
 	timeMode = 0;
+	PWM0_Init(25000, 12500);         // initialize PWM0, 1000 Hz, 50% duty
+	PMW0_Duty(2500);
 		
 	while(1){
 		if (ringAlarms)
@@ -98,8 +101,11 @@ int main(){
 		if(displayMode==0)
 			displayClock();
 		else if(displayMode==1){
-			printf("%d:%d:%d\n", hours24_temp, minutes_temp, seconds_temp);
-			//TODO write some sort of time choosing mechanism
+			//TODO - make this prettier, obviously
+			if (setMode ==0)
+				printf("%d:%d:%d\n", hours24_temp, minutes_temp, seconds_temp);
+			else 
+				printf("%d:%d:%d\n", a_hours24_temp, a_minutes_temp, a_seconds_temp);
 		}
 	}
 }

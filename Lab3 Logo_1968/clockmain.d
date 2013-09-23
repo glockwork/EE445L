@@ -10,3 +10,4 @@
 .\clockmain.o: helper.h
 .\clockmain.o: sound.h
 .\clockmain.o: pll.h
+.\clockmain.o: pwm.h
