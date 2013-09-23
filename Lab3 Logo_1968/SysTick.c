@@ -128,8 +128,19 @@ void Timer0A_Handler(void){
 	
 	if (hours24 == a_hours24 && minutes == a_minutes && seconds == a_seconds)
 		ringAlarms = 1;	
-	if (inacTimer == 10)
+	if (inacTimer == 10){
 		displayMode = 0;
+		if (setMode==0){
+			hours24 = hours24_temp;
+			minutes = minutes_temp;
+			seconds = seconds_temp;
+		}
+		else {
+			a_hours24 = a_hours24_temp;
+			a_minutes = a_minutes_temp;
+			a_seconds = a_seconds_temp;
+		}
+}
 //  num++;
 //	printf("%d\n", num);
   }

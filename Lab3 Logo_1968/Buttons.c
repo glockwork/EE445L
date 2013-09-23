@@ -151,6 +151,9 @@ void handlerSW3 ()
 			displayMode = 1;
 			setMode = 0;
 			inacTimer = 0;
+			hours24_temp = hours24;
+			minutes_temp = minutes;
+			seconds_temp = seconds;
 	}
 	else{
 		inacTimer = 0;
@@ -222,14 +225,17 @@ void handlerSW6 ()
 		//go to display alarm set mode
 			displayMode = 1;
 			setMode = 1;
+			a_hours24_temp = a_hours24;
+			a_minutes_temp = a_minutes;
+			a_seconds_temp = a_seconds;
 	}
 	else{ //setting time or alarm
 				inacTimer = 0;
 
 		if (setMode == 0) //set time
-				minutes_temp = decrementMinutes(minutes_temp);
+				minutes_temp = incrementMinutes(minutes_temp);
 		else //set alarm
-				a_minutes_temp = decrementMinutes(a_minutes_temp);
+				a_minutes_temp = incrementMinutes(a_minutes_temp);
 			
 		}
 }
