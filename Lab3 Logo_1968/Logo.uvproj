@@ -458,6 +458,11 @@
               <FilePath>.\Sound.c</FilePath>
             </File>
             <File>
+              <FileName>PWM.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\PWM.c</FilePath>
+            </File>
+            <File>
               <FileName>clockmain.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\clockmain.c</FilePath>

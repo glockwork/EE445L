@@ -65,6 +65,7 @@ void PWM0_Init(unsigned short period, unsigned short duty){
   PWM_0_CTL_R |= PWM_X_CTL_ENABLE; // 7) start PWM0
   PWM_ENABLE_R |= PWM_ENABLE_PWM0EN;    // enable PWM0
 }
+
 // change duty cycle
 // duty is number of PWM clock cycles output is high  (2<=duty<=period-1)
 void PWM0_Duty(unsigned short duty){
