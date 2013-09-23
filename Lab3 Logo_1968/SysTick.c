@@ -128,7 +128,7 @@ void Timer0A_Handler(void){
 	if (alarmPlayTime == 5){ //play alarm for 5 seconds
 		ringAlarms = 0;
 	}
-	if (hours24 == a_hours24 && minutes == a_minutes && seconds == a_seconds){
+	if (alarmActive && (hours24 == a_hours24 && minutes == a_minutes && seconds == a_seconds)){
 		alarmPlayTime = 0;
 		ringAlarms = 1;	
 	}

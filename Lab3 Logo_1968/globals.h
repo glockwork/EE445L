@@ -29,6 +29,7 @@ extern int inacTimer;
 //ring alarms
 extern int ringAlarms;
 extern unsigned int alarmPlayTime;
+extern int alarmActive;
 
 //is sound playing currently
 extern unsigned int soundPlaying;

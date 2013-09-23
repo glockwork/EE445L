@@ -33,6 +33,14 @@ void analogClockDraw(){
 	RIT128x96x4_Line(64, 48, x_m, y_m, color);
 	RIT128x96x4_Line(64, 48, x_h, y_h, color);
 	RIT128x96x4_ShowImage();
+	RIT128x96x4StringDraw((hours24>=12)?"PM":"AM", 100, 70, color);
+	RIT128x96x4StringDraw((alarmActive)?"Alarm: On":"Alarm: Off", 20, 70, color);
+
+	RIT128x96x4StringDraw("12", 20, 44, color);
+	RIT128x96x4StringDraw("3", 90, 48, color);
+	RIT128x96x4StringDraw("9", 38, 48, color);
+	RIT128x96x4StringDraw("6", 90, 44, color);
+
 }
 
 //hh:mm:ss
@@ -52,7 +60,7 @@ void timerDraw(){
 void countdownDraw(){
 	char time[20];	
 	sprintf(time, "%02d:%02d\n", countMin, countSec);
- 	RIT128x96x4StringDraw(time, 52, 44, color);
+ 	RIT128x96x4StringDraw(time, 45, 44, color);
 }
 
 

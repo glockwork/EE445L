@@ -120,7 +120,9 @@ void handlerSW4 ()
 			countStart = 1;
 		
 		//if sound is not playing, then toggle alarm on/off
-		//TODO
+		alarmActive ^= 1;
+		if (alarmActive == 0)
+			ringAlarms = 0;
 	}
 	else{ //setting time or alarm
 				inacTimer = 0;

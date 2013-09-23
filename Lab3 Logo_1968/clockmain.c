@@ -69,6 +69,7 @@ int countMin_temp = 0;
 int countStart = 0;
 
 int ringAlarms = 0;
+int alarmActive = 0;
 
 //inactivity timer
 int inacTimer =0;
@@ -111,9 +112,9 @@ int main(){
 	timeMode = 0;
 		
 	while(1){
-		if (ringAlarms && !soundPlaying)
+		if (ringAlarms && !soundPlaying && alarmActive)
 			playSound();
-		else if (ringAlarms==0 && soundPlaying)
+		else if ((ringAlarms==0 && soundPlaying) || !alarmActive)
 			stopSound();
 		if(displayMode==0)
 			displayClock();
@@ -181,6 +182,10 @@ void displaySet(){
 				drawDigitalValue(hours24_temp, minutes_temp, seconds_temp);
 			else if (setMode ==1) //set alarm
 				drawDigitalValue(a_hours24_temp, a_minutes_temp, a_seconds_temp);	
-			else if (setMode ==2)
-				drawDigitalValue(0, countMin_temp, countSec_temp);		
+			else if (setMode ==2) // set time
+			{
+					char time[20];	
+					sprintf(time, "%02d:%02d\n", countMin_temp, countSec_temp);
+					RIT128x96x4StringDraw(time, 52, 44, 15);
+			}
 }
