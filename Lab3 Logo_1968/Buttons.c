@@ -157,30 +157,13 @@ void handlerSW5 ()
 // go to set alarm when in display mode
 void handlerSW6 ()
 {
-	char debugmode[20];
 	//printf("right");
 	if (displayMode ==0) //displaying time 
 	{
 		//go to digital clock mode
 		timeMode = (timeMode+1)%4;
 		RIT128x96x4Clear();
-		
-		switch(timeMode){
-		case 0:
-			sprintf(debugmode, "Analog Mode");
-			break;
-		case 1:
-			sprintf(debugmode, "Digital Mode");
-			break;
-		case 2:
-			sprintf(debugmode, "Timer Mode");
-			break;
-		case 3:
-			sprintf(debugmode, "Countdown Mode");
-			break;
-		}
-		
-		RIT128x96x4StringDraw(debugmode, 10, 10, 15);
+
 	}
 	else{ //setting time or alarm
 		inacTimer = 0;

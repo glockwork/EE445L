@@ -117,14 +117,11 @@ int main(){
 		if(displayMode==0)
 			displayClock();
 		else if(displayMode==1){
-			//TODO - make this prettier, obviously
-			if (setMode ==0)
-				printf("%02d:%02d:%02d\n", hours24_temp, minutes_temp, seconds_temp);
-			else 
-				printf("%02d:%02d:%02d\n", a_hours24_temp, a_minutes_temp, a_seconds_temp);
+			displaySet();
 		}
 	}
 }
+
 
 void displayClock(){
 /*	if(timeMode==0){
@@ -133,6 +130,21 @@ void displayClock(){
 			else if(timeMode==1){
 					digitalClockDraw();
 			}*/
+		char debugmode[20];
+		switch(timeMode){
+		case 0:
+			break;
+		case 1:
+			sprintf(debugmode, "Digital Time");
+			break;
+		case 2:
+			sprintf(debugmode, "Stopwatch");
+			break;
+		case 3:
+			sprintf(debugmode, "Countdown Mode");
+			break;
+		}
+		RIT128x96x4StringDraw(debugmode, 10, 10, 15);
 	switch(timeMode){
 		case 0:
 			analogClockDraw();
@@ -150,29 +162,10 @@ void displayClock(){
 }
 
 void displaySet(){
+				//TODO - make this prettier, obviously
+			if (setMode ==0)
+				printf("%02d:%02d:%02d\n", hours24_temp, minutes_temp, seconds_temp);
+			else 
+				printf("%02d:%02d:%02d\n", a_hours24_temp, a_minutes_temp, a_seconds_temp);
 	
-	while(inacTimer < 10){
-	
-		//TODO
-		//display some sort of header (setting time or alarm)
-		//display the time currently setting
-
-	}
-	if (setMode ==0) // set time
-	{
-		hours24 = hours24_temp;
-		minutes = minutes_temp;
-		seconds = seconds_temp;
-	}
-	else if (setMode ==1) //set alarm
-	{
-		a_hours24 = a_hours24_temp;
-		a_minutes = a_minutes_temp;
-		a_seconds = a_seconds_temp;
-	}
-		
-}
-
-void timerHandler(){
-
 }
