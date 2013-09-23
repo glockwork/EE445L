@@ -98,6 +98,7 @@ int main(){
 		if(displayMode==0)
 			displayClock();
 		else if(displayMode==1){
+			printf("%d:%d:%d\n", hours24_temp, minutes_temp, seconds_temp);
 			//TODO write some sort of time choosing mechanism
 		}
 	}

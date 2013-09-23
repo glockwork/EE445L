@@ -9,10 +9,7 @@
 #include "sound.h"
 #include "Output.h"
 #include "Buttons.h"
-
-int SW1 = 0;
-int SW2 = 0;
-
+#include "SysTick.h"
 void PolledButtons_Init(void){
   volatile unsigned long delay;
 	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOG; // activate port G
@@ -103,19 +100,24 @@ unsigned long oldPressTime;
 //}
 
 int count = 0;
-void GPIOPortG_Handler(void){
-	unsigned long pressTime = NVIC_ST_CURRENT_R;
-	unsigned long elapsedTime = (oldPressTime-pressTime)&0x00FFFFFF;
-		printf("handler");
+volatile unsigned long pressTime = 0;
+volatile unsigned long elapsedTime = 0;
 
+void GPIOPortG_Handler(void){
+	pressTime = NVIC_ST_CURRENT_R;
+	elapsedTime = (pressTime - oldPressTime)&0x00FFFFFF;
+	
+//	//button bouncing delay 10ms
+//	if (elapsedTime < 500000){
+//    GPIO_PORTG_ICR_R = 0x40;  // acknowledge flag4
+//    GPIO_PORTG_ICR_R = 0x20;  // acknowledge flag4
+//    GPIO_PORTG_ICR_R = 0x10;  // acknowledge flag4
+//    GPIO_PORTG_ICR_R = 0x08;  // acknowledge flag4
+//		return;
+//	}
+	//TODO switch debouncing
+	
 	oldPressTime = pressTime;
-	if (elapsedTime < 500000){
-    GPIO_PORTG_ICR_R = 0x40;  // acknowledge flag4
-    GPIO_PORTG_ICR_R = 0x20;  // acknowledge flag4
-    GPIO_PORTG_ICR_R = 0x10;  // acknowledge flag4
-    GPIO_PORTG_ICR_R = 0x08;  // acknowledge flag4
-		return; //TODO fix time when figure out SysTick
-	}
 
 	if(GPIO_PORTG_RIS_R&0x40){  // poll PD4
     GPIO_PORTG_ICR_R = 0x40;  // acknowledge flag4
@@ -143,16 +145,15 @@ void GPIOPortG_Handler(void){
 
 void handlerSW3 ()
 {
-	//printf("top");
-	if (displayMode ==0) //displaying time 
+	if (displayMode ==0) //currently displaying time 
 	{
 		//go to display time set mode
 			displayMode = 1;
 			setMode = 0;
+			inacTimer = 0;
 	}
 	else{
-				inacTimer = 0;
-
+		inacTimer = 0;
 		if (setMode == 0) //set time
 			hours24_temp = incrementHours(hours24_temp);
 		else //set alarm

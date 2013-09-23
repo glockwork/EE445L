@@ -108,7 +108,8 @@ void Timer0A_Handler(void){
   TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
 	if (++Counta % 1000 != 0) return;
 	Counta = 1;
-
+	inacTimer++;
+	
     TIMER0_TAILR_R = INTPERIOD; //TIMER0_TAILR_R + periodShift;
                                     // check upper bound
     if(((TIMER0_TAILR_R + periodShift) > (INTPERIOD + INTVARIATION - 1)) ||
@@ -127,6 +128,8 @@ void Timer0A_Handler(void){
 	
 	if (hours24 == a_hours24 && minutes == a_minutes && seconds == a_seconds)
 		ringAlarms = 1;	
+	if (inacTimer == 10)
+		displayMode = 0;
 //  num++;
 //	printf("%d\n", num);
   }
@@ -136,7 +139,6 @@ void Timer0A_Handler(void){
 
 //}
 void SysTick_InitSeconds(unsigned long seconds){
-	//SysTick_Init(50000000*seconds);
 	SysTick_Init(50000);
 }
 
