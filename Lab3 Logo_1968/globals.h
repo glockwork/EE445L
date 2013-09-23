@@ -50,6 +50,19 @@ extern int setMode;
 
 
 
+//additional functionality
+
+//timer variables
+extern int timerSec;
+extern int timerMin;
+
+
+//countdown variables
+extern int countSec;
+extern int countMin;
+
+
+
 
 
 #endif

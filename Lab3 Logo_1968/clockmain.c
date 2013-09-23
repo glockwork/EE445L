@@ -53,6 +53,16 @@ int a_hours24_temp =0;
 int a_minutes_temp =0;
 int a_seconds_temp =0;
 
+
+//timer variables
+int timerSec=0;
+int timerMin=0;
+
+
+//countdown variables
+int countSec=0;
+int countMin=0;
+
 int ringAlarms = 0;
 
 //inactivity timer
@@ -65,6 +75,8 @@ int inacTimer =0;
 
 //timeMode = 0 for analog
 //timeMode = 1 for digital
+//timeMode = 2 for timer
+//timeMode = 3 for countdown
 
 //setMode = 0 for time
 //setMode = 1 for alarm
@@ -110,12 +122,26 @@ int main(){
 }
 
 void displayClock(){
-	if(timeMode==0){
+/*	if(timeMode==0){
 				analogClockDraw();
 			}
 			else if(timeMode==1){
 					digitalClockDraw();
-			}
+			}*/
+	switch(timeMode){
+		case 0:
+			analogClockDraw();
+			break;
+		case 1:
+			digitalClockDraw();
+			break;
+		case 2:
+			timerDraw();
+			break;
+		case 3:
+			countdownDraw();
+			break;
+	}
 }
 
 void displaySet(){

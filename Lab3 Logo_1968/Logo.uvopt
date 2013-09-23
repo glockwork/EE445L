@@ -123,6 +123,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
+          <Name>ÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÈ`é	ºr-œèô7</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -283,10 +284,10 @@
       <FileType>2</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>45</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>169</TopLine>
-      <CurrentLine>172</CurrentLine>
+      <TopLine>115</TopLine>
+      <CurrentLine>186</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\Startup.s</PathWithFileName>
       <FilenameWithoutPath>Startup.s</FilenameWithoutPath>
@@ -301,8 +302,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>582</TopLine>
-      <CurrentLine>583</CurrentLine>
+      <TopLine>392</TopLine>
+      <CurrentLine>348</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\rit128x96x4.c</PathWithFileName>
       <FilenameWithoutPath>rit128x96x4.c</FilenameWithoutPath>
@@ -333,7 +334,7 @@
       <Focus>0</Focus>
       <ColumnNumber>10</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>45</TopLine>
+      <TopLine>44</TopLine>
       <CurrentLine>46</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\PLL.c</PathWithFileName>
@@ -347,10 +348,10 @@
       <FileType>1</FileType>
       <tvExp>1</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>2</ColumnNumber>
+      <ColumnNumber>21</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>114</TopLine>
-      <CurrentLine>132</CurrentLine>
+      <CurrentLine>122</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\SysTick.c</PathWithFileName>
       <FilenameWithoutPath>SysTick.c</FilenameWithoutPath>
@@ -381,7 +382,7 @@
       <Focus>0</Focus>
       <ColumnNumber>6</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>163</TopLine>
+      <TopLine>164</TopLine>
       <CurrentLine>166</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\Output.c</PathWithFileName>
@@ -395,10 +396,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>31</ColumnNumber>
+      <ColumnNumber>29</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>213</TopLine>
-      <CurrentLine>230</CurrentLine>
+      <TopLine>86</TopLine>
+      <CurrentLine>165</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\Buttons.c</PathWithFileName>
       <FilenameWithoutPath>Buttons.c</FilenameWithoutPath>
@@ -443,10 +444,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>35</ColumnNumber>
+      <ColumnNumber>2</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>15</TopLine>
-      <CurrentLine>18</CurrentLine>
+      <TopLine>3</TopLine>
+      <CurrentLine>20</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\OLEDdraw.c</PathWithFileName>
       <FilenameWithoutPath>OLEDdraw.c</FilenameWithoutPath>
@@ -477,7 +478,7 @@
       <Focus>0</Focus>
       <ColumnNumber>21</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>8</TopLine>
+      <TopLine>1</TopLine>
       <CurrentLine>14</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\Sound.c</PathWithFileName>
@@ -493,7 +494,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>46</TopLine>
+      <TopLine>29</TopLine>
       <CurrentLine>68</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\PWM.c</PathWithFileName>
@@ -507,10 +508,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>4</ColumnNumber>
+      <ColumnNumber>9</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>119</TopLine>
-      <CurrentLine>142</CurrentLine>
+      <TopLine>101</TopLine>
+      <CurrentLine>130</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\clockmain.c</PathWithFileName>
       <FilenameWithoutPath>clockmain.c</FilenameWithoutPath>
