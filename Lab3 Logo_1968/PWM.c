@@ -53,7 +53,7 @@ void PWM0_Init(unsigned short period, unsigned short duty){
   SYSCTL_RCGC0_R |= SYSCTL_RCGC0_PWM;   // 1)activate PWM
   SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOG; // 2)activate port G
   delay = SYSCTL_RCGC2_R;          // allow time to finish activating
-  GPIO_PORTG_AFSEL_R |= 0x04;           //  enable alt funct on PG2
+  GPIO_PORTG_AFSEL_R |= 0x04;      	      //  enable alt funct on PG2
   GPIO_PORTG_DEN_R |= 0x04;             //  enable digital I/O on PG2
   SYSCTL_RCC_R |= SYSCTL_RCC_USEPWMDIV; // 3) use PWM divider
   SYSCTL_RCC_R &= ~SYSCTL_RCC_PWMDIV_M; //    clear PWM divider field
@@ -70,4 +70,23 @@ void PWM0_Init(unsigned short period, unsigned short duty){
 // duty is number of PWM clock cycles output is high  (2<=duty<=period-1)
 void PWM0_Duty(unsigned short duty){
   PWM_0_CMPA_R = duty - 1;         // 6) count value when output rises
+}
+
+void PWM_Play(unsigned short period, unsigned short duty){
+  volatile unsigned long delay;
+  SYSCTL_RCGC0_R |= SYSCTL_RCGC0_PWM;   
+  SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOH; 
+  delay = SYSCTL_RCGC2_R;          
+  //GPIO_PORTH_AFSEL_R |= 0x03;         
+    GPIO_PORTH_AFSEL_R |= 0x01;        
+  GPIO_PORTH_DEN_R |= 0x03;             
+  SYSCTL_RCC_R |= SYSCTL_RCC_USEPWMDIV; 
+  SYSCTL_RCC_R &= ~SYSCTL_RCC_PWMDIV_M; 
+  SYSCTL_RCC_R += SYSCTL_RCC_PWMDIV_2;
+  PWM_1_CTL_R = 0;             
+  PWM_1_GENA_R = (PWM_X_GENA_ACTCMPAD_ONE|PWM_X_GENA_ACTLOAD_ZERO);
+  PWM_1_LOAD_R = period - 1;     
+  PWM_1_CMPA_R = duty - 1;
+  PWM_1_CTL_R |= PWM_X_CTL_ENABLE;
+  PWM_ENABLE_R |= PWM_ENABLE_PWM2EN;
 }

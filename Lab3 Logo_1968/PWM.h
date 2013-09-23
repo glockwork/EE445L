@@ -34,3 +34,4 @@ void PWM0_Init(unsigned short period, unsigned short duty);
 // duty is number of PWM clock cycles output is high  (2<=duty<=period-1)
 void PWM0_Duty(unsigned short duty);
 
+void PWM_Play(unsigned short period, unsigned short duty);

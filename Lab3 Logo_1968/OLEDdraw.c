@@ -32,7 +32,7 @@ void analogClockDraw(){
 //hh:mm:ss
 void digitalClockDraw(){
 	char time[20];	
-	sprintf(time, "%02.d:%02.d:%02.d\n", hours, minutes, seconds);
+	sprintf(time, "%02d:%02d:%02d\n", hours, minutes, seconds);
  	RIT128x96x4StringDraw(time, 52, 44, color);
 }
 

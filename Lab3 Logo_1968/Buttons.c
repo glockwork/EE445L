@@ -229,7 +229,6 @@ void handlerSW6 ()
 		timeMode = 1;
 	}
 	else{ //setting time or alarm
-				inacTimer = 0;
 		if (setMode == 0) //set time
 				minutes_temp = incrementMinutes(minutes_temp);
 		else //set alarm
