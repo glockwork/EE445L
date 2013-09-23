@@ -103,11 +103,12 @@ int main(){
 	displayMode = 0;
 	ringAlarms = 0;
 	timeMode = 0;
-  PWM_Play(25000, 12500);
 		
 	while(1){
 		if (ringAlarms)
 			playSound();
+		else
+			stopSound();
 		if(displayMode==0)
 			displayClock();
 		else if(displayMode==1){

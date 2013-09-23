@@ -10,6 +10,7 @@
 #include "helper.h"
 //#include "OLEDdraw.h"
 #include "sound.h"
+#include "pwm.h"
 
 int soundPlaying = 0;
 
@@ -22,13 +23,13 @@ void soundInit(){
 
 void playSound(){
 	soundPlaying = 1;
-	//TODO arm the soundTimerHandler
-		
+	  PWM_Play(25000, 12500);	
 }
 
 void stopSound(){
 	soundPlaying = 0;
-	//TODO unarm soundTimerHandler
+  PWM_0_CTL_R &= ~PWM_X_CTL_ENABLE; // 7) start PWM0
+  PWM_ENABLE_R &= ~PWM_ENABLE_PWM0EN;    // enable PWM0
 }
 
 void soundTimerHandler(){
