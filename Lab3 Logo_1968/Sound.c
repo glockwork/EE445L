@@ -12,24 +12,22 @@
 #include "sound.h"
 #include "pwm.h"
 
-int soundPlaying = 0;
+unsigned int soundPlaying = 0;
 
 void soundInit(){
 	soundPlaying =0 ;
-	//TODO
-	
 }
 
 
 void playSound(){
 	soundPlaying = 1;
-	  PWM_Play(25000, 12500);	
+	PWM_Play(25000, 12500);	
 }
 
 void stopSound(){
 	soundPlaying = 0;
-  PWM_0_CTL_R &= ~PWM_X_CTL_ENABLE; // 7) start PWM0
-  PWM_ENABLE_R &= ~PWM_ENABLE_PWM0EN;    // enable PWM0
+  PWM_1_CTL_R &= ~PWM_X_CTL_ENABLE;
+  PWM_ENABLE_R &= ~PWM_ENABLE_PWM2EN;
 }
 
 void soundTimerHandler(){

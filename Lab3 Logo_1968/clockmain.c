@@ -110,10 +110,10 @@ int main(){
 	timeMode = 0;
 		
 	while(1){
-		if (ringAlarms)
+		if (ringAlarms && !soundPlaying)
 			playSound();
-		//else
-		//	stopSound();
+		else if (ringAlarms==0 && soundPlaying)
+			stopSound();
 		if(displayMode==0)
 			displayClock();
 		else if(displayMode==1){

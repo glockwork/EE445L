@@ -31,7 +31,7 @@ extern int ringAlarms;
 extern unsigned int alarmPlayTime;
 
 //is sound playing currently
-extern int soundPlaying;
+extern unsigned int soundPlaying;
 
 //flags for current mode
 
