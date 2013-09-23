@@ -177,6 +177,13 @@ void timeUpdate(){
 		}
 		countSec = (countSec + 59) % 60;
 	}
+	
+	if(timeMode ==2 && timerStart ==1){
+		if(timerSec == 59) {
+			timerMin = incrementMinutes(timerMin);
+		}
+		timerSec = incrementMinutes(timerSec);
+	}
 }
 	
 void SysTick_InitSeconds(unsigned long seconds){
