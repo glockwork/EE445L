@@ -957,7 +957,12 @@ void RIT128x96x4_Line(int x1, int y1, int x2, int y2, unsigned char color){
 	//x = (y-b)/m
 	//fills in x values based on y
 	for(i = (float)miny; i < maxy; i+=inc){
-		f_x = (int)(i-b)/m;
+		if(x1==x2){
+			f_x=x1;
+		}
+		else{
+			f_x = (int)(i-b)/m;
+		}
 		f_y = (int)i;
 	
 		bufferSet(f_x, f_y, color);

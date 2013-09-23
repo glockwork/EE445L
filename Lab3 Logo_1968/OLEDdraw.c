@@ -15,12 +15,11 @@ void analogClockDraw(){
 	int y_s = (int)(sinlut[seconds]*secondRadius + 48);
 	int x_m = (int)(coslut[minutes]*miniteRadius + 64);
 	int y_m = (int)(sinlut[minutes]*miniteRadius + 48);
-	int x_h = (int)(coslut[hours*5]*hourRadius + 64);
-	int y_h = (int)(sinlut[hours*5]*hourRadius + 48);
+	int x_h = (int)(coslut[hours*5 + minutes/12]*hourRadius + 64);
+	int y_h = (int)(sinlut[hours*5 + minutes/12]*hourRadius + 48);
 	
 	RIT128x96x4_ClearImage();
 	drawCircle(64, 48, 45);
-	//RIT128x96x4_BMP(0, 96, clockface);
 	
 
 	//draws clock hands
@@ -32,14 +31,9 @@ void analogClockDraw(){
 
 //hh:mm:ss
 void digitalClockDraw(){
-	char time[20];
-	DisableInterrupts();
-	sprintf(time, "%d:%d:%d\n", hours, minutes, seconds);
-//	printf("time ");
-//	printf("%d:%d:%d\n", hours, minutes, seconds);
-//	printf("time end");
+	char time[20];	
+	sprintf(time, "%02.d:%02.d:%02.d\n", hours, minutes, seconds);
  	RIT128x96x4StringDraw(time, 52, 44, color);
-	EnableInterrupts();
 }
 
 
