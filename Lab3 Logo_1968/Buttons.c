@@ -118,12 +118,13 @@ void handlerSW4 ()
 		
 		if (soundPlaying)
 			stopSound();
-		if (timeMode ==3)
+		if (timeMode ==3 && (countSec != 0 || countMin !=0)) //countdown. do not start if time is 00
 			countStart ^= 1;
 		if (timeMode ==2)
 			timerStart ^= 1;
 		
 		//if sound is not playing, then toggle alarm on/off
+		
 		alarmActive ^= 1;
 		if (alarmActive == 0)
 			ringAlarms = 0;
@@ -192,8 +193,9 @@ void handlerSW6 ()
 	{
 		//go to digital clock mode
 		timeMode = (timeMode+1)%4;
-		RIT128x96x4Clear();
 	  RIT128x96x4_ClearImage(); 
+		RIT128x96x4Clear();
+
 	}
 	else{ //setting time or alarm
 		inacTimer = 0;

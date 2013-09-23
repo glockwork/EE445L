@@ -137,6 +137,7 @@ void Timer0A_Handler(void){
 		alarmPlayTime = 0;
 		ringAlarms = 1;
 		countStart = 0;
+		alarmActive = 1;
 	}
 	
 	if (inacTimer == 10){
@@ -172,11 +173,14 @@ void timeUpdate(){
 	seconds = incrementMinutes(seconds);
 		
 	if(timeMode == 3 && countStart == 1){ //if in countdown mode we need to count down
+		if (countSec==0 && countMin ==0 ){} 
+		else{
 		if(countSec == 0){
 				countMin = (countMin + 59) % 60;
 		}
 		countSec = (countSec + 59) % 60;
 	}
+}
 	
 	if(timeMode ==2 && timerStart ==1){
 		if(timerSec == 59) {

@@ -114,7 +114,7 @@ int main(){
 	while(1){
 		if (ringAlarms && !soundPlaying && alarmActive)
 			playSound();
-		else if ((ringAlarms==0 && soundPlaying) || !alarmActive)
+		else if ((ringAlarms==0 || !alarmActive) && soundPlaying) 
 			stopSound();
 		if(displayMode==0)
 			displayClock();
@@ -178,14 +178,20 @@ void displaySet(){
 			break;
 		}
 		RIT128x96x4StringDraw(debugmode, 10, 10, 15);
-			if (setMode ==0) //set time
+			if (setMode ==0){ //set time
+				drawInactiveTimer();
 				drawDigitalValue(hours24_temp, minutes_temp, seconds_temp);
-			else if (setMode ==1) //set alarm
+			}
+			else if (setMode ==1){ //set alarm
+				drawInactiveTimer();
 				drawDigitalValue(a_hours24_temp, a_minutes_temp, a_seconds_temp);	
-			else if (setMode ==2) // set time
+			}
+			else if (setMode ==2) // set countdown
 			{
 					char time[20];	
-					sprintf(time, "%02d:%02d\n", countMin_temp, countSec_temp);
-					RIT128x96x4StringDraw(time, 52, 44, 15);
+									drawInactiveTimer();
+
+					sprintf(time, "   %02d:%02d   ", countMin_temp, countSec_temp);
+					RIT128x96x4StringDraw(time, 40, 44, 15);
 			}
 }

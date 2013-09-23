@@ -33,37 +33,45 @@ void analogClockDraw(){
 	RIT128x96x4_Line(64, 48, x_m, y_m, color);
 	RIT128x96x4_Line(64, 48, x_h, y_h, color);
 	RIT128x96x4_ShowImage();
-	RIT128x96x4StringDraw((hours24>=12)?"PM":"AM", 100, 70, color);
-	RIT128x96x4StringDraw((alarmActive)?"Alarm: On":"Alarm: Off", 20, 70, color);
+	RIT128x96x4StringDraw((hours24>=12)?"PM":"AM", 110, 80, color);
+	RIT128x96x4StringDraw("Alarm", 0, 76, color);
+	RIT128x96x4StringDraw((alarmActive)?"On":"Off", 0, 85, color);
 
-	RIT128x96x4StringDraw("12", 20, 44, color);
-	RIT128x96x4StringDraw("3", 90, 48, color);
-	RIT128x96x4StringDraw("9", 38, 48, color);
-	RIT128x96x4StringDraw("6", 90, 44, color);
+	RIT128x96x4StringDraw("12", 58, 5, color);
+	RIT128x96x4StringDraw("3", 100, 48, color);
+	RIT128x96x4StringDraw("9", 23, 48, color);
+	RIT128x96x4StringDraw("6", 62, 80, color);
 
 }
 
 //hh:mm:ss
 void digitalClockDraw(){
-		drawDigitalValue(hours24, minutes, seconds);
+		drawDigitalValue(hours, minutes, seconds);
 }
 
 void drawDigitalValue(unsigned int h, unsigned int m, unsigned int s){
 	char time[20];	
 	sprintf(time, "%02d:%02d:%02d %s\n", h%12, m, s, (h>=12)?"PM":"AM");
- 	RIT128x96x4StringDraw(time, 45, 44, color);
+ 	RIT128x96x4StringDraw(time, 40, 44, color);
 }
+
+void drawInactiveTimer(){
+	char time[20];	
+	sprintf(time, "Returning in...%d  ", 10-inacTimer);
+ 	RIT128x96x4StringDraw(time,  0, 80, color);
+}
+
 
 void timerDraw(){
 	char time[20];	
 	sprintf(time, "%02d:%02d\n", timerMin, timerSec);
- 	RIT128x96x4StringDraw(time, 52, 44, color);
+ 	RIT128x96x4StringDraw(time, 40, 44, color);
 }
 
 void countdownDraw(){
 	char time[20];	
 	sprintf(time, "%02d:%02d\n", countMin, countSec);
- 	RIT128x96x4StringDraw(time, 45, 44, color);
+ 	RIT128x96x4StringDraw(time, 40, 44, color);
 }
 
 
