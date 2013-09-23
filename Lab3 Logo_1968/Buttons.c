@@ -202,6 +202,9 @@ void handlerSW5 ()
 		//go to display alarm set mode
 			displayMode = 1;
 			setMode = 1;
+			a_hours24_temp = a_hours24;
+			a_minutes_temp = a_minutes;
+			a_seconds_temp = a_seconds;
 	}
 	else{ //setting time or alarm
 		inacTimer = 0;
@@ -222,16 +225,11 @@ void handlerSW6 ()
 	//printf("right");
 	if (displayMode ==0) //displaying time 
 	{
-		//go to display alarm set mode
-			displayMode = 1;
-			setMode = 1;
-			a_hours24_temp = a_hours24;
-			a_minutes_temp = a_minutes;
-			a_seconds_temp = a_seconds;
+		//go to digital clock mode
+		timeMode = 1;
 	}
 	else{ //setting time or alarm
 				inacTimer = 0;
-
 		if (setMode == 0) //set time
 				minutes_temp = incrementMinutes(minutes_temp);
 		else //set alarm

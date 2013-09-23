@@ -23,5 +23,7 @@
 *.axf
 *.uvgui*
 *.bak
+*.map
 *.crf
 *.d
+*.htm
