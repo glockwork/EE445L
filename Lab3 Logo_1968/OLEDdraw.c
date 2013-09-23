@@ -43,7 +43,7 @@ void digitalClockDraw(){
 void drawDigitalValue(unsigned int h, unsigned int m, unsigned int s){
 	char time[20];	
 	sprintf(time, "%02d:%02d:%02d %s\n", h%12, m, s, (h>=12)?"PM":"AM");
- 	RIT128x96x4StringDraw(time, 52, 44, color);
+ 	RIT128x96x4StringDraw(time, 45, 44, color);
 }
 
 void timerDraw(){

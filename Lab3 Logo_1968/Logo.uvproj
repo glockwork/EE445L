@@ -472,6 +472,11 @@
               <FileType>5</FileType>
               <FilePath>.\PWM.h</FilePath>
             </File>
+            <File>
+              <FileName>OLEDdraw.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\OLEDdraw.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

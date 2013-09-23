@@ -173,7 +173,7 @@ void displaySet(){
 			sprintf(debugmode, "Set Alarm");
 			break;
 		case 2:
-			sprintf(debugmode, "Set Timer");
+			sprintf(debugmode, "Set Countdown");
 			break;
 		}
 		RIT128x96x4StringDraw(debugmode, 10, 10, 15);

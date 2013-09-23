@@ -99,7 +99,7 @@ void handlerSW3 ()
 		else if(setMode ==1)//set alarm
 			a_hours24_temp = incrementHours(a_hours24_temp);
 		else if(setMode ==2)
-			countMin_temp = incrementMinutes(countMin);
+			countMin_temp = incrementMinutes(countMin_temp);
 	}
 }
 
@@ -130,7 +130,7 @@ void handlerSW4 ()
 		else if(setMode ==1) //set alarm
 			a_hours24_temp = decrementHours(a_hours24_temp); 
 		else if(setMode ==2) //set countdown
-			countMin_temp = decrementMinutes(countMin);
+			countMin_temp = decrementMinutes(countMin_temp);
 	}
 }
 
@@ -163,7 +163,7 @@ void handlerSW5 ()
 		else if(setMode==1) //set alarm
 				a_minutes_temp = decrementMinutes(a_minutes_temp);
 		else if(setMode==2)
-				countSec_temp = decrementMinutes(countSec);
+				countSec_temp = decrementMinutes(countSec_temp);
 			
 	}
 }
@@ -188,6 +188,6 @@ void handlerSW6 ()
 		else if(setMode == 1)//set alarm
 				a_minutes_temp = incrementMinutes(a_minutes_temp);
 		else if(setMode == 2)
-				countSec_temp = incrementMinutes(countSec);
+				countSec_temp = incrementMinutes(countSec_temp);
 		}
 }
