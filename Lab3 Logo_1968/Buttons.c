@@ -80,7 +80,10 @@ void handlerSW3 ()
 	{
 		//go to display time set mode
 			displayMode = 1;
-			setMode = 0;
+			if(timeMode <= 1)
+				setMode = 1;
+			else if(timeMode ==3)
+				setMode = 2;
 			inacTimer = 0;
 			hours24_temp = hours24;
 			minutes_temp = minutes;
@@ -100,6 +103,7 @@ void handlerSW3 ()
 //handler for SW4 (bottom button)
 // decrements hours in set mode
 // turns alarm on/off when in display mode
+// in countdown mode, starts countdown
 void handlerSW4 ()
 {
 //	printf("bottom");
@@ -109,6 +113,9 @@ void handlerSW4 ()
 		
 		if (soundPlaying)
 			stopSound();
+		
+		if (timeMode ==3)
+			countStart = 1;
 		
 		//if sound is not playing, then toggle alarm on/off
 		//TODO
@@ -137,8 +144,9 @@ void handlerSW5 ()
 			displayMode = 1;
 			if(timeMode <= 1)
 				setMode = 1;
-			else if(timeMode ==2)
+			else if(timeMode ==3)
 				setMode = 2;
+			inacTimer = 0;
 			a_hours24_temp = a_hours24;
 			a_minutes_temp = a_minutes;
 			a_seconds_temp = a_seconds;

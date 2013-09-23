@@ -87,7 +87,7 @@ int inacTimer =0;
 //setMode = 2 for countdown
 
 int displayMode =0;
-int timeMode = 0;
+int timeMode = 3;
 int setMode = 0;
 
 void displayClock();
@@ -165,7 +165,9 @@ void displaySet(){
 				//TODO - make this prettier, obviously
 			if (setMode ==0)
 				printf("%02d:%02d:%02d\n", hours24_temp, minutes_temp, seconds_temp);
-			else 
+			else if(setMode ==1)
 				printf("%02d:%02d:%02d\n", a_hours24_temp, a_minutes_temp, a_seconds_temp);
+			else if(setMode ==2)
+				printf("%02d:%02d\n", countMin_temp, countSec_temp);
 	
 }
