@@ -31,8 +31,12 @@ void analogClockDraw(){
 
 //hh:mm:ss
 void digitalClockDraw(){
+		drawDigitalValue(hours24, minutes, seconds);
+}
+
+void drawDigitalValue(unsigned int h, unsigned int m, unsigned int s){
 	char time[20];	
-	sprintf(time, "%02d:%02d:%02d\n", hours, minutes, seconds);
+	sprintf(time, "%02d:%02d:%02d %s\n", h%12, m, s, (h>=12)?"PM":"AM");
  	RIT128x96x4StringDraw(time, 52, 44, color);
 }
 

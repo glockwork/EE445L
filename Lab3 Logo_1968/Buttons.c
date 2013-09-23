@@ -172,9 +172,9 @@ void handlerSW6 ()
 		inacTimer = 0;
 		if (setMode == 0) //set time
 				minutes_temp = incrementMinutes(minutes_temp);
-		else if(setMode ==1)//set alarm
+		else if(setMode == 1)//set alarm
 				a_minutes_temp = incrementMinutes(a_minutes_temp);
-		else if(setMode ==2)
+		else if(setMode == 2)
 				countSec_temp = incrementMinutes(countSec);
 		}
 }

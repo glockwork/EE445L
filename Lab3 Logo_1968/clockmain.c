@@ -10,6 +10,7 @@
 #include "sound.h"
 #include "pll.h"
 #include "pwm.h"
+#include "OLEDdraw.h"
 
 // which delays 3*ulCount cycles
 #ifdef __TI_COMPILER_VERSION__
@@ -162,10 +163,8 @@ void displayClock(){
 }
 
 void displaySet(){
-				//TODO - make this prettier, obviously
-			if (setMode ==0)
-				printf("%02d:%02d:%02d\n", hours24_temp, minutes_temp, seconds_temp);
-			else 
-				printf("%02d:%02d:%02d\n", a_hours24_temp, a_minutes_temp, a_seconds_temp);
-	
+			if (setMode ==0) //set time
+				drawDigitalValue(hours24_temp, minutes_temp, seconds_temp);
+			else //set alarm
+				drawDigitalValue(a_hours24_temp, a_minutes_temp, a_seconds_temp);	
 }
