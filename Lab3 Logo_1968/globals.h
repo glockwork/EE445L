@@ -67,6 +67,10 @@ extern int countMin_temp;
 extern int countStart;
 
 
+//beats per minute
+extern int bpm;
+
+
 extern unsigned long Counta;
 
 

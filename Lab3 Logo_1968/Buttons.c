@@ -78,7 +78,7 @@ void handlerSW3 ()
 {
 	if (displayMode ==0) //currently displaying time 
 	{
-		if(timeMode != 2) {
+		if(timeMode != 2 && timeMode !=4) {
 			//go to display time set mode
 				displayMode = 1;
 				if(timeMode <= 1)
@@ -92,6 +92,8 @@ void handlerSW3 ()
 			RIT128x96x4Clear(); 
 			RIT128x96x4_ClearImage(); 
 		}
+		if(timeMode == 4)
+			bpm++;
 	}
 	else{
 		inacTimer = 0;
@@ -123,9 +125,13 @@ void handlerSW4 ()
 		if (timeMode ==2)
 			timerStart ^= 1;
 		
+		if(timeMode ==4)
+			bpm--;
+		
 		//if sound is not playing, then toggle alarm on/off
 		
-		alarmActive ^= 1;
+		if(timeMode < 2)
+			alarmActive ^= 1;
 		if (alarmActive == 0)
 			ringAlarms = 0;
 	}
@@ -184,15 +190,14 @@ void handlerSW5 ()
 }
 
 //handler for SW6 (right button)
-// decrements minutes in set mode
-// go to set alarm when in display mode
+//increment minutes in set mode
 void handlerSW6 ()
 {
 	//printf("right");
 	if (displayMode ==0) //displaying time 
 	{
 		//go to digital clock mode
-		timeMode = (timeMode+1)%4;
+		timeMode = (timeMode+1)%5;
 	  RIT128x96x4_ClearImage(); 
 		RIT128x96x4Clear();
 

@@ -92,6 +92,8 @@ int displayMode =0;
 int timeMode = 3;
 int setMode = 0;
 
+int bpm = 60;
+
 void displayClock();
 void displaySet();
 
@@ -148,6 +150,9 @@ void displayClock(){
 		case 3:
 			sprintf(debugmode, "Countdown Mode");
 			break;
+		case 4:
+			sprintf(debugmode, "Metronome");
+			break;
 		}
 		RIT128x96x4StringDraw(debugmode, 10, 10, 15);
 	switch(timeMode){
@@ -166,6 +171,9 @@ void displayClock(){
 			break;
 		case 3:
 			countdownDraw();
+			break;
+		case 4:
+			metronomeDraw();
 			break;
 	}
 }

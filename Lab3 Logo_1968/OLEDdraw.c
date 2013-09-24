@@ -74,6 +74,12 @@ void countdownDraw(){
  	RIT128x96x4StringDraw(time, 40, 44, color);
 }
 
+void metronomeDraw(){
+	char time[20];
+	sprintf(time, "%d", bpm);
+	RIT128x96x4StringDraw(bpm, 40, 44, color);
+}
+
 
 //draws circle with radius r centered at (x,y)
 void drawCircle(int x, int y, int r) {
