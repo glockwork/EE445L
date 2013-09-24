@@ -128,6 +128,8 @@ int main(){
 
 char firstNotAnalog= 0;
 char firstDigital = 0;
+char firstCountDown = 0;
+char firstStopWatch = 0;
 
 void displayClock(){
 /*	if(timeMode==0){
@@ -167,12 +169,20 @@ void displayClock(){
 				RIT128x96x4Clear(); 
 			firstNotAnalog = 0;
 			firstDigital=0;
+			firstStopWatch = 1;
 			digitalClockDraw();
 			break;
 		case 2:
+			if (firstStopWatch==1)
+				RIT128x96x4Clear(); 
+			firstStopWatch=0;
+			firstCountDown = 1;
 			timerDraw();
 			break;
 		case 3:
+			if (firstCountDown ==1)
+				RIT128x96x4Clear(); 
+			firstCountDown=0;
 			countdownDraw();
 			break;
 		case 4:
@@ -184,6 +194,8 @@ void displayClock(){
 void displaySet(){
 		char debugmode[20];
 		firstDigital=1;
+		firstCountDown = 1;
+		firstStopWatch = 1;
 
 		switch(setMode){
 		case 0:
@@ -217,6 +229,6 @@ void displaySet(){
 									drawInactiveTimer();
 
 					sprintf(time, "   %02d:%02d   ", countMin_temp, countSec_temp);
-					RIT128x96x4StringDraw(time, 40, 44, 15);
+					RIT128x96x4StringDraw(time, 30, 44, 15);
 			}
 }
