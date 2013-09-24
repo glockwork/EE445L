@@ -124,6 +124,8 @@ int main(){
 	}
 }
 
+char firstNotAnalog= 0;
+
 
 void displayClock(){
 /*	if(timeMode==0){
@@ -150,9 +152,13 @@ void displayClock(){
 		RIT128x96x4StringDraw(debugmode, 10, 10, 15);
 	switch(timeMode){
 		case 0:
+			firstNotAnalog = 1;
 			analogClockDraw();
 			break;
 		case 1:
+			if (firstNotAnalog == 1)
+				RIT128x96x4Clear(); 
+			firstNotAnalog = 0;
 			digitalClockDraw();
 			break;
 		case 2:
@@ -168,6 +174,9 @@ void displaySet(){
 		char debugmode[20];
 		switch(setMode){
 		case 0:
+			if (firstNotAnalog == 1)
+				RIT128x96x4Clear(); 
+			firstNotAnalog = 0;
 			sprintf(debugmode, "Set Time");
 			break;
 		case 1:

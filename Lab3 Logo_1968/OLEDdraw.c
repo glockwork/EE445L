@@ -81,9 +81,9 @@ void drawCircle(int x, int y, int r) {
 	int x_1 = r*coslut[0]+x;
 	int y_1 = r*sinlut[0]+y;
 
-	for(i = 1; i < 60; i++){
-		int x_2 = r*coslut[i]+x;
-		int y_2 = r*sinlut[i]+y;
+	for(i = 1; i < 61; i++){
+		int x_2 = r*coslut[i%60]+x;
+		int y_2 = r*sinlut[i%60]+y;
 		RIT128x96x4_Line(x_1, y_1, x_2, y_2, color);
 		x_1 = x_2;
 		y_1 = y_2;
