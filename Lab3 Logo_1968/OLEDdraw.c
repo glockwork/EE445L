@@ -77,7 +77,7 @@ void countdownDraw(){
 void metronomeDraw(){
 	char time[20];
 	sprintf(time, "%d", bpm);
-	RIT128x96x4StringDraw(bpm, 40, 44, color);
+	RIT128x96x4StringDraw(time, 40, 44, color);
 }
 
 

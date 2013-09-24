@@ -143,11 +143,21 @@ void SysTick_Init(unsigned long period){
 //	EnableInterrupts();
 }
 
+unsigned long startBeepSound = 0;
+char flip = 0;
 void Timer0B_Handler(void){
 	static char periodShift = 1;
   TIMER0_ICR_R = TIMER_ICR_TBTOCINT;// acknowledge timer0B timeout
-	if (++Countb % 1000 != 0) return;
 	
+	//stop a sound 100 ms after start sound (100 calls after start)
+	if (Countb - startBeepSound > 100)
+		ringAlarms = 0;
+	if (++Countb % (1000*60/bpm) != 0)
+		return;
+	//Start a sound
+		flip = 1-flip;
+		ringAlarms = 1;
+		startBeepSound = Countb;
 }
 void Timer0A_Handler(void){
 	static char periodShift = 1;

@@ -114,7 +114,7 @@ int main(){
 	timeMode = 0;
 		
 	while(1){
-		if (ringAlarms && !soundPlaying && alarmActive)
+		if (ringAlarms && !soundPlaying && (alarmActive || timeMode == 4))
 			playSound();
 		else if ((ringAlarms==0 || !alarmActive) && soundPlaying) 
 			stopSound();
