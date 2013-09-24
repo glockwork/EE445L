@@ -122,6 +122,10 @@ void handlerSW4 ()
 			stopSound();
 		if (timeMode ==3 && (countSec != 0 || countMin !=0)) //countdown. do not start if time is 00
 			countStart ^= 1;
+		else if (timeMode ==3 && (countSec == 0 && countMin ==0)){ //countdown. do not start if time is 00
+			ringAlarms = 0;
+			countStart = 0;
+		}
 		if (timeMode ==2)
 			timerStart ^= 1;
 		
@@ -197,6 +201,12 @@ void handlerSW6 ()
 	if (displayMode ==0) //displaying time 
 	{
 		//go to digital clock mode
+		if (timeMode == 3)
+			TIMER0_CTL_R |= TIMER_CTL_TBEN;
+		if (timeMode == 4){
+			TIMER0_CTL_R &= ~TIMER_CTL_TBEN;
+			ringAlarms = 0;
+		}
 		timeMode = (timeMode+1)%5;
 	  RIT128x96x4_ClearImage(); 
 		RIT128x96x4Clear();

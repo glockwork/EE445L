@@ -51,33 +51,33 @@ void digitalClockDraw(){
 
 void drawDigitalValue(unsigned int h, unsigned int m, unsigned int s){
 	char time[20];	
-	sprintf(time, "%02d:%02d:%02d %s\n", h%12, m, s, (h>=12)?"PM":"AM");
- 	RIT128x96x4StringDraw(time, 40, 44, color);
+	sprintf(time, "%02d:%02d:%02d %s\n", (h%12==0)?12:h%12, m, s, (h>=12)?"PM":"AM");
+ 	RIT128x96x4StringDraw(time, 30, 44, color);
 }
 
 void drawInactiveTimer(){
 	char time[20];	
 	sprintf(time, "Returning in...%d  ", 10-inacTimer);
- 	RIT128x96x4StringDraw(time,  0, 80, color);
+ 	RIT128x96x4StringDraw(time,  10, 80, color);
 }
 
 
 void timerDraw(){
 	char time[20];	
-	sprintf(time, "%02d:%02d\n", timerMin, timerSec);
- 	RIT128x96x4StringDraw(time, 40, 44, color);
+	sprintf(time, "   %02d:%02d   ", timerMin, timerSec);
+ 	RIT128x96x4StringDraw(time, 30, 44, color);
 }
 
 void countdownDraw(){
 	char time[20];	
-	sprintf(time, "%02d:%02d\n", countMin, countSec);
- 	RIT128x96x4StringDraw(time, 40, 44, color);
+	sprintf(time, "   %02d:%02d   ", countMin, countSec);
+ 	RIT128x96x4StringDraw(time, 30, 44, color);
 }
 
 void metronomeDraw(){
 	char time[20];
-	sprintf(time, "%d", bpm);
-	RIT128x96x4StringDraw(time, 40, 44, color);
+	sprintf(time, "   %d   ", bpm);
+	RIT128x96x4StringDraw(time, 30, 44, color);
 }
 
 

@@ -124,7 +124,8 @@ void SysTick_Init(unsigned long period){
   TIMER0_IMR_R |= TIMER_IMR_TBTOIM;// enable timeout (rollover) interrupt
   TIMER0_ICR_R = TIMER_ICR_TBTOCINT;// clear timer0B timeout flag
 	
-  TIMER0_CTL_R |= TIMER_CTL_TBEN;  // enable timer0A 16-b, +edge, interrupts
+	//Do not want metronome turned on ititially
+  //TIMER0_CTL_R |= TIMER_CTL_TBEN;  // enable timer0B 16-b, +periodic, interrupts
                                    // Timer0B=priority 2
   NVIC_PRI5_R = (NVIC_PRI5_R&0xFFFFFF00)|0x00000040; // bits 5-7
 	NVIC_EN0_R |= NVIC_EN0_INT19+NVIC_EN0_INT20;
