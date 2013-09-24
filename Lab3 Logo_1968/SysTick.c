@@ -225,7 +225,7 @@ void timeUpdate(){
 	}
 	seconds = incrementMinutes(seconds);
 		
-	if(timeMode == 3 && countStart == 1){ //if in countdown mode we need to count down
+	if(countStart == 1){ //if in countdown mode we need to count down
 		if (countSec==0 && countMin ==0 ){} 
 		else{
 		if(countSec == 0){

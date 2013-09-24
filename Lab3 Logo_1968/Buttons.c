@@ -89,8 +89,8 @@ void handlerSW3 ()
 			RIT128x96x4Clear(); 
 			RIT128x96x4_ClearImage(); 
 		}
-		if(timeMode == 4)
-			bpm++;
+		if(timeMode == 4 && bpm<300)
+			bpm+=5;
 	}
 	else{
 		inacTimer = 0;
@@ -126,8 +126,8 @@ void handlerSW4 ()
 		if (timeMode ==2)
 			timerStart ^= 1;
 		
-		if(timeMode ==4)
-			bpm--;
+		if(timeMode ==4 && bpm>15)
+			bpm-=5;
 		
 		//if sound is not playing, then toggle alarm on/off
 		
