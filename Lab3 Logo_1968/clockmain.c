@@ -103,23 +103,26 @@ int main(){
 	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | 
 	SYSCTL_XTAL_8MHZ); // 50 MHz 
 	DisableInterrupts();
-  SYSCTL_RCGC1_R |= SYSCTL_RCGC1_TIMER0;// activate timer0
-  SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOF+SYSCTL_RCGC2_GPIOG; // activate ports F and G
+	SYSCTL_RCGC1_R |= SYSCTL_RCGC1_TIMER0;// activate timer0
+	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOF+SYSCTL_RCGC2_GPIOG; // activate ports F and G
 	Output_Init(); 
 	SysTick_InitSeconds(1);
-  PolledButtons_Init();
+	PolledButtons_Init();
 	EnableInterrupts();
 	displayMode = 0;
 	ringAlarms = 0;
 	timeMode = 0;
 		
 	while(1){
-		if (ringAlarms && !soundPlaying && (alarmActive || timeMode == 4))
+		if (ringAlarms && !soundPlaying && (alarmActive || timeMode == 4))	{
 			playSound();
-		else if ((ringAlarms==0 || !alarmActive) && soundPlaying) 
+		}
+		else if ((ringAlarms==0 || !alarmActive) && soundPlaying) {
 			stopSound();
-		if(displayMode==0)
+		}
+		if(displayMode==0) {
 			displayClock();
+		}
 		else if(displayMode==1){
 			displaySet();
 		}
@@ -132,14 +135,8 @@ char firstCountDown = 0;
 char firstStopWatch = 0;
 
 void displayClock(){
-/*	if(timeMode==0){
-				analogClockDraw();
-			}
-			else if(timeMode==1){
-					digitalClockDraw();
-			}*/
-		char debugmode[20];
-		switch(timeMode){
+	char debugmode[20];
+	switch(timeMode){
 		case 0:
 			debugmode[0] = 0;
 			break;
@@ -155,14 +152,13 @@ void displayClock(){
 		case 4:
 			sprintf(debugmode, "Metronome");
 			break;
-		}
-		RIT128x96x4StringDraw(debugmode, 10, 10, 15);
+	}
+	RIT128x96x4StringDraw(debugmode, 10, 10, 15);
 	switch(timeMode){
 		case 0:
 			firstNotAnalog = 1;
 			analogClockDraw();
 			firstDigital=1;
-
 			break;
 		case 1:
 			if (firstNotAnalog == 1 || firstDigital ==1)
@@ -192,12 +188,12 @@ void displayClock(){
 }
 
 void displaySet(){
-		char debugmode[20];
-		firstDigital=1;
-		firstCountDown = 1;
-		firstStopWatch = 1;
+	char debugmode[20];
+	firstDigital=1;
+	firstCountDown = 1;
+	firstStopWatch = 1;
 
-		switch(setMode){
+	switch(setMode){
 		case 0:
 			if (firstNotAnalog == 1)
 				RIT128x96x4Clear(); 
@@ -213,22 +209,23 @@ void displaySet(){
 		case 2:
 			sprintf(debugmode, "Set Countdown");
 			break;
-		}
-		RIT128x96x4StringDraw(debugmode, 10, 10, 15);
-			if (setMode ==0){ //set time
-				drawInactiveTimer();
-				drawDigitalValue(hours24_temp, minutes_temp, seconds_temp);
-			}
-			else if (setMode ==1){ //set alarm
-				drawInactiveTimer();
-				drawDigitalValue(a_hours24_temp, a_minutes_temp, a_seconds_temp);	
-			}
-			else if (setMode ==2) // set countdown
-			{
-					char time[20];	
-									drawInactiveTimer();
+	}
 
-					sprintf(time, "   %02d:%02d   ", countMin_temp, countSec_temp);
-					RIT128x96x4StringDraw(time, 30, 44, 15);
-			}
+	RIT128x96x4StringDraw(debugmode, 10, 10, 15);
+	
+	if (setMode ==0){ //set time
+		drawInactiveTimer();
+		drawDigitalValue(hours24_temp, minutes_temp, seconds_temp);
+	}
+	else if (setMode ==1){ //set alarm
+		drawInactiveTimer();
+		drawDigitalValue(a_hours24_temp, a_minutes_temp, a_seconds_temp);	
+	}
+	else if (setMode ==2) // set countdown
+	{
+			char time[20];	
+							drawInactiveTimer();
+			sprintf(time, "   %02d:%02d   ", countMin_temp, countSec_temp);
+			RIT128x96x4StringDraw(time, 30, 44, 15);
+	}
 }
