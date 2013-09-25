@@ -49,7 +49,7 @@
 struct State {
   unsigned long Out;            // 6-bit output
   unsigned long Time;           // 10 ms
-  const struct State *Next[5];
+  const struct State *Next[8];
 	};// depends on 2-bit input
 
 	typedef const struct State STyp;
@@ -83,35 +83,38 @@ struct State {
 #define oscillate16 &MainFSM[18]
 #define oscillate17 &MainFSM[19]
 #define init &MainFSM[20]
+#define down3 &MainFSM[21]
 
 #define CW 1
 #define CCW 2
 #define STILL 0
 
-// inputs: 1, 2, 1&2, 3
+// input choices: CBA
+//				 init held1  held2  startO(or next osci)  press3   same    same   same
+// inputs: 000, 001,   010,   011,    							100,     101,    110,   111 
 
-STyp MainFSM[20]={
-	 {CW, slowDelay, { held1, held2, startOscillate, pressed3, init}}, //held1
-	 {CCW, slowDelay, { held1, held2, startOscillate, pressed3, init}},//held2
-	 {CW, slowDelay, { held1, held2, startOscillate, pressed3, init}}, //pressed 3
-		{CW, fastDelay, { held1, held2, oscillate2, pressed3, init}}, // oscillation stage 1
-		{CW, fastDelay, { held1, held2, oscillate3, pressed3, init}}, // oscillation stage 2
-		{CW, fastDelay, { held1, held2, oscillate4, pressed3, init}}, // oscillation stage 3
-		{CW, fastDelay, { held1, held2, oscillate5, pressed3, init}}, // oscillation stage 4
-		{CW, fastDelay, { held1, held2, oscillate6, pressed3, init}}, // oscillation stage 5
-		{CW, fastDelay, { held1, held2, oscillate7, pressed3, init}}, // oscillation stage 6
-		{CW, fastDelay, { held1, held2, oscillate8, pressed3, init}}, // oscillation stage 7
-		{CW, fastDelay, { held1, held2, oscillate9, pressed3, init}}, // oscillation stage 8
-		{CW, fastDelay, { held1, held2, oscillate10, pressed3, init}}, // oscillation stage 9
-		{CW, fastDelay, { held1, held2, oscillate11, pressed3, init}}, // oscillation stage 10
-		{CW, fastDelay, { held1, held2, oscillate12, pressed3, init}}, // oscillation stage 11
-		{CW, fastDelay, { held1, held2, oscillate13, pressed3, init}}, // oscillation stage 12
-		{CW, fastDelay, { held1, held2, oscillate14, pressed3, init}}, // oscillation stage 13
-		{CW, fastDelay, { held1, held2, oscillate15, pressed3, init}}, // oscillation stage 14
-		{CW, fastDelay, { held1, held2, oscillate16, pressed3, init}}, // oscillation stage 15
-		{CW, fastDelay, { held1, held2, startOscillate, pressed3, init}}, // oscillation stage 16
-		{STILL, fastDelay, { held1, held2, startOscillate, pressed3, init}}, // Init stage
-
+STyp MainFSM[21]={
+	 {CW, slowDelay, {init, held1, held2, startOscillate, pressed3, held1,held1,held1}}, //held1
+	 {CCW, slowDelay, {init, held1, held2, startOscillate, pressed3, held2, held2, held2}},//held2
+	 {STILL, slowDelay, {init, held1, held2, startOscillate, pressed3, pressed3, pressed3, pressed3}}, //pressed 3
+		{CW, fastDelay, {init, held1, held2, oscillate2, pressed3, startOscillate, startOscillate, startOscillate}}, // oscillation stage 1
+		{CW, fastDelay, {init, held1, held2, oscillate3, pressed3, oscillate2,oscillate2,oscillate2}}, // oscillation stage 2
+		{CW, fastDelay, {init, held1, held2, oscillate4, pressed3, oscillate3, oscillate3, oscillate3}}, // oscillation stage 3
+		{CW, fastDelay, {init, held1, held2, oscillate5, pressed3, oscillate4, oscillate4, oscillate4}}, // oscillation stage 4
+		{CW, fastDelay, {init, held1, held2, oscillate6, pressed3, oscillate5, oscillate5, oscillate5}}, // oscillation stage 5
+		{CW, fastDelay, {init, held1, held2, oscillate7, pressed3, oscillate6, oscillate6, oscillate6}}, // oscillation stage 6
+		{CW, fastDelay, {init, held1, held2, oscillate8, pressed3, oscillate7, oscillate7, oscillate7}}, // oscillation stage 7
+		{CW, fastDelay, {init, held1, held2, oscillate9, pressed3, oscillate8, oscillate8, oscillate8}}, // oscillation stage 8
+		{CW, fastDelay, {init, held1, held2, oscillate10, pressed3, oscillate9, oscillate9, oscillate9}}, // oscillation stage 9
+		{CW, fastDelay, {init, held1, held2, oscillate11, pressed3, oscillate10, oscillate10, oscillate10}}, // oscillation stage 10
+		{CW, fastDelay, {init, held1, held2, oscillate12, pressed3, oscillate11, oscillate11, oscillate11}}, // oscillation stage 11
+		{CW, fastDelay, {init, held1, held2, oscillate13, pressed3, oscillate12, oscillate12, oscillate12}}, // oscillation stage 12
+		{CW, fastDelay, {init, held1, held2, oscillate14, pressed3, oscillate13, oscillate13, oscillate13}}, // oscillation stage 13
+		{CW, fastDelay, {init, held1, held2, oscillate15, pressed3, oscillate14, oscillate14, oscillate14}}, // oscillation stage 14
+		{CW, fastDelay, {init, held1, held2, oscillate16, pressed3, oscillate15, oscillate15, oscillate15}}, // oscillation stage 15
+		{CW, fastDelay, {init, held1, held2, startOscillate, pressed3, oscillate16, oscillate16, oscillate16}}, // oscillation stage 16
+		{STILL, fastDelay, {init, held1, held2, startOscillate, pressed3, init, init, init}}, // Init stage
+		{CW, fastDelay, {init, held1, held2, startOscillate, pressed3, down3, down3, down3}} // stage to force 3 to go down
 };
 
 #define motorDelay 100
