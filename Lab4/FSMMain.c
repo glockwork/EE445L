@@ -33,6 +33,8 @@
 
 #include "PLL.h"
 #include "SysTick.h"
+#include "switch.h"
+#include "stepper.h"
 
 #define GPIO_PORTE_IN           (*((volatile unsigned long *)0x4002400C)) // bits 1-0
 #define GPIO_PORTE_DIR_R        (*((volatile unsigned long *)0x40024400))
@@ -138,26 +140,20 @@ int main(void){
   STyp *Pt;  // state pointer
   unsigned long Input;
   PLL_Init();                  // configure for 50 MHz clock
+	
   // activate port F and port E
   SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOF+SYSCTL_RCGC2_GPIOE;
   SysTick_Init();              // initialize SysTick timer
-	
-	//TODO activate buttons, stepper motor pins, etc.
-	
-  GPIO_PORTE_DIR_R &= ~0x03;   // make PE1-0 in
-  GPIO_PORTE_AFSEL_R &= ~0x03; // disable alt func on PE1-0
-  GPIO_PORTE_DEN_R |= 0x03;    // enable digital I/O on PE1-0
-  GPIO_PORTF_DIR_R |= 0x3F;    // make PF5-0 out
-  GPIO_PORTF_AFSEL_R &= ~0x3F; // disable alt func on PF5-0
-  GPIO_PORTF_DEN_R |= 0x3F;    // enable digital I/O on PF5-0
-	
+
+	stepper_init();
+	switch_init();
 	Pt = held1;
 	MotorPt = init;
 	
   while(1){
 		FSMMotor(Pt-> Out); //call FSM motor for output
     SysTick_Wait10ms(Pt->Time);// wait 10 ms * current state's Time value
-		//TODO Get input from buttons (0 = 1 pressed, 1 = 2 pressed, 2 = 1,2 pressed, 3 = 3 has been updown, 4 = none pressed)
+		Input = switch_read();
     Pt = Pt->Next[Input];      // transition to next state
   }
 }
@@ -166,8 +162,7 @@ int main(void){
 //Sub-FSM for stepper motor
 //takes in dir (CW, CCW, or STILL) and outputs correct value to stepper
 void FSMMotor(unsigned long dir){
-
-	//TODO Output to motor depending on current state
+	stepper_output(MotorPt -> Out);
   //No delay, because master FSM takes care of that
 	MotorPt = MotorPt->Next[dir]; //depending on dir, transition to next state	
 }
