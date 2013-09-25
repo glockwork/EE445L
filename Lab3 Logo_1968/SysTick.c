@@ -235,7 +235,7 @@ void timeUpdate(){
 	}
 }
 	
-	if(timeMode ==2 && timerStart ==1){
+	if(timerStart ==1){
 		if(timerSec == 59) {
 			timerMin = incrementMinutes(timerMin);
 		}
