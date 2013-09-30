@@ -398,11 +398,6 @@
               <FilePath>.\Startup.s</FilePath>
             </File>
             <File>
-              <FileName>PointerTrafficLight.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\PointerTrafficLight.c</FilePath>
-            </File>
-            <File>
               <FileName>SysTick.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\SysTick.c</FilePath>
@@ -411,6 +406,21 @@
               <FileName>PLL.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\PLL.c</FilePath>
+            </File>
+            <File>
+              <FileName>FSMMain.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FSMMain.c</FilePath>
+            </File>
+            <File>
+              <FileName>Switch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Switch.c</FilePath>
+            </File>
+            <File>
+              <FileName>stepper.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\stepper.c</FilePath>
             </File>
           </Files>
         </Group>

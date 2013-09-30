@@ -143,8 +143,12 @@ int main(void){
 	
   // activate port F and port E
   SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOF+SYSCTL_RCGC2_GPIOE;
+	
+	
   SysTick_Init();              // initialize SysTick timer
 
+	//start heart beat
+	
 	stepper_init();
 	switch_init();
 	Pt = held1;
