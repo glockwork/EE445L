@@ -36,9 +36,8 @@ struct State {
 #define oscillate14 &MainFSM[16]
 #define oscillate15 &MainFSM[17]
 #define oscillate16 &MainFSM[18]
-#define oscillate17 &MainFSM[19]
-#define init &MainFSM[20]
-#define down3 &MainFSM[21]
+#define init &MainFSM[19]
+#define down3 &MainFSM[20]
 
 #define CW 1
 #define CCW 2
@@ -59,6 +58,9 @@ extern STyp MainFSM[];
 extern STyp MotorFSM[];
 
 extern STyp *MotorPt;
+
+extern int mainState;
+extern int motorState;
 
 void FSMMotor(unsigned long);
 

@@ -63,13 +63,13 @@ int num;
 unsigned long INTPERIOD;
 #define INTVARIATION 0
 
-long period = 50000;
+int period = 50000;
 
 
 void SysTick_Init(void){
 	INTPERIOD = period;
 	//TIMER A
-	TIMER0_CTL_R &= ~(TIMER_CTL_TAEN|TIMER_CTL_TBEN);
+	//TIMER0_CTL_R &= ~(TIMER_CTL_TAEN); 
   TIMER0_CFG_R = TIMER_CFG_16_BIT; // configure for 16-bit timer mode
 	
   // **** timer0A initialization ****
@@ -105,15 +105,18 @@ void Timer0A_Handler(void){
 	
 	TIMER0_TAILR_R = INTPERIOD; //TIMER0_TAILR_R + periodShift;
                                     // check upper bound
-	/*if(((TIMER0_TAILR_R + periodShift) > (INTPERIOD + INTVARIATION - 1)) ||
+	if(((TIMER0_TAILR_R + periodShift) > (INTPERIOD + INTVARIATION - 1)) ||
                                     // check lower bound
 		((TIMER0_TAILR_R + periodShift) < (INTPERIOD - INTVARIATION - 1))){
       periodShift = -periodShift; // start counting in other direction
-	}*/
+	}
 	
 	Input = switch_read();
+	mainState = &(Pt->Next[Input]) - &(Pt->Next[0]);
   Pt = Pt->Next[Input];      // transition to next state
 }
+
+
 
 /*
 // Initialize SysTick with busy wait running at bus clock.
@@ -139,7 +142,7 @@ void SysTick_Wait(unsigned long delay){
 void SysTick_Wait10ms(unsigned long delay){
   unsigned long i;
   for(i=0; i<delay; i++){
-    SysTick_Wait(500000);  // wait 10ms (assumes 50 MHz clock)
+    SysTick_Wait(25000);  // wait 10ms (assumes 50 MHz clock)
   }
 }
 */
