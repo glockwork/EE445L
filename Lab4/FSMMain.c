@@ -73,7 +73,6 @@ int main(void){
 		//printf("mad");
 	
 	
-//  SysTick_Init();              // initialize SysTick timer
 	
   // activate port F and port E
  // SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOD+SYSCTL_RCGC2_GPIO;
@@ -85,11 +84,13 @@ int main(void){
 	
 	stepper_init();
 	switch_init();
-	stepper_output(1);
+	  SysTick_Init();              // initialize SysTick timer
+
+	/*stepper_output(1);
 	stepper_output(2);
 	stepper_output(4);
 	stepper_output(8);
-
+#*/
 	
 	while(1);
 	

@@ -1,3 +1,12 @@
+#include "inc/hw_ssi.h"
+#include "inc/hw_memmap.h"
+#include "inc/hw_types.h"
+#include "driverlib/debug.h"
+#include "driverlib/gpio.h"
+#include "driverlib/ssi.h"
+#include "driverlib/sysctl.h"
+#include "lm3s1968.h"
+
 #define NVIC_ST_CTRL_R          (*((volatile unsigned long *)0xE000E010))
 #define NVIC_ST_RELOAD_R        (*((volatile unsigned long *)0xE000E014))
 #define NVIC_ST_CURRENT_R       (*((volatile unsigned long *)0xE000E018))
@@ -100,7 +109,8 @@ void Timer0A_Handler(void){
 	Count++;
 	if(++Count%Pt->Time != 0)
 		return;
-	
+//	GPIO_PORTG_DATA_R ^= 0x04;								// heartbeat
+
 	FSMMotor(Pt-> Out);
 	
 	TIMER0_TAILR_R = INTPERIOD; //TIMER0_TAILR_R + periodShift;

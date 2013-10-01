@@ -31,6 +31,16 @@ void switch_init()
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOG);
    GPIOPinTypeGPIOInput( GPIO_PORTG_BASE, GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7 );
    GPIOPadConfigSet( GPIO_PORTG_BASE, GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7, GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPU );
+		GPIO_PORTG_DIR_R &= ~0xF8;									// make PG3-PG7 in
+	GPIO_PORTG_AFSEL_R &= ~0xF8;								// disable alt funct on PG3-PG7
+	GPIO_PORTG_DEN_R |= 0xF8;									// enable digital I/O on PG3-PG7
+		GPIO_PORTG_PUR_R |= 0xF8; 								// activate internal pull-up resistors on PG3-PG7
+
+	/* PG2 = LED */
+	GPIO_PORTG_DIR_R |= 0x04;									// make PG2 out (built-in LED)
+//	GPIODirModeSet(GPIO_PORTG_BASE, GPIO_PIN_2, GPIO_DIR_MODE_OUT);
+	GPIO_PORTG_AFSEL_R &= ~0x04;								// disable alt funct on PG2
+	GPIO_PORTG_DEN_R |= 0x04;									// enable digital I/O on PG2
 
 	
 }
