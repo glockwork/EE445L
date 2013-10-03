@@ -13,7 +13,8 @@ struct State {
 //#define goE   &FSM[2]
 //#define waitE &FSM[3]
 
-#define slowDelay 200
+
+#define slowDelay 500
 #define fastDelay 200
 
 #define held1 &MainFSM[0]
@@ -49,7 +50,7 @@ struct State {
 
 extern STyp MainFSM[];
 
-#define motorDelay 100
+#define motorDelay 500
 #define motor5 &MotorFSM[0]
 #define motor6 &MotorFSM[1]
 #define motor10 &MotorFSM[2]
