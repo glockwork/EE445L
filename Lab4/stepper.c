@@ -51,4 +51,5 @@ void stepper_output(char out){
 	GPIO_PORTA_DATA_R = (GPIO_PORTA_DATA_R&0xF0) | out;
 	//GPIO_PORTA_DATA_R ^= 0x0F;
 	watch = GPIO_PORTA_DATA_R;
+	watch = watch+0;
 }
