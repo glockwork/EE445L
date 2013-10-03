@@ -1,5 +1,5 @@
 #include "Globals.h"
-
+#include "DAC.h"
 
 //********DAC_Init*****************
 // Initialize Max5353 12-bit DAC

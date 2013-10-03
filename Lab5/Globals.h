@@ -12,7 +12,4 @@
 #define GPIO_PORTC_DEN_R        (*((volatile unsigned long *)0x4000651C))
 #define GPIO_PORTC5             (*((volatile unsigned long *)0x40006080))
 
-
-extern int wave_loc;
-
 #endif
