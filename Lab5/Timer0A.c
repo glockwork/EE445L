@@ -1,7 +1,5 @@
 #include "Globals.h"
 #include "Timer0A.h"
-#include "DAC.h"
-#include "Music.h"
 
 void Timer0A_Init(){ 
 	INTPERIOD = timer_period;
