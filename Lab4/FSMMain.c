@@ -63,45 +63,59 @@ int main(void){
   //STyp *Pt;  // state pointer
   unsigned long Input;
 	int i = 0;
+	int j = 0;
   PLL_Init();                  // configure for 50 MHz clock
 
 	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | 
 	SYSCTL_XTAL_8MHZ); // 50 MHz 
 	DisableInterrupts();
 	SYSCTL_RCGC1_R |= SYSCTL_RCGC1_TIMER0;// activate timer0
-	for(i = 0; i < 10000; i++)
-		//printf("mad");
+	for(i = 0; i < 10000; i++){
+	}
 	
-	
-	
-  // activate port F and port E
- // SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOD+SYSCTL_RCGC2_GPIO;
-
-	
-	//Pt = held1;
-	//MotorPt = init;
-	
+	SysTick_Init();              // initialize SysTick timer
+		
+	for(i = 0; i < 10000; i++){
+	}
 	
 	stepper_init();
+	for(i = 0; i < 10000; i++){
+	}
 	switch_init();
-	  SysTick_Init();              // initialize SysTick timer
+	for(i = 0; i < 10000; i++){
+	}
 
-	/*stepper_output(1);
-	stepper_output(2);
-	stepper_output(4);
-	stepper_output(8);
-#*/
-	
-	while(1);
-	
-	/*
-  while(1){
-		FSMMotor(Pt-> Out); //call FSM motor for output
-    SysTick_Wait10ms(Pt->Time);// wait 10 ms * current state's Time value
-		Input = switch_read();
-    Pt = Pt->Next[Input];      // transition to next state
-  }
+/*	
+	while(1){
+	for(j = 0; j < 65000; j++){
+	}
+	for(i = 0; i < 4; i++){
+		if(i==0){
+			GPIO_PORTF_DATA_R =5;
+			for(j = 0; j < 65000; j++){
+			}
+		}
+		if(i==01){
+			
+			GPIO_PORTF_DATA_R =6;for(j = 0; j < 6500; j++)
+			for(j = 0; j < 65000; j++){
+			}	
+		}
+	if(i==2){
+			GPIO_PORTF_DATA_R =10;
+		for(j = 0; j < 65000; j++){
+			}}
+	if(i==3){
+			GPIO_PORTF_DATA_R =9;
+		for(j = 0; j < 65000; j++){
+			}
+	}
+	}		
+
+	}
+
 	*/
+	while(1);
 }
 
 

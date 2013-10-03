@@ -27,12 +27,13 @@ void stepper_init(){
 //	GPIO_PORTD_AMSEL_R &= ~0x0F;
 	GPIO_PORTD_DEN_R |= 0x0F;   // enable digital I/O on PD5-4*/
 	
-		SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOA; // activate port D
+		SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOF; // activate port A
 	delay = 0x01; //just set it do have a delay;
- 	GPIO_PORTA_DIR_R |= 0x0F;
-	GPIO_PORTA_AFSEL_R &= ~0x0F;
+ 	GPIO_PORTF_DIR_R |= 0x0F;
+	GPIO_PORTF_AFSEL_R &= ~0x0F;
 //	GPIO_PORTD_AMSEL_R &= ~0x0F;
-	GPIO_PORTA_DEN_R |= 0x0F;   // enable digital I/O on PD5-4
+	GPIO_PORTF_DEN_R |= 0x0F;   // enable digital I/O on PD5-4
+	GPIO_PORTF_DATA_R &= ~0X0F;
 //	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOA;						// activate port A
 //	delay = SYSCTL_RCGC2_R;										// allow time for clock to start
 //	GPIO_PORTA_DIR_R |= 0x0F;									// make PA0, PA2, PA4, PA6 out
@@ -48,7 +49,8 @@ unsigned int watch = 0;
 void stepper_output(char out){
 	//LEDS = out;
 	GPIO_PORTG_DATA_R ^= 0x04;								// heartbeat
-	GPIO_PORTA_DATA_R = (GPIO_PORTA_DATA_R&0xF0) | out;
+	GPIO_PORTF_DATA_R = ~out;
 	//GPIO_PORTA_DATA_R ^= 0x0F;
-	watch = GPIO_PORTA_DATA_R;
+	watch = GPIO_PORTF_DATA_R;
+	watch = watch+0;
 }

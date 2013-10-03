@@ -13,8 +13,8 @@ struct State {
 //#define goE   &FSM[2]
 //#define waitE &FSM[3]
 
-#define slowDelay 100
-#define fastDelay 100
+#define slowDelay 200
+#define fastDelay 200
 
 #define held1 &MainFSM[0]
 #define held2 &MainFSM[1]
