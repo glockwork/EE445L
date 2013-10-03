@@ -1,7 +1,5 @@
-#include "inc/hw_types.h"
-#include "driverlib/sysctl.h"
-#include "timer0A.h"
-#include "DAC.h"
+#include "Globals.h"
+
 
 //********DAC_Init*****************
 // Initialize Max5353 12-bit DAC

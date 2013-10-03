@@ -1,16 +1,5 @@
-#include "inc/hw_types.h"
-#include "driverlib/sysctl.h"
-#include "timer0A.h"
-#include "DAC.h"
-#include "Switch.h"
-#include "Music.h"
+#include "Globals.h"
 
-#define GPIO_PORTC_DATA_R       (*((volatile unsigned long *)0x400063FC))
-#define GPIO_PORTC_DIR_R        (*((volatile unsigned long *)0x40006400))
-#define GPIO_PORTC_DEN_R        (*((volatile unsigned long *)0x4000651C))
-#define GPIO_PORTC5             (*((volatile unsigned long *)0x40006080))
-#define SYSCTL_RCGC2_R          (*((volatile unsigned long *)0x400FE108))
-#define SYSCTL_RCGC2_GPIOC      0x00000004  // port C Clock Gating Control
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
