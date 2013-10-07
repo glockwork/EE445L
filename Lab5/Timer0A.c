@@ -3,6 +3,9 @@
 
 int interrupt_cycles = 500;
 
+int count_a = 0; //count for interrupt a
+int count_b = 0; //count for interrupt b
+
 void Timer0A_Init(){ 
 	INTPERIOD = timer_period;
   TIMER0_CFG_R = TIMER_CFG_16_BIT; // configure for 16-bit timer mode
@@ -39,13 +42,25 @@ void Timer0A_Init(){
 }
 
 
-//Timer A: Interrupts on Frequency / Notes
+//Timer A: Outputs the 2 sin waves (1 for each instrument)
 void Timer0A_Handler(void){
 	
 	TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
 		
-	//gets called when cycle :
-	if((Count*interrupt_cycles)/wave_freq >= 1){
+
+}
+
+
+
+//Timer B: Changes the Notes of each instrument at the certain time
+//**This method needs to be fixed
+void Timer0B_Handler(void){
+  TIMER0_ICR_R = TIMER_ICR_TBTOCINT;// acknowledge timer0B timeout
+	
+	
+		//gets called when cycle :
+	//
+	if((countb*interrupt_cycles_b)/(note_len*songname_t1[note_index]) >= 1){
 		return;
 	}
 	
@@ -56,16 +71,6 @@ void Timer0A_Handler(void){
 	
 	DAC_Out(Wave[wave_loc]);
 	Count++;
-}
-
-
-
-//Timer B: Interrupts on Notes
-//**This method needs to be fixed
-void Timer0B_Handler(void){
-  TIMER0_ICR_R = TIMER_ICR_TBTOCINT;// acknowledge timer0B timeout
-	
-	//broken, do maths
 
 	
 	wave_loc = (wave_loc+1)%wave_len;
