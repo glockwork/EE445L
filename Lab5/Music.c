@@ -20,20 +20,17 @@ int wave_freq = 1000;
 int wave_loc = 0;
 int note_length = 100;
 int note_index = 0;
+int song_length = 60;
+int wave_inc = 1;
+int note_len_divider = 1;
 
 void PlaySong(){
 	
-	//Enables note and frequency timers
-	TIMER0_CTL_R |= TIMER_CTL_TAEN;
-	TIMER0_CTL_R |= TIMER_CTL_TBEN;
 	
 	//Interrupts will constantly update note_index 
 	while(note_index < 60 && playing){
 		wave_freq = EyesofTexas[note_index];
-		note_length = EyesofTexas_t[note_index];
+		note_length = EyesofTexas_t[note_index] / note_len_divider;
 	}
-	
-	//done with song, disable interrupts
-	TIMER0_CTL_R &= ~TIMER_CTL_TAEN;
-	TIMER0_CTL_R &= ~TIMER_CTL_TBEN;
+
 }

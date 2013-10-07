@@ -84,5 +84,8 @@ extern int note_length;
 
 extern int note_index;
 extern int playing;
+extern int song_length;
+extern int wave_inc;
+extern int note_len_divider;
 
 #endif

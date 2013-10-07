@@ -1,6 +1,8 @@
 #include "Globals.h"
 #include "Timer0A.h"
 
+int interrupt_cycles = 500;
+
 void Timer0A_Init(){ 
 	INTPERIOD = timer_period;
   TIMER0_CFG_R = TIMER_CFG_16_BIT; // configure for 16-bit timer mode
@@ -10,7 +12,7 @@ void Timer0A_Init(){
   TIMER0_TAMR_R = TIMER_TAMR_TAMR_PERIOD;// configure for periodic mode
  
 	//***** WORK WITH THE NUMBERS HERE ********** //
-	TIMER0_TAILR_R = 50000;  // start value to count down from
+	TIMER0_TAILR_R = interrupt_cycles;  // start value to count down from
   TIMER0_IMR_R |= TIMER_IMR_TATOIM;// enable timeout (rollover) interrupt
   TIMER0_ICR_R = TIMER_ICR_TATOCINT;// clear timer0A timeout flag
   
@@ -37,18 +39,23 @@ void Timer0A_Init(){
 }
 
 
-//Timer A: Interrupts on Frequency
-//**This method needs to be fixed
+//Timer A: Interrupts on Frequency / Notes
 void Timer0A_Handler(void){
 	
 	TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
 		
-	//this is broken:
-	if(++Count%wave_freq != 0){
+	//gets called when cycle :
+	if((Count*interrupt_cycles)/wave_freq >= 1){
+		return;
+	}
+	
+	
+	if(++CountB%note_length == 0){
 		return;
 	}
 	
 	DAC_Out(Wave[wave_loc]);
+	Count++;
 }
 
 
@@ -59,9 +66,7 @@ void Timer0B_Handler(void){
   TIMER0_ICR_R = TIMER_ICR_TBTOCINT;// acknowledge timer0B timeout
 	
 	//broken, do maths
-	if(++CountB%note_length != 0){
-		return;
-	}
+
 	
 	wave_loc = (wave_loc+1)%wave_len;
 
