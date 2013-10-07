@@ -83,5 +83,6 @@ extern int note_length;
 #define Whole 16
 
 extern int note_index;
+extern int playing;
 
 #endif

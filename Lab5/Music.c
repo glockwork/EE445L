@@ -22,15 +22,13 @@ int note_length = 100;
 int note_index = 0;
 
 void PlaySong(){
-	note_index = 0;
-	
 	
 	//Enables note and frequency timers
 	TIMER0_CTL_R |= TIMER_CTL_TAEN;
 	TIMER0_CTL_R |= TIMER_CTL_TBEN;
 	
 	//Interrupts will constantly update note_index 
-	while(note_index < 60){
+	while(note_index < 60 && playing){
 		wave_freq = EyesofTexas[note_index];
 		note_length = EyesofTexas_t[note_index];
 	}

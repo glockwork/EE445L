@@ -1,5 +1,6 @@
 #include "Globals.h"
 #include "Switch.h"
+#include "Music.h"
 
 void Switch_Init(void){
 	volatile unsigned long delay;
@@ -39,6 +40,7 @@ void GPIOPortG_Handler(void){
 
 
 void handlerSW3 (void){
+	playing ^= 0x01;
 }
 
 void handlerSW4 (void){

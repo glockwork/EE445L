@@ -41,7 +41,7 @@ void Timer0A_Init(){
 //**This method needs to be fixed
 void Timer0A_Handler(void){
 	
-  TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
+	TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
 		
 	//this is broken:
 	if(++Count%wave_freq != 0){

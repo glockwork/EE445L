@@ -442,6 +442,11 @@
               <FileType>5</FileType>
               <FilePath>.\Timer0A.h</FilePath>
             </File>
+            <File>
+              <FileName>Globals.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Globals.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
