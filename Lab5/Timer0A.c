@@ -7,7 +7,8 @@ int interrupt_cycles_b = 50000;
 
 
 int count_a = 0; //count for interrupt a
-int count_b = 0; //count for interrupt b
+int count_b1 = 0; //count for interrupt b
+int count_b2 = 0; //count for interrupt b
 
 void Timer0A_Init(){ 
 	INTPERIOD = timer_period;
@@ -52,6 +53,7 @@ void Timer0A_Handler(void){
 	
 	//if its been the proper number of cycles (for the frequency of the note), incrememnt the index to the table output
 		
+	
 
 }
 
@@ -66,14 +68,36 @@ void Timer0A_Handler(void){
 void Timer0B_Handler(void){
   TIMER0_ICR_R = TIMER_ICR_TBTOCINT;// acknowledge timer0B timeout
 
+	//multipliers
+	//for the first .1s, increase from 0 to 100 %
+			//for 100*count_b*intcycb/(note_len*Whole) < 10
+			//multiplier = 1000*count_b*intcycb/(note_len*Whole)
+	//after first .1s to 1s, decrease from 100 to 0
+		//100 - t^2*100
+		//multiplier = 100 - (count_b*intcycb*100/(note_len*Whole))^2/100
+
+	//t = count_b*intcycb/(note_len*Whole)
+	
+		if (100*count_b1*interrupt_cycles_b/(note_len*Whole) < 10)
+			note_mag_mult1_per = 1000*count_b1*interrupt_cycles_b/(note_len*Whole);
+		else
+			note_mag_mult1_per = 100 - (count_b1*interrupt_cycles_b*100/(note_len*Whole))^2/100;
+		
+		if (100*count_b2*interrupt_cycles_b/(note_len*Whole) < 10)
+			note_mag_mult2_per = 1000*count_b2*interrupt_cycles_b/(note_len*Whole);
+		else
+			note_mag_mult2_per = 100 - (count_b2*interrupt_cycles_b*100/(note_len*Whole))^2/100;
+	
 	//time to change note of instrument 1
-	if((count_b*interrupt_cycles_b)/(note_len*songname_t1[note_index1]) >= 1){
+	if((count_b1*interrupt_cycles_b)/(note_len*songname_t1[note_index1]) >= 1){
 		note_index1 += note_inc;
+		count_b1 = 0;
 	}
 	
 	//time to change note of instrument 2
-	if((count_b*interrupt_cycles_b)/(note_len*songname_t2[note_index2]) >= 1){
+	if((count_b2*interrupt_cycles_b)/(note_len*songname_t2[note_index2]) >= 1){
 		note_index2 += note_inc;
+		count_b2 = 0;
 	}
 	
 	if (note_index2 == -1 || note_index1 == -1 || note_index1 == song_len)
@@ -81,7 +105,8 @@ void Timer0B_Handler(void){
 		playing = 0;
 		note_index2 = 0;
 		note_index1 = 0;
-		count_b = 0;
+		count_b1 = 0;
+		count_b2 = 0;
 		TIMER0_CTL_R &= ~TIMER_CTL_TAEN;
 		TIMER0_CTL_R &= ~TIMER_CTL_TBEN;
 	}		

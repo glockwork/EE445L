@@ -62,6 +62,12 @@ int song_len = 60;
 int note_inc = 1;
 int note_len_divider = 1;
 
+int note_mag_mult1_per = 100; //for the smooth envelope, percent of top magnitude to output
+int note_mag_mult2_per = 100; //for the smooth envelope, percent of top magnitude to output
+//for the first .1s, increase from 0 to 100 %
+//after first .1s to 1s, decrease from 100 to 0
+	//100 - t^2*100
+
 void PlaySong(){
 	
 	
