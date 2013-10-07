@@ -2,12 +2,22 @@
 #define __Music_H__
 
 extern const unsigned short Wave[];
+extern const unsigned short EyesofTexas1[60]; 
+extern const unsigned short EyesofTexas2[60];
+extern const unsigned short EyesofTexas_t1[60];
+extern const unsigned short EyesofTexas_t2[60];
 
 extern int wave_loc;
 extern int wave_freq;
-extern int note_length;
+extern int note_len;
 
 #define wave_len 32;
+
+#define songname1 EyesofTexas1
+#define songname2 EyesofTexas2
+#define songname_t1 EyesofTexas_t1
+#define songname_t2 EyesofTexas_t2
+
 
 //notes
 #define C_2 11945   // 65.406 Hz
@@ -82,10 +92,12 @@ extern int note_length;
 #define Half 8
 #define Whole 16
 
-extern int note_index;
+extern int note_index1;
+extern int note_index2;
+
 extern int playing;
-extern int song_length;
-extern int wave_inc;
+extern int song_len; //number of notes in the song for instrument 1
+extern int note_inc;
 extern int note_len_divider;
 
 #endif

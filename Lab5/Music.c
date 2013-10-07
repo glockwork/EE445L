@@ -1,12 +1,6 @@
 #include "Globals.h"
 #include "Music.h"
 
-#define songname1 EyesofTexas1
-#define songname2 EyesofTexas2
-#define songname_t1 EyesofTexas_t1
-#define songname_t2 EyesofTexas_t2
-
-
 const unsigned short Wave[32]= { 
  2048,2438,2813,3159,3462,3711,3896,4010,4048,4010,3896, 
  3711,3462,3159,2813,2438,2048,1658,1283,937,634,385, 
@@ -31,9 +25,11 @@ const unsigned short EyesofTexas_t2[60] = {
 int wave_freq = 1000;
 int wave_loc = 0;
 int note_len = 100; //cycles per 16th note
-int note_index = 0;
+int note_index1 = 0;
+int note_index2 = 0;
+
 int song_len = 60;
-int wave_inc = 1;
+int note_inc = 1;
 int note_len_divider = 1;
 
 void PlaySong(){

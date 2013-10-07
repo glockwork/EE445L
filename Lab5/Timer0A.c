@@ -1,7 +1,10 @@
 #include "Globals.h"
 #include "Timer0A.h"
+#include "Music.h"
 
-int interrupt_cycles = 500;
+int interrupt_cycles_a = 500;
+int interrupt_cycles_b = 50000;
+
 
 int count_a = 0; //count for interrupt a
 int count_b = 0; //count for interrupt b
@@ -15,7 +18,7 @@ void Timer0A_Init(){
   TIMER0_TAMR_R = TIMER_TAMR_TAMR_PERIOD;// configure for periodic mode
  
 	//***** WORK WITH THE NUMBERS HERE ********** //
-	TIMER0_TAILR_R = interrupt_cycles;  // start value to count down from
+	TIMER0_TAILR_R = interrupt_cycles_a;  // start value to count down from
   TIMER0_IMR_R |= TIMER_IMR_TATOIM;// enable timeout (rollover) interrupt
   TIMER0_ICR_R = TIMER_ICR_TATOCINT;// clear timer0A timeout flag
   
@@ -29,7 +32,7 @@ void Timer0A_Init(){
 	//TIMER 2 - note length
                                    // configure for periodic mode
   TIMER0_TBMR_R = TIMER_TBMR_TBMR_PERIOD;
-  TIMER0_TBILR_R = 50000;           //
+  TIMER0_TBILR_R = interrupt_cycles_b;           //
   TIMER0_IMR_R |= TIMER_IMR_TBTOIM;// enable timeout (rollover) interrupt
   TIMER0_ICR_R = TIMER_ICR_TBTOCINT;// clear timer0B timeout flag
 
@@ -46,34 +49,41 @@ void Timer0A_Init(){
 void Timer0A_Handler(void){
 	
 	TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
+	
+	//if its been the proper number of cycles (for the frequency of the note), incrememnt the index to the table output
 		
 
 }
 
-
+//	//Interrupts will constantly update note_index 
+//	while(note_index < 60 && playing){
+//		wave_freq = EyesofTexas[note_index];
+//		note_length = EyesofTexas_t[note_index] / note_len_divider;
+//	}
 
 //Timer B: Changes the Notes of each instrument at the certain time
-//**This method needs to be fixed
+
 void Timer0B_Handler(void){
   TIMER0_ICR_R = TIMER_ICR_TBTOCINT;// acknowledge timer0B timeout
-	
-	
-		//gets called when cycle :
-	//
-	if((countb*interrupt_cycles_b)/(note_len*songname_t1[note_index]) >= 1){
-		return;
+
+	//time to change note of instrument 1
+	if((count_b*interrupt_cycles_b)/(note_len*songname_t1[note_index1]) >= 1){
+		note_index1 += note_inc;
 	}
 	
-	
-	if(++CountB%note_length == 0){
-		return;
+	//time to change note of instrument 2
+	if((count_b*interrupt_cycles_b)/(note_len*songname_t2[note_index2]) >= 1){
+		note_index2 += note_inc;
 	}
 	
-	DAC_Out(Wave[wave_loc]);
-	Count++;
-
-	
-	wave_loc = (wave_loc+1)%wave_len;
-
+	if (note_index2 == -1 || note_index1 == -1 || note_index1 == song_len)
+	{
+		playing = 0;
+		note_index2 = 0;
+		note_index1 = 0;
+		count_b = 0;
+		TIMER0_CTL_R &= ~TIMER_CTL_TAEN;
+		TIMER0_CTL_R &= ~TIMER_CTL_TBEN;
+	}		
 }
 	
