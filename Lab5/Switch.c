@@ -2,6 +2,10 @@
 #include "Switch.h"
 #include "Music.h"
 
+
+int rewind_mode; //0 for not rewinding, 1 for rewinding at single speed, 2 for rewinding at 3 speed
+
+
 void Switch_Init(void){
 	volatile unsigned long delay;
 	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOG; // activate port G
@@ -17,6 +21,7 @@ void Switch_Init(void){
                             	// GPIO PortD=priority 2
 	NVIC_PRI0_R = (NVIC_PRI0_R&0x00FFFFFF)|0x40000000; // bits 29-31
 	NVIC_EN0_R |= 0x80000000;// enable interrupt 3 in NVIC
+	rewind_mode = 0;
 }
 
 void GPIOPortG_Handler(void){
@@ -38,14 +43,49 @@ void GPIOPortG_Handler(void){
   	}
 }
 
-
+//top button
+//play/pause functionality
 void handlerSW3 (void){
+	if (playing ==0){//if not playing, re-enable interrupts
+		TIMER0_CTL_R |= TIMER_CTL_TAEN;
+		TIMER0_CTL_R |= TIMER_CTL_TBEN;
+	}
+	else {		//if playing, disable interrupts
+		TIMER0_CTL_R &= ~TIMER_CTL_TAEN;
+		TIMER0_CTL_R &= ~TIMER_CTL_TBEN;
+		rewind_mode = 0; //reset to not rewinding if paused (such as if paused a rewind)
+		wave_inc = 1;
+		note_len_divider = 1;
+	}
 	playing ^= 0x01;
 }
 
+//bottom button
+//rewind
+	//1 press - play song backward
+	//2 press - play song backward speed * 3
+	//3 press - put song at beginning, stop playing
 void handlerSW4 (void){
+	rewind_mode ++;
+	if (rewind_mode==1){
+		wave_inc = -1;
+		note_len_divider = 1;
+	}
+	else if (rewind_mode == 2){
+		wave_inc = -1;
+		note_len_divider = -3;
+	}
+	else if (rewind_mode == 3){
+		playing = 0;
+		note_index = 0;
+		wave_inc = 1;
+		note_len_divider = 1;
+		rewind_mode = 0;
+	}
+	
 }
 
+//switch mode (switch instruments/mode and whatnot)
 void handlerSW5 (void){
 }
 
