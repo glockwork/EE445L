@@ -6,11 +6,11 @@ int interrupt_cycles_a = 200;
 int interrupt_cycles_b = 50000;
 
 volatile unsigned long countb_overall = 0; //used for debouncing
-int count_a1 = 0; //count for interrupt a
-int count_a2 = 0; //count for interrupt a
+long count_a1 = 0; //count for interrupt a
+long count_a2 = 0; //count for interrupt a
 
-int count_b1 = 0; //count for interrupt b
-int count_b2 = 0; //count for interrupt b
+long count_b1 = 0; //count for interrupt b
+long count_b2 = 0; //count for interrupt b
 
 void Timer0A_Init(){ 
 	//INTPERIOD = interrupt_cycles_a;
@@ -48,9 +48,12 @@ void Timer0A_Init(){
 }
 
 unsigned long viewshit = 0;
-
+unsigned short viewshit2=0;
+	float mult1 =0;
+	float mult2 = 0;
 //Timer A: Outputs the 2 sin waves (1 for each instrument)
 void Timer0A_Handler(void){
+
 	int ret = 0;
 	count_a1++;
 	count_a2++;
@@ -58,6 +61,16 @@ void Timer0A_Handler(void){
 	TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
 	TIMER0_TAILR_R = interrupt_cycles_a - 1; //TIMER0_TAILR_R + periodShift;
 
+//		if (100*count_a1*interrupt_cycles_a/(note_len*Whole) < 10)
+//			note_mag_mult1_per = 1000*count_a1*interrupt_cycles_a/(note_len*Whole);
+//		else
+//			note_mag_mult1_per = 100 - (count_a1*interrupt_cycles_a*100/(note_len*Whole));
+//		
+//		if (100*count_a2*interrupt_cycles_a/(note_len*Whole) < 10)
+//			note_mag_mult2_per = 1000*count_a2*interrupt_cycles_a/(note_len*Whole);
+//		else
+//			note_mag_mult2_per = 100 - (count_a2*interrupt_cycles_a*100/(note_len*Whole));
+	
 	//if its been the proper number of cycles (for the frequency of the note), incrememnt the index to the table output
 	viewshit = EyesofTexas1[wave_loc_1] + 1;
 	//checks if time to output next value in first waveform
@@ -81,7 +94,12 @@ void Timer0A_Handler(void){
 //		return;
 	
 	//outputs values
-	DAC_Out((Wave[wave_loc_1] + Wave[wave_loc_2])/2);
+//	note_mag_mult1_per = 100;
+//	note_mag_mult2_per = 100;
+
+	//viewshit2 = (short)(((long)(Wave[wave_loc_1]))*note_mag_mult1_per/100 + ((long)(Wave[wave_loc_2]))*note_mag_mult2_per/100)/2;
+	DAC_Out((short)(((long)(Wave[wave_loc_1]))*note_mag_mult1_per/100 + ((long)(Wave[wave_loc_2]))*note_mag_mult2_per/100)/2);
+	//DAC_Out((Wave[wave_loc_1] + Wave[wave_loc_2])/2);
 	
 
 }
@@ -113,18 +131,18 @@ void Timer0B_Handler(void){
 	//t = count_b*intcycb/(note_len*Whole)
 	
 	
-	/*
-		if (100*count_b1*interrupt_cycles_b/(note_len*Whole) < 10)
-			note_mag_mult1_per = 1000*count_b1*interrupt_cycles_b/(note_len*Whole);
-		else
-			note_mag_mult1_per = 100 - (count_b1*interrupt_cycles_b*100/(note_len*Whole))^2/100;
+	
+//		if (100*count_b1*interrupt_cycles_b/(note_len*Whole) < 10)
+//			note_mag_mult1_per = 1000*count_b1*interrupt_cycles_b/(note_len*Whole);
+//		else
+//			note_mag_mult1_per = 100 - (count_b1*interrupt_cycles_b*100/(note_len*Whole));
+//		
+//		if (100*count_b2*interrupt_cycles_b/(note_len*Whole) < 10)
+//			note_mag_mult2_per = 1000*count_b2*interrupt_cycles_b/(note_len*Whole);
+//		else
+//			note_mag_mult2_per = 100 - (count_b2*interrupt_cycles_b*100/(note_len*Whole));
 		
-		if (100*count_b2*interrupt_cycles_b/(note_len*Whole) < 10)
-			note_mag_mult2_per = 1000*count_b2*interrupt_cycles_b/(note_len*Whole);
-		else
-			note_mag_mult2_per = 100 - (count_b2*interrupt_cycles_b*100/(note_len*Whole))^2/100;
 		
-		*/
 	
 	//time to change note of instrument 1
 	if((count_b1*interrupt_cycles_b)/(note_len*songname_t1[note_index1]) >= 1){

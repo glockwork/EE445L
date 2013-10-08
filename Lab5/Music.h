@@ -105,8 +105,8 @@ extern int song_len; //number of notes in the song for instrument 1
 extern int note_inc;
 extern int note_len_divider;
 
-extern int note_mag_mult1_per;
-extern int note_mag_mult2_per;
+extern long note_mag_mult1_per;
+extern long note_mag_mult2_per;
 
 
 #endif

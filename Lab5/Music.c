@@ -72,15 +72,15 @@ int wave_freq = 1000;
 int wave_loc_1 = 0;
 int wave_loc_2 = 0;
 int wave_inc = 1;
-int note_len = 2500000; //cycles per 16th note
+int note_len = 5000000; //cycles per 16th note
 int note_index1 = 0;
 int note_index2 = 0;
 
 int note_inc = 1;
 int note_len_divider = 1;
 
-int note_mag_mult1_per = 100; //for the smooth envelope, percent of top magnitude to output
-int note_mag_mult2_per = 100; //for the smooth envelope, percent of top magnitude to output
+long note_mag_mult1_per = 100; //for the smooth envelope, percent of top magnitude to output
+long note_mag_mult2_per = 100; //for the smooth envelope, percent of top magnitude to output
 //for the first .1s, increase from 0 to 100 %
 //after first .1s to 1s, decrease from 100 to 0
 	//100 - t^2*100
