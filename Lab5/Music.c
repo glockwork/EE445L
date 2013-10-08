@@ -62,7 +62,7 @@ const unsigned short testsong_t[7] = {
 };
 
 
-int song_len = 51;
+int song_len = 51;//51;
 
 const unsigned short EyesofTexas_t1[52] = {
   DottedQ,Eighth,DottedE,Sixteenth,DottedE,Sixteenth,DottedE, Quarter ,Half,Quarter,Quarter,Whole,DottedQ,Eighth,DottedE,Sixteenth,DottedE,Sixteenth,Half,Half,Quarter,Half,Quarter,Half,Quarter,Quarter,DottedQ,Eighth,DottedE,Sixteenth,DottedE,Sixteenth,Half,Half,Half,Quarter,Quarter,Whole,DottedQ,Eighth,DottedE,Sixteenth,DottedE,Sixteenth,Half,Half,Quarter,Quarter,Quarter,Quarter,Whole,0
