@@ -7,6 +7,9 @@ extern const unsigned short EyesofTexas2[60];
 extern const unsigned short EyesofTexas_t1[60];
 extern const unsigned short EyesofTexas_t2[60];
 
+extern const unsigned short testsong[];
+extern const unsigned short testsong_t[];
+
 extern int wave_loc_1;
 extern int wave_loc_2;
 extern int wave_freq;
@@ -16,9 +19,9 @@ extern int wave_inc;
 #define wave_len 64
 
 #define songname1 EyesofTexas1
-#define songname2 EyesofTexas2
+#define songname2 EyesofTexas1
 #define songname_t1 EyesofTexas_t1
-#define songname_t2 EyesofTexas_t2
+#define songname_t2 EyesofTexas_t1
 
 
 //notes

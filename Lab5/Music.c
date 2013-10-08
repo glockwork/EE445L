@@ -50,6 +50,16 @@ const unsigned short EyesofTexas2[60] = {
   G, D, G, D, G, A, B, G, C, G, A, B, G, D, G, D,G,A,B,G,B,A,B,A,A,D,A, AF,A, AF,A,B,G,D,C,G,A,B,E, EF,G, EF,G,E,D,G,B,C,B,A,G,0
 };
 
+const unsigned short testsong[7] = {
+	A,G,A,F,A,F,A
+};
+
+const unsigned short testsong_t[7] = {
+	Whole, Whole, Whole, Whole, Half, Half, Half
+};
+
+
+int song_len = 60;
 
 const unsigned short EyesofTexas_t1[60] = {
   DottedQ,Eighth,DottedE,Sixteenth,DottedE,Sixteenth,DottedE, Quarter ,Half,Quarter,Quarter,Whole,DottedQ,Eighth,DottedE,Sixteenth,DottedE,Sixteenth,Half,Half,Quarter,Half,Quarter,Half,Quarter,Quarter,DottedQ,Eighth,DottedE,Sixteenth,DottedE,Sixteenth,Half,Half,Half,Quarter,Quarter,Whole,DottedQ,Eighth,DottedE,Sixteenth,DottedE,Sixteenth,Half,Half,Quarter,Quarter,Quarter,Quarter,Whole,0
@@ -62,11 +72,10 @@ int wave_freq = 1000;
 int wave_loc_1 = 0;
 int wave_loc_2 = 0;
 int wave_inc = 1;
-int note_len = 100; //cycles per 16th note
+int note_len = 2500000; //cycles per 16th note
 int note_index1 = 0;
 int note_index2 = 0;
 
-int song_len = 60;
 int note_inc = 1;
 int note_len_divider = 1;
 

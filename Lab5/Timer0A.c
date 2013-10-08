@@ -2,7 +2,7 @@
 #include "Timer0A.h"
 #include "Music.h"
 
-int interrupt_cycles_a = 500;
+int interrupt_cycles_a = 200;
 int interrupt_cycles_b = 50000;
 
 volatile unsigned long countb_overall = 0; //used for debouncing
@@ -61,7 +61,7 @@ void Timer0A_Handler(void){
 	//if its been the proper number of cycles (for the frequency of the note), incrememnt the index to the table output
 	viewshit = EyesofTexas1[wave_loc_1] + 1;
 	//checks if time to output next value in first waveform
-	if(count_a1*interrupt_cycles_a / Wave[wave_loc_1] >= 1){
+	if(count_a1*interrupt_cycles_a / songname1[note_index1] >= 1){
 		wave_loc_1+=wave_inc;
 		wave_loc_1 = (wave_loc_1+wave_len)%wave_len;
 		ret=1;
@@ -69,7 +69,7 @@ void Timer0A_Handler(void){
 	}
 	
 	//checks if time to output next value in second waveform
-	if(count_a2*interrupt_cycles_a / Wave[wave_loc_2] >= 1){
+	if(count_a2*interrupt_cycles_a / songname2[note_index2] >= 1){
 		wave_loc_2+=wave_inc;
 		wave_loc_2 = (wave_loc_2+wave_len)%wave_len;
 
@@ -112,6 +112,8 @@ void Timer0B_Handler(void){
 
 	//t = count_b*intcycb/(note_len*Whole)
 	
+	
+	/*
 		if (100*count_b1*interrupt_cycles_b/(note_len*Whole) < 10)
 			note_mag_mult1_per = 1000*count_b1*interrupt_cycles_b/(note_len*Whole);
 		else
@@ -121,6 +123,8 @@ void Timer0B_Handler(void){
 			note_mag_mult2_per = 1000*count_b2*interrupt_cycles_b/(note_len*Whole);
 		else
 			note_mag_mult2_per = 100 - (count_b2*interrupt_cycles_b*100/(note_len*Whole))^2/100;
+		
+		*/
 	
 	//time to change note of instrument 1
 	if((count_b1*interrupt_cycles_b)/(note_len*songname_t1[note_index1]) >= 1){
