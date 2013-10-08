@@ -75,17 +75,16 @@ void Timer0A_Handler(void){
 	viewshit = EyesofTexas1[wave_loc_1] + 1;
 	//checks if time to output next value in first waveform
 	if(count_a1*interrupt_cycles_a / songname1[note_index1] >= 1){
-		wave_loc_1+=wave_inc;
-		wave_loc_1 = (wave_loc_1+wave_len)%wave_len;
+		wave_loc_1+=1;
+		if (wave_loc_1>=wave_len)wave_loc_1 = 0;
 		ret=1;
 		count_a1 =0;
 	}
 	
 	//checks if time to output next value in second waveform
 	if(count_a2*interrupt_cycles_a / songname2[note_index2] >= 1){
-		wave_loc_2+=wave_inc;
-		wave_loc_2 = (wave_loc_2+wave_len)%wave_len;
-
+		wave_loc_2+=1;
+		if (wave_loc_2>=wave_len)wave_loc_2 = 0;
 		ret = 1;
 		count_a2 = 0;
 	}
@@ -145,13 +144,13 @@ void Timer0B_Handler(void){
 		
 	
 	//time to change note of instrument 1
-	if((count_b1*interrupt_cycles_b)/(note_len*songname_t1[note_index1]) >= 1){
+	if((count_b1*interrupt_cycles_b)/(note_len*songname_t1[note_index1]/note_len_divider) >= 1){
 		note_index1 += note_inc;
 		count_b1 = 0;
 	}
 	
 	//time to change note of instrument 2
-	if((count_b2*interrupt_cycles_b)/(note_len*songname_t2[note_index2]) >= 1){
+	if((count_b2*interrupt_cycles_b)/(note_len*songname_t2[note_index2]/note_len_divider) >= 1){
 		note_index2 += note_inc;
 		count_b2 = 0;
 	}
