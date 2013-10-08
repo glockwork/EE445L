@@ -97,7 +97,7 @@ void Timer0A_Handler(void){
 //	note_mag_mult2_per = 100;
 
 	//viewshit2 = (short)(((long)(Wave[wave_loc_1]))*note_mag_mult1_per/100 + ((long)(Wave[wave_loc_2]))*note_mag_mult2_per/100)/2;
-	DAC_Out((short)(((long)(Wave[wave_loc_1]))*note_mag_mult1_per/100 + ((long)(Wave[wave_loc_2]))*note_mag_mult2_per/100)/2);
+	DAC_Out((short)(((long)(wavename1[wave_loc_1]))*note_mag_mult1_per/100 + ((long)(wavename2[wave_loc_2]))*note_mag_mult2_per/100)/2);
 	//DAC_Out((Wave[wave_loc_1] + Wave[wave_loc_2])/2);
 	
 

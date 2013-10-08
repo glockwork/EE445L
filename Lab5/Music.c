@@ -72,7 +72,7 @@ int wave_freq = 1000;
 int wave_loc_1 = 0;
 int wave_loc_2 = 0;
 int wave_inc = 1;
-int note_len = 5000000; //cycles per 16th note
+int note_len = 7000000; //cycles per 16th note
 int note_index1 = 0;
 int note_index2 = 0;
 
