@@ -110,6 +110,10 @@ void handlerSW4 (void){
 
 //switch mode (switch instruments/mode and whatnot)
 void handlerSW5 (void){
+	if (note_len == 7000000)
+		note_len = 3500000;
+	else
+		note_len = 7000000;
 }
 
 void handlerSW6 (void){

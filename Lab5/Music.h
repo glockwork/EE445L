@@ -5,10 +5,10 @@ extern const unsigned short Wave[];
 extern const unsigned short Trumpet[];
 extern const unsigned short Bassoon[];
 
-extern const unsigned short EyesofTexas1[60]; 
-extern const unsigned short EyesofTexas2[60];
-extern const unsigned short EyesofTexas_t1[60];
-extern const unsigned short EyesofTexas_t2[60];
+extern const unsigned short EyesofTexas1[]; 
+extern const unsigned short EyesofTexas2[];
+extern const unsigned short EyesofTexas_t1[];
+extern const unsigned short EyesofTexas_t2[];
 
 extern const unsigned short testsong[];
 extern const unsigned short testsong_t[];
@@ -26,8 +26,8 @@ extern int wave_inc;
 #define songname_t1 EyesofTexas_t1
 #define songname_t2 EyesofTexas_t1
 
-#define wavename1 Bassoon
-#define wavename2 Trumpet
+#define wavename1 Wave
+#define wavename2 Wave
 
 
 //notes

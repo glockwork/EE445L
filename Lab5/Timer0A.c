@@ -68,32 +68,50 @@ void Timer0A_Handler(void){
 			cyclesLeft1 = songname1[note_index1];
 			cyclesLeft2 -= cyclesLeft1;
 			noteToChange = 1;
+			cyclesCount1 = 0;
 	}
 	else 	if (cyclesLeft2 < cyclesLeft1){
 			minleft = cyclesLeft2;
 			cyclesLeft2 = songname2[note_index2];
 			cyclesLeft1 -= cyclesLeft2;
 			noteToChange = 2;
+			cyclesCount2 = 0;
 	} 
 	else {
 			minleft = cyclesLeft2;
 			cyclesLeft2 = songname2[note_index2];
 			cyclesLeft1 = songname1[note_index1];
 			noteToChange = 3;
+			cyclesCount1 = 0;
+			cyclesCount2 = 0;
+
 	}
 		
 	TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
 	TIMER0_TAILR_R = minleft - 1; //TIMER0_TAILR_R + periodShift;
+	
+		if (note_index2 == -1 || note_index1 == -1 || note_index1 >= song_len){
+		playing = 0;
+		note_index2 = 0;
+		note_index1 = 0;
+		count_b1 = 0;
+		count_b2 = 0;
+		cyclesLeft1 = 0;
+		cyclesLeft2 = 0;
+		TIMER0_CTL_R &= ~TIMER_CTL_TAEN;
+		TIMER0_CTL_R &= ~TIMER_CTL_TBEN;
+		return;
+	}
 
-//		if (100*count_a1*interrupt_cycles_a/(note_len*Whole) < 10)
-//			note_mag_mult1_per = 1000*count_a1*interrupt_cycles_a/(note_len*Whole);
+//		if (100*cyclesCount1/(note_len*Whole) < 10)
+//			note_mag_mult1_per = 1000*cyclesCount1/(note_len*Whole);
 //		else
-//			note_mag_mult1_per = 100 - (count_a1*interrupt_cycles_a*100/(note_len*Whole));
+//			note_mag_mult1_per = 100 - (cyclesCount1*100/(note_len*Whole));
 //		
-//		if (100*count_a2*interrupt_cycles_a/(note_len*Whole) < 10)
-//			note_mag_mult2_per = 1000*count_a2*interrupt_cycles_a/(note_len*Whole);
+//		if (100*cyclesCount2/(note_len*Whole) < 10)
+//			note_mag_mult2_per = 1000*cyclesCount2/(note_len*Whole);
 //		else
-//			note_mag_mult2_per = 100 - (count_a2*interrupt_cycles_a*100/(note_len*Whole));
+//			note_mag_mult2_per = 100 - (cyclesCount2*100/(note_len*Whole));
 	
 	//if its been the proper number of cycles (for the frequency of the note), incrememnt the index to the table output
 
@@ -127,7 +145,8 @@ void Timer0A_Handler(void){
 	DAC_Out((short)(((long)(wavename1[wave_loc_1]))*note_mag_mult1_per/100 + ((long)(wavename2[wave_loc_2]))*note_mag_mult2_per/100)/2);
 	//DAC_Out((Wave[wave_loc_1] + Wave[wave_loc_2])/2);
 	
-
+		cyclesCount1 += minleft;
+		cyclesCount2 += minleft;
 }
 
 //	//Interrupts will constantly update note_index 
@@ -141,6 +160,19 @@ void Timer0A_Handler(void){
 void Timer0B_Handler(void){
   TIMER0_ICR_R = TIMER_ICR_TBTOCINT;// acknowledge timer0B timeout
 	TIMER0_TBILR_R = interrupt_cycles_b - 1; //TIMER0_TAILR_R + periodShift;
+	
+	if (note_index2 == -1 || note_index1 == -1 || note_index1 >= song_len){
+		playing = 0;
+		note_index2 = 0;
+		note_index1 = 0;
+		count_b1 = 0;
+		count_b2 = 0;
+		cyclesLeft1 = 0;
+		cyclesLeft2 = 0;
+		TIMER0_CTL_R &= ~TIMER_CTL_TAEN;
+		TIMER0_CTL_R &= ~TIMER_CTL_TBEN;
+		return;
+	}
 
 	countb_overall ++;
 	count_b1 ++ ;
