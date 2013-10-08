@@ -5,13 +5,15 @@
 int interrupt_cycles_a = 500;
 int interrupt_cycles_b = 50000;
 
+volatile unsigned long countb_overall = 0; //used for debouncing
+int count_a1 = 0; //count for interrupt a
+int count_a2 = 0; //count for interrupt a
 
-int count_a = 0; //count for interrupt a
 int count_b1 = 0; //count for interrupt b
 int count_b2 = 0; //count for interrupt b
 
 void Timer0A_Init(){ 
-	INTPERIOD = timer_period;
+	//INTPERIOD = interrupt_cycles_a;
   TIMER0_CFG_R = TIMER_CFG_16_BIT; // configure for 16-bit timer mode
 	
 	
@@ -19,7 +21,7 @@ void Timer0A_Init(){
   TIMER0_TAMR_R = TIMER_TAMR_TAMR_PERIOD;// configure for periodic mode
  
 	//***** WORK WITH THE NUMBERS HERE ********** //
-	TIMER0_TAILR_R = interrupt_cycles_a;  // start value to count down from
+	TIMER0_TAILR_R = interrupt_cycles_a - 1;  // start value to count down from
   TIMER0_IMR_R |= TIMER_IMR_TATOIM;// enable timeout (rollover) interrupt
   TIMER0_ICR_R = TIMER_ICR_TATOCINT;// clear timer0A timeout flag
   
@@ -33,7 +35,7 @@ void Timer0A_Init(){
 	//TIMER 2 - note length
                                    // configure for periodic mode
   TIMER0_TBMR_R = TIMER_TBMR_TBMR_PERIOD;
-  TIMER0_TBILR_R = interrupt_cycles_b;           //
+  TIMER0_TBILR_R = interrupt_cycles_b - 1;           //
   TIMER0_IMR_R |= TIMER_IMR_TBTOIM;// enable timeout (rollover) interrupt
   TIMER0_ICR_R = TIMER_ICR_TBTOCINT;// clear timer0B timeout flag
 
@@ -45,14 +47,41 @@ void Timer0A_Init(){
   EnableInterrupts();
 }
 
+unsigned long viewshit = 0;
 
 //Timer A: Outputs the 2 sin waves (1 for each instrument)
 void Timer0A_Handler(void){
-	
+	int ret = 0;
+	count_a1++;
+	count_a2++;
+
 	TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
-	
+	TIMER0_TAILR_R = interrupt_cycles_a - 1; //TIMER0_TAILR_R + periodShift;
+
 	//if its been the proper number of cycles (for the frequency of the note), incrememnt the index to the table output
-		
+	viewshit = EyesofTexas1[wave_loc_1] + 1;
+	//checks if time to output next value in first waveform
+	if(count_a1*interrupt_cycles_a / Wave[wave_loc_1] >= 1){
+		wave_loc_1+=wave_inc;
+		wave_loc_1 = (wave_loc_1+wave_len)%wave_len;
+		ret=1;
+		count_a1 =0;
+	}
+	
+	//checks if time to output next value in second waveform
+	if(count_a2*interrupt_cycles_a / Wave[wave_loc_2] >= 1){
+		wave_loc_2+=wave_inc;
+		wave_loc_2 = (wave_loc_2+wave_len)%wave_len;
+
+		ret = 1;
+		count_a2 = 0;
+	}
+	
+//	if(!ret)
+//		return;
+	
+	//outputs values
+	DAC_Out((Wave[wave_loc_1] + Wave[wave_loc_2])/2);
 	
 
 }
@@ -67,7 +96,12 @@ void Timer0A_Handler(void){
 
 void Timer0B_Handler(void){
   TIMER0_ICR_R = TIMER_ICR_TBTOCINT;// acknowledge timer0B timeout
+	TIMER0_TBILR_R = interrupt_cycles_b - 1; //TIMER0_TAILR_R + periodShift;
 
+	countb_overall ++;
+	count_b1 ++ ;
+	count_b2 ++;
+	
 	//multipliers
 	//for the first .1s, increase from 0 to 100 %
 			//for 100*count_b*intcycb/(note_len*Whole) < 10

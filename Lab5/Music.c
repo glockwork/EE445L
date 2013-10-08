@@ -1,11 +1,17 @@
 #include "Globals.h"
 #include "Music.h"
 
-const unsigned short Wave[32]= { 
- 2048,2438,2813,3159,3462,3711,3896,4010,4048,4010,3896, 
- 3711,3462,3159,2813,2438,2048,1658,1283,937,634,385, 
- 200,86,48,86,200,385,634,937,1283,1658
-}; 
+//const unsigned short Wave[32]= { 
+// 2048,2438,2813,3159,3462,3711,3896,4010,4048,4010,3896, 
+// 3711,3462,3159,2813,2438,2048,1658,1283,937,634,385, 
+// 200,86,48,86,200,385,634,937,1283,1658
+//}; 
+
+const unsigned short Wave[64] = {
+    2048,2224,2399,2571,2737,2897,3048,3190,3321,3439,3545,3635,3711,3770,3813,3839,3848,3839,3813,3770,
+3711,3635,3545,3439,3321,3190,3048,2897,2737,2571,2399,2224,2048,1872,1697,1525,1359,1199,1048,906,775,
+657,551,461,385,326,283,257,248,257,283,326,385,461,551,657,775,906,1048,1199,1359,1525,1697,1872
+};
 
 const unsigned short Horn[64] = {
 	2126,2164,2238,2550,3356,3496,2550,1510,1322,1322,1406,1462,1538,1690,2078,2268,2418,2664,2930,
@@ -53,7 +59,9 @@ const unsigned short EyesofTexas_t2[60] = {
 };   
 
 int wave_freq = 1000;
-int wave_loc = 0;
+int wave_loc_1 = 0;
+int wave_loc_2 = 0;
+int wave_inc = 1;
 int note_len = 100; //cycles per 16th note
 int note_index1 = 0;
 int note_index2 = 0;
@@ -68,6 +76,7 @@ int note_mag_mult2_per = 100; //for the smooth envelope, percent of top magnitud
 //after first .1s to 1s, decrease from 100 to 0
 	//100 - t^2*100
 
+/*
 void PlaySong(){
 	
 	
@@ -77,4 +86,5 @@ void PlaySong(){
 		note_length = EyesofTexas_t[note_index] / note_len_divider;
 	}
 
-}
+}*/
+

@@ -17,10 +17,13 @@ int main(void){ volatile unsigned long delay;
 	delay = SYSCTL_RCGC2_R;          // allow time to finish activating
 	GPIO_PORTC_DIR_R |= 0x20;        // make PC5 out (PC5 built-in LED)
 	GPIO_PORTC_DEN_R |= 0x20;        // enable digital I/O on PC5
+	
+	SYSCTL_RCGC1_R |= SYSCTL_RCGC1_TIMER0;// activate timer0
+	
 	DAC_Init(2048);
 	Timer0A_Init();       // initialize timer0A (~20,000 Hz)
 	Switch_Init();
-	
+	EnableInterrupts();
   while(1){
   }
 }

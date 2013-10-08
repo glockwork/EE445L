@@ -23,23 +23,41 @@ void Switch_Init(void){
 	NVIC_EN0_R |= 0x80000000;// enable interrupt 3 in NVIC
 	rewind_mode = 0;
 }
+unsigned long oldPressTime;
+
+volatile unsigned long pressTime = 0;
+volatile unsigned long elapsedTime = 0;
 
 void GPIOPortG_Handler(void){
+//	pressTime = countb_overall;
+//	elapsedTime = (pressTime - oldPressTime);
+//	
+//	//button bouncing delay 10ms
+//	if (elapsedTime < 100){
+//	    GPIO_PORTG_ICR_R = 0x40;  // acknowledge flag4
+//	    GPIO_PORTG_ICR_R = 0x20;  // acknowledge flag4
+//	    GPIO_PORTG_ICR_R = 0x10;  // acknowledge flag4
+//	    GPIO_PORTG_ICR_R = 0x08;  // acknowledge flag4
+//		return;
+//	}
+//	
+//	oldPressTime = pressTime;
+
 	if(GPIO_PORTG_RIS_R&0x40){  // poll PD4
     	GPIO_PORTG_ICR_R = 0x40;  // acknowledge flag4
-			handlerSW6();
+		handlerSW6();
   	}
 	if(GPIO_PORTG_RIS_R&0x20){  // poll PD4
     	GPIO_PORTG_ICR_R = 0x20;  // acknowledge flag4
-			handlerSW5();
+		handlerSW5();
   	}
 	if(GPIO_PORTG_RIS_R&0x10){  // poll PD4
     	GPIO_PORTG_ICR_R = 0x10;  // acknowledge flag4
-			handlerSW4();
+		handlerSW4();
   	}
 	if(GPIO_PORTG_RIS_R&0x08){  // poll PD4
     	GPIO_PORTG_ICR_R = 0x08;  // acknowledge flag4
-			handlerSW3();
+		handlerSW3();
   	}
 }
 
@@ -77,7 +95,7 @@ void handlerSW4 (void){
 	}
 	else if (rewind_mode == 3){
 		playing = 0;
-		note_index = 0;
+		note_index1 = 0;
 		wave_inc = 1;
 		note_len_divider = 1;
 		rewind_mode = 0;
