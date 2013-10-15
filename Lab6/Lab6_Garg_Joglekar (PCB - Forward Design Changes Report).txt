@@ -6,44 +6,11 @@ Report Written : Monday, October 14, 2013
 Design Path    : C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab6\Lab6_Garg_Joglekar.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 10/14/2013 2:55:33 PM
-Editing Time   : 2936 min
+Last Saved     : 10/14/2013 10:50:20 PM
+Editing Time   : 3034 min
 Units          : mil (precision 0)
 
-Disconnected pin "U4-3" from net "N0488".
-Disconnected pin "C11-2" from net "N0488".
-Disconnected pin "U5-7" from net "N0490".
-Disconnected pin "C14-2" from net "N0490".
-Disconnected pin "C15-2" from net "N0490".
-Disconnected pin "U6-5" from net "N0488".
-Disconnected pin "R16-1" from net "N0488".
-
-Deleted net "N0488".
-Deleted net "N0490".
-
-Added net "Ground".
-Added net "toGND".
-
-Connected pin "U4-3" to net "Ground".
-Connected pin "C11-2" to net "Ground".
-Connected pin "U5-7" to net "toGND".
-Connected pin "C14-2" to net "toGND".
-Connected pin "C15-2" to net "toGND".
-Connected pin "U6-5" to net "Ground".
-Connected pin "U6-8" to net "+3V3".
-Connected pin "R16-1" to net "Ground".
-
-Net N0489 renamed to SpkLow
-Net N0491 renamed to opAmpSig
-Net N0503 renamed to DACClk
-Net N0504 renamed to DACCs
-Net N0494 renamed to opAmpSigMid
-Net N0495 renamed to OpAmpInGnd1
-Net N0496 renamed to opAmpInGnd2
-Net N0497 renamed to DacOutB
-Net N0498 renamed to diodeHigh
-Net N0492 renamed to DacREF
-Net N0493 renamed to SpkHigh
+Connected pin "U6-7" to net "DacOutB".
 
 
 End Of Report.

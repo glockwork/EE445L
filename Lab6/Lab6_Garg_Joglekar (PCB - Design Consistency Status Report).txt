@@ -6,8 +6,8 @@ Report Written : Monday, October 14, 2013
 Design Path    : C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab6\Lab6_Garg_Joglekar.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 10/14/2013 2:55:33 PM
-Editing Time   : 2936 min
+Last Saved     : 10/14/2013 10:50:20 PM
+Editing Time   : 3034 min
 Units          : mil (precision 0)
 
 
