@@ -1,0 +1,57 @@
+Unconnected Pins Report
+-----------------------
+
+Report File    : C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab6\Lab6_Garg_Joglekar (SCH - Unconnected Pins Report).txt
+Report Written : Monday, October 14, 2013
+Design Path    : C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab6\Lab6_Garg_Joglekar.sch
+Design Title   : 
+Created        : 
+Last Saved     : 10/14/2013 9:02:41 PM
+Editing Time   : 3081 min
+Units          : mil (precision 0)
+
+Component U1 Pin U1-21 (PA4/SSIRx)
+Component U1 Pin U1-18 (PA1/U0Tx)
+Component U1 Pin U1-17 (PA0/U0Rx)
+Component U1 Pin U1-42 (PB6/C0+)
+Component U1 Pin U1-43 (PB5/CCP5)
+Component U1 Pin U1-44 (PB4/C0-)
+Component U1 Pin U1-34 (PB3/I2CSDC)
+Component U1 Pin U1-33 (PB2/I2CSCL)
+Component U1 Pin U1-30 (PB1/PWM3)
+Component U1 Pin U1-29 (PB0/PWM2)
+Component U1 Pin U1-11 (PC7/CCP4)
+Component U1 Pin U1-12 (PC6/CCP3)
+Component U1 Pin U1-13 (PC5/CCP1)
+Component U1 Pin U1-14 (PC4)
+Component U1 Pin U1-48 (PD7/C0o)
+Component U1 Pin U1-47 (PD6/Fault)
+Component U1 Pin U1-46 (PD5/CCP2)
+Component U1 Pin U1-45 (PD4/CCP0)
+Component U1 Pin U1-28 (PD3/U1Tx)
+Component U1 Pin U1-27 (PD2/U1Rx)
+Component U1 Pin U1-26 (PD1/PWM1)
+Component U1 Pin U1-25 (PD0/PWM0)
+Component U1 Pin U1-36 (PE1/PWM5)
+Component U1 Pin U1-35 (PE0/PWM4)
+Component U1 Pin U1-4 (ADC3)
+Component U1 Pin U1-3 (ADC2)
+Component U1 Pin U1-2 (ADC1)
+Component U1 Pin U1-1 (ADC0)
+Component J1 Pin J1-2
+Component J1 Pin J1-3
+Component J1 Pin J1-11
+Component J1 Pin J1-15
+Component J1 Pin J1-17
+Component J1 Pin J1-19
+Component Box1 Pin Box1-1
+Component Box1 Pin Box1-2
+Component Box1 Pin Box1-3
+Component Box1 Pin Box1-4
+Component U5 Pin U5-1 (CD)
+Component U5 Pin U5-6 (Vcc)
+Component U6 Pin U6-4 (OutA)
+
+Unconnected pins found : 41
+
+End Of Report.
