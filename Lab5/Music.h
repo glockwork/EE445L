@@ -26,8 +26,8 @@ extern int wave_inc;
 #define songname_t1 EyesofTexas_t1
 #define songname_t2 EyesofTexas_t1
 
-#define wavename1 Trumpet
-#define wavename2 Bassoon
+#define wavename1 Wave
+#define wavename2 Wave
 
 
 //notes

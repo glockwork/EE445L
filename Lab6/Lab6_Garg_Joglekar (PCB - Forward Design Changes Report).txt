@@ -2,15 +2,15 @@ Forward Design Changes Report
 -----------------------------
 
 Report File    : C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab6\Lab6_Garg_Joglekar (PCB - Forward Design Changes Report).txt
-Report Written : Monday, October 14, 2013
+Report Written : Tuesday, October 15, 2013
 Design Path    : C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Lab6\Lab6_Garg_Joglekar.pcb
 Design Title   : 
 Created        : 9/11/2009 11:58:24 AM
-Last Saved     : 10/14/2013 10:50:20 PM
-Editing Time   : 3034 min
+Last Saved     : 10/15/2013 11:40:47 AM
+Editing Time   : 3041 min
 Units          : mil (precision 0)
 
-Connected pin "U6-7" to net "DacOutB".
+Connected pin "R2-2" to net "+3.3".
 
 
 End Of Report.

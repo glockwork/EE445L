@@ -1,0 +1,21 @@
+Forward Design Changes Report
+-----------------------------
+
+Report File    : C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Final Project\finalproject_811 (PCB - Forward Design Changes Report).txt
+Report Written : Tuesday, October 22, 2013
+Design Path    : C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Final Project\finalproject_811.pcb
+Design Title   : 
+Created        : 9/11/2009 11:58:24 AM
+Last Saved     : 10/22/2013 12:37:32 AM
+Editing Time   : 2794 min
+Units          : mil (precision 0)
+
+Error: Unable to add component reference "Box1" of component "Mammond1593Y", package "MISC" because Cannot find component "Mammond1593Y"..
+
+Connected pin "U1-34" to net "Note3".
+Connected pin "U1-33" to net "Note2".
+Connected pin "U1-35" to net "Extra1".
+Connected pin "R1-2" to net "+3.3".
+
+
+End Of Report.

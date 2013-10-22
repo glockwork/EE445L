@@ -39,7 +39,7 @@ void Timer0A_Handler(void){
 	//	return;
 	//}
 	
-	DAC_Out(Wave[wave_loc]);
+	DAC_Out(1024); //0, 512, 
 	wave_loc = (wave_loc + 1) % 32;
 }
 
