@@ -103,21 +103,6 @@ void Timer0A_Handler(void){
 		return;
 	}
 
-//		if (100*cyclesCount1/(note_len*Whole) < 10)
-//			note_mag_mult1_per = 1000*cyclesCount1/(note_len*Whole);
-//		else
-//			note_mag_mult1_per = 100 - (cyclesCount1*100/(note_len*Whole));
-//		
-//		if (100*cyclesCount2/(note_len*Whole) < 10)
-//			note_mag_mult2_per = 1000*cyclesCount2/(note_len*Whole);
-//		else
-//			note_mag_mult2_per = 100 - (cyclesCount2*100/(note_len*Whole));
-	
-	//if its been the proper number of cycles (for the frequency of the note), incrememnt the index to the table output
-
-	
-	//checks if time to output next value in first waveform
-	//if(count_a1*interrupt_cycles_a / songname1[note_index1] >= 1){
 	if (noteToChange == 1 || noteToChange == 3){
 		wave_loc_1+=1;
 		if (wave_loc_1>=wave_len)wave_loc_1 = 0;
@@ -134,28 +119,12 @@ void Timer0A_Handler(void){
 		count_a2 = 0;
 	}
 	
-//	if(!ret)
-//		return;
-	
-	//outputs values
-//	note_mag_mult1_per = 100;
-//	note_mag_mult2_per = 100;
-
-	//viewshit2 = (short)(((long)(Wave[wave_loc_1]))*note_mag_mult1_per/100 + ((long)(Wave[wave_loc_2]))*note_mag_mult2_per/100)/2;
 	DAC_Out((short)(((long)(wavename1[wave_loc_1]))*note_mag_mult1_per/100 + ((long)(wavename2[wave_loc_2]))*note_mag_mult2_per/100)/2);
-	//DAC_Out((Wave[wave_loc_1] + Wave[wave_loc_2])/2);
-	
+
 		cyclesCount1 += minleft;
 		cyclesCount2 += minleft;
 }
 
-//	//Interrupts will constantly update note_index 
-//	while(note_index < 60 && playing){
-//		wave_freq = EyesofTexas[note_index];
-//		note_length = EyesofTexas_t[note_index] / note_len_divider;
-//	}
-
-//Timer B: Changes the Notes of each instrument at the certain time
 
 void Timer0B_Handler(void){
   TIMER0_ICR_R = TIMER_ICR_TBTOCINT;// acknowledge timer0B timeout
@@ -177,30 +146,6 @@ void Timer0B_Handler(void){
 	countb_overall ++;
 	count_b1 ++ ;
 	count_b2 ++;
-	
-	//multipliers
-	//for the first .1s, increase from 0 to 100 %
-			//for 100*count_b*intcycb/(note_len*Whole) < 10
-			//multiplier = 1000*count_b*intcycb/(note_len*Whole)
-	//after first .1s to 1s, decrease from 100 to 0
-		//100 - t^2*100
-		//multiplier = 100 - (count_b*intcycb*100/(note_len*Whole))^2/100
-
-	//t = count_b*intcycb/(note_len*Whole)
-	
-	
-	
-//		if (100*count_b1*interrupt_cycles_b/(note_len*Whole) < 10)
-//			note_mag_mult1_per = 1000*count_b1*interrupt_cycles_b/(note_len*Whole);
-//		else
-//			note_mag_mult1_per = 100 - (count_b1*interrupt_cycles_b*100/(note_len*Whole));
-//		
-//		if (100*count_b2*interrupt_cycles_b/(note_len*Whole) < 10)
-//			note_mag_mult2_per = 1000*count_b2*interrupt_cycles_b/(note_len*Whole);
-//		else
-//			note_mag_mult2_per = 100 - (count_b2*interrupt_cycles_b*100/(note_len*Whole));
-		
-		
 	
 	//time to change note of instrument 1
 	if((count_b1*interrupt_cycles_b)/(note_len*songname_t1[note_index1]/note_len_divider) >= 1){
