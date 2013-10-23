@@ -1,0 +1,18 @@
+Design Consistency Status Report
+--------------------------------
+
+Report File    : C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Final Project\finalproject_811_2 (PCB - Design Consistency Status Report).txt
+Report Written : Tuesday, October 22, 2013
+Design Path    : C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Final Project\finalproject_811_2.pcb
+Design Title   : 
+Created        : 9/11/2009 11:58:24 AM
+Last Saved     : 10/22/2013 7:36:05 PM
+Editing Time   : 3140 min
+Units          : mil (precision 0)
+
+
+Checking integrity of Schematic "C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Final Project\finalproject_811_2.sch" with PCB "C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Final Project\finalproject_811_2.pcb"
+============================================================================================================================================================================================================================================================================================
+
+
+End Of Report.
