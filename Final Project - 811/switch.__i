@@ -1,0 +1,1 @@
+-c --device DLM -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\.. -I "D:\Keil\ARM\INC\Luminary" -o "switch.o" --omf_browse "switch.crf" --depend "switch.d" "Switch.c"
