@@ -662,9 +662,10 @@ ARM Macro Assembler    Page 11
   444 0000001C         ;*******************************************************
                        ***********************
   445 0000001C                 END
-Command Line: --debug --xref --device=DLM --apcs=interwork -oStartup.o -ID:\Kei
-l\ARM\INC\Luminary --predefine="__EVAL SETA 1" --predefine="__MICROLIB SETA 1" 
---list=Startup.lst Startup.s
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\startu
+p.d -o.\startup.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\
+ARM\Inc\Luminary --predefine="__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --
+list=.\startup.lst Startup.s
 
 
 
@@ -1436,4 +1437,4 @@ Symbol: __main
       At line 172 in file Startup.s
 Comment: __main used once
 1 symbol
-398 symbols in table
+409 symbols in table

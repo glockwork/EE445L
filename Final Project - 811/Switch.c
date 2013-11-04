@@ -52,16 +52,16 @@ unsigned long Switch_Input(void){
 #define GPIO_PORTC_DEN_R        (*((volatile unsigned long *)0x4000651C))
 #define SYSCTL_RCGC2_GPIOC      0x00000004  // port C Clock Gating Control
 #define PC5 (*((volatile unsigned long *)0x40006080))
-int main(void){
-  SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOC;// activate port C
-  Switch_Init();            // initialize PD5 and make it input
-  GPIO_PORTC_DIR_R |= 0x20; // make PC5 output (PC5 built-in LED)
-  GPIO_PORTC_DEN_R |= 0x20; // enable digital I/O on PC5
-  while(1){
-    if(Switch_Input()){
-      PC5 = 0x20;  // turn on LED if switch pressed
-    } else{
-      PC5 = 0x00;  // turn off LED if switch not pressed
-    }
-  }
-}
+//int main(void){
+//  SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOC;// activate port C
+//  Switch_Init();            // initialize PD5 and make it input
+//  GPIO_PORTC_DIR_R |= 0x20; // make PC5 output (PC5 built-in LED)
+//  GPIO_PORTC_DEN_R |= 0x20; // enable digital I/O on PC5
+//  while(1){
+//    if(Switch_Input()){
+//      PC5 = 0x20;  // turn on LED if switch pressed
+//    } else{
+//      PC5 = 0x00;  // turn off LED if switch not pressed
+//    }
+//  }
+//}

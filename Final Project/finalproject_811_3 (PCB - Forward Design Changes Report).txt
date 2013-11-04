@@ -1,0 +1,16 @@
+Forward Design Changes Report
+-----------------------------
+
+Report File    : C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Final Project\finalproject_811_3 (PCB - Forward Design Changes Report).txt
+Report Written : Thursday, October 31, 2013
+Design Path    : C:\Users\Nikhil\Dropbox\Current Documents\College stuff\2013 Fall\EE445L\EE445Labs\Final Project\finalproject_811_3.pcb
+Design Title   : 
+Created        : 9/11/2009 11:58:24 AM
+Last Saved     : 10/31/2013 12:25:50 AM
+Editing Time   : 3555 min
+Units          : mil (precision 0)
+
+Deleted component reference "Box1".
+
+
+End Of Report.
