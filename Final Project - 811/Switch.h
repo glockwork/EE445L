@@ -41,27 +41,11 @@ void Switch_Init(void){ volatile unsigned long delay;
   GPIO_PORTD_AFSEL_R &= ~0x20;   // 3) regular port function
   GPIO_PORTD_DEN_R |= 0x20;      // 4) enable digital port
 }
-unsigned long Switch_Input(void){ 
-  return GPIO_PORTD_DATA_R;      // port D
-}
+unsigned long Switch_Input(void);
 
-//debug code
-// debug hardware, LED on PC5
 #define GPIO_PORTC_DATA_R       (*((volatile unsigned long *)0x400063FC))
 #define GPIO_PORTC_DIR_R        (*((volatile unsigned long *)0x40006400))
 #define GPIO_PORTC_DEN_R        (*((volatile unsigned long *)0x4000651C))
 #define SYSCTL_RCGC2_GPIOC      0x00000004  // port C Clock Gating Control
 #define PC5 (*((volatile unsigned long *)0x40006080))
-//int main(void){
-//  SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOC;// activate port C
-//  Switch_Init();            // initialize PD5 and make it input
-//  GPIO_PORTC_DIR_R |= 0x20; // make PC5 output (PC5 built-in LED)
-//  GPIO_PORTC_DEN_R |= 0x20; // enable digital I/O on PC5
-//  while(1){
-//    if(Switch_Input()){
-//      PC5 = 0x20;  // turn on LED if switch pressed
-//    } else{
-//      PC5 = 0x00;  // turn off LED if switch not pressed
-//    }
-//  }
-//}
+

@@ -5,8 +5,9 @@
 ".\xbeeout.o"
 ".\uart2.o"
 ".\uart2testmain.o"
-".\global.o"
-"..\driverlib\rvmdk\driverlib.lib"
+".\timer0a.o"
+".\globals.o"
+".\controller.o"
 "..\driverlib\rvmdk\driverlib.lib"
 --library_type=microlib --ro-base 0x00000000 --entry 0x00000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

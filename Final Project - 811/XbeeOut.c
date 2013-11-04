@@ -1,6 +1,6 @@
 #include "XBeeOut.h"
 #include "UART2.h"
-#include "global.h"
+#include "globals.h"
 #include "SysTick.h"
 /*
  * Initializes XBee to send output mode
