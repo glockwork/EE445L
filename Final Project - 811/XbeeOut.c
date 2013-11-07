@@ -64,6 +64,12 @@ void XBeeInit(){
 checksum fields. The frame data field contains destination address and transmission options information. Increment
 the Frame Id (byte 5 in the figure at the bottom page 57) from 1 to 255, and then back to 1 again.
  */
+ 
+void XBee_sendDataFrame(char * data){
+	//TODO
+//	XBee_CreateTxFrame(len, char api, char * data, char * frame){
+
+}
 void XBee_CreateTxFrame(unsigned int len, char api, char * data, char * frame){
 	 int i;
 	 int checkLocation = 0;

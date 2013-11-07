@@ -1,0 +1,1 @@
+-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I.. -I..\..\.. -I "C:\Keil\ARM\INC" -I "C:\Keil\ARM\INC\Luminary" -o "switch.o" --omf_browse "switch.crf" --depend "switch.d" "Switch.c"

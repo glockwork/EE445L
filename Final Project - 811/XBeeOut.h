@@ -1,3 +1,7 @@
+
+
+void XBee_sendDataFrame(char * data);
+
 /*
  * Initializes XBee to send output mode
  */

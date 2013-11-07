@@ -7,4 +7,4 @@ unsigned long INTPERIOD;
 int timer_period = 50000;
 unsigned long Count = 0;
 unsigned long CountB = 0;
-
+void portChanged(unsigned char port, unsigned char num);

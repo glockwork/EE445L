@@ -1,7 +1,7 @@
 #include "Globals.h"
 #include "Timer0A.h"
 #include "Switch.h"
-
+#include "XBeeOut.h"
 int interrupt_cycles_a = 50000; //TODO figure out correct interrupts for 20 ms
 int interrupt_cycles_b = 50000;
 
@@ -57,20 +57,42 @@ unsigned int cyclesCount2 = 0;
 unsigned int noteToChange = 0; //1 for note1, 2 for note2, and 3 for both
 
 
-unsigned int portValues = 0;
+unsigned int portDValues = 0;
+unsigned int portBValues = 0;
 
 //Timer A: Outputs the 2 sin waves (1 for each instrument)
 void Timer0A_Handler(void){
-	unsigned int newPortValues;
+	unsigned int newPortDValues;
+  unsigned int newPortBValues;
+
 	TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
 	TIMER0_TAILR_R = interrupt_cycles_a - 1; //TIMER0_TAILR_R + periodShift;
 	
-	newPortValues = Switch_Input();
+	newPortDValues = readD();
+	newPortBValues = readB();
+
 	//read ports
 	//for each bit, if the value is different, send through zigbee 
 
 }
 
+void checkChange (unsigned int oldValue, unsigned int newValue, unsigned char port)
+{
+	int change = oldValue ^ newValue;
+	int i;
+	for (i = 0; i<8;i++){
+		if ((change & 0x01) == 1)
+			portChanged(port, i);
+		change >>= 1; 
+	}
+}
+
+void portChanged(unsigned char port, unsigned char num){
+	char data[2];
+	data[0] = port;
+	data[1] = num;
+	XBee_sendDataFrame(data);
+}
 
 void Timer0B_Handler(void){
   TIMER0_ICR_R = TIMER_ICR_TBTOCINT;// acknowledge timer0B timeout

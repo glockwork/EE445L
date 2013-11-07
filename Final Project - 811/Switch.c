@@ -41,8 +41,11 @@ void Switch_Init(void){ volatile unsigned long delay;
   GPIO_PORTD_AFSEL_R &= ~0x20;   // 3) regular port function
   GPIO_PORTD_DEN_R |= 0x20;      // 4) enable digital port
 }
-unsigned long Switch_Input(void){ 
+unsigned long readD(void){ 
   return GPIO_PORTD_DATA_R;      // port D
+}
+unsigned long readB(void){ 
+  return GPIO_PORTB_DATA_R;      // port D
 }
 
 //debug code
