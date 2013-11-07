@@ -50,7 +50,7 @@ void WaitForInterrupt(void);  // low power mode
 
 //the ADC can be triggered three ways
 //1) a timer can be set to automatically start the process then generate an interrupt when done
-//2) use sampling events to trigger samples
+//2) use sampling events to trigger samples (can use other things than timer)
 //3) manually start a sample by setting proper register values
 
 #include "temperature.h"
