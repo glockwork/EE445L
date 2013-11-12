@@ -56,20 +56,38 @@ void WaitForInterrupt(void);  // low power mode
 #include "temperature.h"
 #include "ADCT0ATrigger.h"
 #include "fixed.h"
+#include "rit128x96x4.h"
+//#include "hw_types.h"
+//#include "sysctl.h"
+#include "lm3s1968.h"
+#include "pll.h"
 
 unsigned long temperature; //100 * temperature, in C
+unsigned long offset = 0;
 
+
+char string [10];
 int main(void){
-	char string [10];
+	unsigned long calibratedValue = 0;
+	PLL_Init();
+//	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | 
+//	SYSCTL_XTAL_8MHZ); // 50 MHz 
+	DisableInterrupts();
+	Output_Init(); 
   SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOC;    // activate port C
+	
   ADC_InitTimer0ATriggerSeq3(0, 9, 29999); // ADC channel 0, 20 Hz sampling
   GPIO_PORTC_DIR_R |= 0x20;                // make PC5 out (PC5 built-in LED)
   GPIO_PORTC_DEN_R |= 0x20;                // enable digital I/O on PC5 (default setting)
+		EnableInterrupts();
+
+	
   while(1){
     GPIO_PORTC_DATA_R ^= 0x20;           // toggle LED
 		temperature = convertToTemperature(ADCvalue);
+		calibratedValue = ADCvalue + offset;
 		Fixed_uDecOut2s(temperature, string);
-		//TODO print out to OLED
-		//TODO print out graphically
+		RIT128x96x4StringDraw(string, 0,
+                      0, 15);
   }
 }
