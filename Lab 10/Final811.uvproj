@@ -398,11 +398,6 @@
               <FilePath>.\Startup.s</FilePath>
             </File>
             <File>
-              <FileName>Switch.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Switch.c</FilePath>
-            </File>
-            <File>
               <FileName>SysTick.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\SysTick.c</FilePath>
@@ -443,16 +438,6 @@
               <FilePath>.\FIFO.h</FilePath>
             </File>
             <File>
-              <FileName>Timer0A.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Timer0A.h</FilePath>
-            </File>
-            <File>
-              <FileName>Timer0A.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Timer0A.c</FilePath>
-            </File>
-            <File>
               <FileName>globals.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\globals.c</FilePath>
@@ -463,9 +448,19 @@
               <FilePath>.\globals.h</FilePath>
             </File>
             <File>
-              <FileName>Controller.c</FileName>
+              <FileName>Output.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Controller.c</FilePath>
+              <FilePath>.\Output.c</FilePath>
+            </File>
+            <File>
+              <FileName>PLL.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\PLL.c</FilePath>
+            </File>
+            <File>
+              <FileName>rit128x96x4.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\rit128x96x4.c</FilePath>
             </File>
           </Files>
         </Group>

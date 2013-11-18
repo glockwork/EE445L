@@ -67,6 +67,7 @@ unsigned long offset = 0;
 
 
 char string [10];
+char string2[10];
 int main(void){
 	unsigned long calibratedValue = 0;
 	PLL_Init();
@@ -89,5 +90,7 @@ int main(void){
 		Fixed_uDecOut2s(temperature, string);
 		RIT128x96x4StringDraw(string, 0,
                       0, 15);
+		Fixed_uDecOut2s(ADCvalue, string2);
+
   }
 }

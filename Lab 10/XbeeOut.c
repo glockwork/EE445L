@@ -2,6 +2,31 @@
 #include "UART2.h"
 #include "globals.h"
 #include "SysTick.h"
+#include "RIT128x96x4.h"
+#include "FIFO.h"
+
+// delay function for testing from sysctl.c
+// which delays 3*ulCount cycles
+#ifdef __TI_COMPILER_VERSION__
+	//Code Composer Studio Code
+	void Delay(unsigned long ulCount){
+	__asm (	"    subs    r0, #1\n"
+			"    bne     Delay\n"
+			"    bx      lr\n");
+}
+
+#else
+	//Keil uVision Code
+	__asm void
+	Delay(unsigned long ulCount)
+	{
+    subs    r0, #1
+    bne     Delay
+    bx      lr
+	}
+
+#endif
+
 /*
  * Initializes XBee to send output mode
  
@@ -28,19 +53,22 @@ and baud rate (BD=3, for 9600 bits/sec)
  */
  
  unsigned char ID;
- 
+ char response [10];
 void XBeeInit(){
-	char * commands [] = {"X", "ATDL4F", "ATDH0", "ATMY4E", "ATAP1", "ATCN"};
+	char * commands [] = {"ATDL4F", "ATDH0", "ATMY4E", "ATAP1", "ATCN"};
 	int i = 0;
 	int j;
 	UART_Init();
 	ID = 1;
-
-	SysTick_Wait10ms(110); 	//wait 1.1s 
-	sendATCommand("+++", 110);
+//  UART_OutString("X");
+	Delay(55000000);
+	 //SysTick_Wait10ms(110);		//wait waitTime number of ms;
+	sendATCommand("+++", 110, 0);
+	UART_InString(response, 5);
+	RIT128x96x4StringDraw(response, 10, 10 , 15);
 	
 	for (i=1;i<6;i++){
-		sendATCommand(commands[i], 20);
+		sendATCommand(commands[i], 20, 1);
 	}
  }
 
@@ -52,7 +80,7 @@ void XBeeInit(){
  void XBeeSendTxFrame(char * frame, int len){
 	 
 	 int i;
-	 for (i=0;i<len+6;i++) //add 6 for overhead for each frame(start, length, api, etc)
+	 for (i=0;i<len;i++)
 		UART_OutChar(frame[i]);
 	 
  }
@@ -66,22 +94,25 @@ the Frame Id (byte 5 in the figure at the bottom page 57) from 1 to 255, and the
  */
  
 void XBee_sendDataFrame(char * data){
-	//TODO
-//	XBee_CreateTxFrame(len, char api, char * data, char * frame){
+	char frame [20];
+	XBee_CreateTxFrame(strlen2(data), 1, data,frame);
+	XBeeSendTxFrame(frame, strlen2(data) + 9);
 
 }
 void XBee_CreateTxFrame(unsigned int len, char api, char * data, char * frame){
 	 int i;
 	 int checkLocation = 0;
-	 len = len+2; //make room for api and id
 	 frame [0] = 0x7e; //start delimeter
 	 frame [1] = len & 0xFF00;
 	 frame [2] = len & 0x00FF; //
 	 frame [3] = api; //API = 1;
 	 frame[4] = ID++;
-	 for (i=0; i < (len -2);i++)
-			frame[5 + i] = data[i];
-	 checkLocation = 5+i;
+	 frame[5] = 0; //destination top
+	 frame[6] = 2; //destination bottom
+	 frame[7] = 0; //opt
+	 for (i=0; i < (len);i++)
+			frame[8 + i] = data[i];
+	 checkLocation = 8+i;
 	 frame[checkLocation] = 0xFF; //set initial value of checksum
 	 for (i = 3; i <checkLocation; i++)
 		frame[checkLocation] -= frame[i];
@@ -121,19 +152,30 @@ This routine receives the various parameters associated with an AT command as in
 command to the XBee module. After a blind-cycle delay, the routine checks if the command has been successfully
 received by determining if the module has returned the ‘OK’ character string.
  */
- void sendATCommand( char * command, int waitTime){
+char aa;
+char bb;
+	 char frame[50];
+
+ void sendATCommand( char * command, int waitTime, char CRout){
 	 char done = 0;
 	 int j;
+	 int size;
 	 int commandLen = strlen2(command);
-	 char frame[50];
 	 do{
-	 XBee_CreateTxFrame(commandLen, 0x08, command, frame);
-	 XBeeSendTxFrame(frame, commandLen);
-	 SysTick_Wait10ms(waitTime);		//wait waitTime number of ms;
+		 UART_OutString(command);
+		 if (CRout)
+			UART_OutChar(CR);
+	Delay(500000*waitTime);
+	j = 0;
+  size = RxFifo_Size();
+	while (size>0){
+		frame[j++] = UART_InChar();
+	size = RxFifo_Size();
+		Delay(5000);
+	}
 
-	 //TODO check for done;
+	if (frame[0] == 'O' && frame[1] == 'K' && frame[2] == CR)
 		done = 1;
-		
 	} while (!done);
 	 
  }

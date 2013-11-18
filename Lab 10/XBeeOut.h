@@ -62,4 +62,4 @@ This routine receives the various parameters associated with an AT command as in
 command to the XBee module. After a blind-cycle delay, the routine checks if the command has been successfully
 received by determining if the module has returned the ‘OK’ character string.
  */
- void sendATCommand();
+ void sendATCommand( char * command, int waitTime, char CRout);

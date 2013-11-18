@@ -5,6 +5,8 @@
 unsigned long TLUT [129]; //TODO create look up table 
 unsigned long tableValue1;
 unsigned long tableValue2;
+long offsetT = -64;
+long offsetTemp = -600;
 unsigned short const ADCdata[53]={0,1,13,30,48,65,83,101,119,137,155,		
      173,191,209,228,246,265,284,302,321,340,		
      359,378,398,417,436,456,476,495,515,535,		
@@ -26,15 +28,16 @@ unsigned short const Rdata[53]={638,638,646,655,663,672,680,689,698,708,717,
 
 unsigned long convertToTemperature(unsigned long adcValue){
 	int i = 0;
-	if (adcValue == 1024) return Tdata[0];
+	adcValue += offsetT;
+	if (adcValue == 1024) return Tdata[0] + offsetTemp;
 	for (i=0;i<52;i++)
 	{
-		if (adcValue == ADCdata[i]) return Tdata[51 - i];
+		if (adcValue == ADCdata[i]) return Tdata[51 - i] + offsetTemp;
 		else if (adcValue > ADCdata[i] && adcValue < ADCdata[i+1])
 		{
 			tableValue1 = Tdata[51 - i];
 			tableValue2 = Tdata[51 - i - 1];
-			return tableValue1 + (tableValue2 - tableValue1)*(adcValue%19)/19;
+			return tableValue1 + (tableValue2 - tableValue1)*(adcValue%19)/19 + offsetTemp;
 		}
 		
 	}
