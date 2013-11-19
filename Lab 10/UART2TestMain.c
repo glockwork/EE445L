@@ -25,6 +25,15 @@
 // U0Rx (VCP receive) connected to PA0
 // U0Tx (VCP transmit) connected to PA1
 
+#ifdef __TI_COMPILER_VERSION__
+	//Code Composer Studio Code
+	void Delay(unsigned long ulCount){
+	__asm (	"    subs    r0, #1\n"
+			"    bne     Delay\n"
+			"    bx      lr\n");
+}
+#endif
+
 #include "UART2.h"
 #include "inc/hw_types.h"
 #include "driverlib/sysctl.h"
@@ -51,9 +60,18 @@ int main(void){
 	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
 	PLL_Init();
 //	SysTick_Init();
-  UART_Init();              // initialize UART
-  OutCRLF();
+//  UART_Init();              // initialize UART
+//  OutCRLF();
 	XBeeInit();
+	
+	while(1){
+		
+	XBee_sendDataFrame("1234");
+		Delay(5500000);
+	}
+	XBee_sendDataFrame("2");
+	
+	while(1);
 //  for(i='A'; i<='Z'; i=i+1){// print the uppercase alphabet
 //    UART_OutChar(i);
 //  }

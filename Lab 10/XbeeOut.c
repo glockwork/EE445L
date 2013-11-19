@@ -4,6 +4,7 @@
 #include "SysTick.h"
 #include "RIT128x96x4.h"
 #include "FIFO.h"
+#include "PCUART2.h"
 
 // delay function for testing from sysctl.c
 // which delays 3*ulCount cycles
@@ -55,21 +56,30 @@ and baud rate (BD=3, for 9600 bits/sec)
  unsigned char ID;
  char response [10];
 void XBeeInit(){
-	char * commands [] = {"ATDL4F", "ATDH0", "ATMY4E", "ATAP1", "ATCN"};
+	char * commands [] = {"ATDL66", "ATDH0", "ATMY6D", "ATAP1", "ATCN", ""};
 	int i = 0;
 	int j;
 	UART_Init();
-	ID = 1;
-//  UART_OutString("X");
+	PCUART_Init();
+	PCUART_OutString("Initialized\n");
+	while (RxFifo_Size()>0){ //flush FIFO
+		UART_InChar();
+	}
+
+		ID = 1;
+	PCUART_OutString("x");
+  UART_OutString("x");
 	Delay(55000000);
 	 //SysTick_Wait10ms(110);		//wait waitTime number of ms;
 	sendATCommand("+++", 110, 0);
-	UART_InString(response, 5);
-	RIT128x96x4StringDraw(response, 10, 10 , 15);
+	//UART_InString(response, 5);
+	//RIT128x96x4StringDraw(response, 10, 10 , 15);
 	
-	for (i=1;i<6;i++){
+	for (i=0;i<5;i++){
 		sendATCommand(commands[i], 20, 1);
 	}
+	Delay(55000000);
+	PCUART_OutString("done with commands\n");
  }
 
 /*
@@ -80,8 +90,13 @@ void XBeeInit(){
  void XBeeSendTxFrame(char * frame, int len){
 	 
 	 int i;
-	 for (i=0;i<len;i++)
+	 char a;
+//	 UART_OutArray(frame, len);
+//	 UART_OutString(frame);
+	 for (i=0;i<len;i++){
+		a = frame[i];
 		UART_OutChar(frame[i]);
+	 }
 	 
  }
  
@@ -92,9 +107,9 @@ void XBeeInit(){
 checksum fields. The frame data field contains destination address and transmission options information. Increment
 the Frame Id (byte 5 in the figure at the bottom page 57) from 1 to 255, and then back to 1 again.
  */
- 
+ char frame [20];
+
 void XBee_sendDataFrame(char * data){
-	char frame [20];
 	XBee_CreateTxFrame(strlen2(data), 1, data,frame);
 	XBeeSendTxFrame(frame, strlen2(data) + 9);
 
@@ -102,22 +117,26 @@ void XBee_sendDataFrame(char * data){
 void XBee_CreateTxFrame(unsigned int len, char api, char * data, char * frame){
 	 int i;
 	 int checkLocation = 0;
+	 unsigned char sum = 0;
 	 frame [0] = 0x7e; //start delimeter
-	 frame [1] = len & 0xFF00;
-	 frame [2] = len & 0x00FF; //
-	 frame [3] = api; //API = 1;
+	 
+	 frame [1] = (len + 5) & 0xFF00;
+	 frame [2] = (len + 5) & 0x00FF; //
+	 frame [3] = 1; //API = 1;
 	 frame[4] = ID++;
 	 frame[5] = 0; //destination top
-	 frame[6] = 2; //destination bottom
+	 frame[6] = 0x66; //destination bottom
 	 frame[7] = 0; //opt
 	 for (i=0; i < (len);i++)
 			frame[8 + i] = data[i];
-	 checkLocation = 8+i;
+	 checkLocation = 8+len;
 	 frame[checkLocation] = 0xFF; //set initial value of checksum
+	  sum = 0xFF;
 	 for (i = 3; i <checkLocation; i++)
-		frame[checkLocation] -= frame[i];
-	 
-	 if (ID==0) ID = 1;
+		sum -= frame[i];
+	 frame[checkLocation]  = sum;
+	 frame[checkLocation + 1] = 0;
+	 if (ID==255) ID = 1;
 	 
  }
  
@@ -132,7 +151,17 @@ properly received by the other computer, measured on XBee pin 2 Dout.
 
  */
  void XBee_TxStatus(){
-	 
+//	   char frame_buffer[7];
+//    unsigned char sum = 0;
+//    int i;
+//    for(i = 0; i < 7; i++)
+//        frame_buffer[i] = UART_InChar();
+//    // 7 bytes: delimiter, length_high, length_low, API, ID, OK, checksum
+//    for(i = 3; i < 7; i++)       // frame data + checksum  = 0xFF
+//        sum += frame_buffer[i];
+//    if(sum == 0xFF)
+//        return frame_buffer[5];
+//    return 1;
 	 
  }
  
@@ -154,13 +183,22 @@ received by determining if the module has returned the ‘OK’ character string.
  */
 char aa;
 char bb;
-	 char frame[50];
-
  void sendATCommand( char * command, int waitTime, char CRout){
+	 char frame2[50];
 	 char done = 0;
-	 int j;
+	 char count = 0;
+	 int j = 0;
 	 int size;
 	 int commandLen = strlen2(command);
+	 for (j = 0; j < 50; j++)
+		frame2[j] = 0;
+	 
+	 frame2[0] = 0;
+	 frame2[1]  = 0;
+ 	 PCUART_OutString("Sending command: ");
+
+	 PCUART_OutString(command);
+	 PCUART_OutChar(LF);
 	 do{
 		 UART_OutString(command);
 		 if (CRout)
@@ -169,15 +207,18 @@ char bb;
 	j = 0;
   size = RxFifo_Size();
 	while (size>0){
-		frame[j++] = UART_InChar();
-	size = RxFifo_Size();
-		Delay(5000);
+		frame2[j++] = UART_InChar();
+		size = RxFifo_Size();
+//		Delay(500000);
 	}
-
-	if (frame[0] == 'O' && frame[1] == 'K' && frame[2] == CR)
+	j = 0;
+	while (frame2[j] != 'O') j++;
+	if (frame2[j] == 'O' && frame2[j+1] == 'K' && frame2[j+2] == CR)
 		done = 1;
-	} while (!done);
-	 
+	count++;
+	} while (!done && count < 10);
+	PCUART_OutString(frame2+j);
+	PCUART_OutChar(LF);
  }
  
  

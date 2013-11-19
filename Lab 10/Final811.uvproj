@@ -462,6 +462,11 @@
               <FileType>1</FileType>
               <FilePath>.\rit128x96x4.c</FilePath>
             </File>
+            <File>
+              <FileName>PCUART2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\PCUART2.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
