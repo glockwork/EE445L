@@ -62,12 +62,12 @@ int main(void){  volatile unsigned long delay;
                  SYSCTL_XTAL_6MHZ);
 	PLL_Init();
   SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOD | SYSCTL_RCGC2_GPIOB;; // activate port D
-
+	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOB;
 //	SysTick_Init();
 //  UART_Init();              // initialize UART
 //  OutCRLF();
 	Switch_Init();
-//	XBeeInit();
+	XBeeInit();
 	Timer0A_Init(16000);
 //	XBee_sendDataFrame("1234\r");
 //  while(1){

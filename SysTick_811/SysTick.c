@@ -25,9 +25,6 @@
 
 // PD1 is an output for debugging
 
-#include "SysTick.h"
-
-
 #define NVIC_ST_CTRL_R          (*((volatile unsigned long *)0xE000E010))
 #define NVIC_ST_RELOAD_R        (*((volatile unsigned long *)0xE000E014))
 #define NVIC_ST_CURRENT_R       (*((volatile unsigned long *)0xE000E018))
@@ -58,20 +55,10 @@ void SysTick_Wait(unsigned long delay){
 // Time delay using busy wait.
 // 10000us equals 10ms
 void SysTick_Wait10ms(unsigned long delay){
-	
-	unsigned long i = 0;
-	unsigned long j = 0;
-	volatile unsigned long dummy = 0;
-	for (i = 0; i < delay; i++)
-		for (j = 0; j < 150000; j++)
-			dummy ++ ;
-	
-//  unsigned long i;
-//  for(i=0; i<delay; i++){
-//		SysTick_Wait(60000);
-//    //SysTick_Wait(60000);  // wait 10ms (assumes 6 MHz clock)
-//  }
-//	return;
+  unsigned long i;
+  for(i=0; i<delay; i++){
+    SysTick_Wait(60000);  // wait 10ms (assumes 6 MHz clock)
+  }
 }
 
 //debug code

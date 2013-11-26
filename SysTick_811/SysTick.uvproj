@@ -7,19 +7,19 @@
 
   <Targets>
     <Target>
-      <TargetName>UART2</TargetName>
+      <TargetName>SysTick</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
         <TargetCommonOption>
-          <Device>LM3S1968</Device>
+          <Device>LM3S811</Device>
           <Vendor>Luminary Micro</Vendor>
-          <Cpu>IRAM(0x20000000-0x2000FFFF) IROM(0-0x3FFFF) CLOCK(6000000) CPUTYPE("Cortex-M3")</Cpu>
+          <Cpu>IRAM(0x20000000-0x20001FFF) IROM(0-0xFFFF) CLOCK(8000000) CPUTYPE("Cortex-M3")</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile>"STARTUP\Luminary\Startup.s" ("Luminary Startup Code")</StartupFile>
-          <FlashDriverDll>UL2CM3(-UU0101L5E -O14 -S0 -C0 -N00("ARM Cortex-M3") -D00(1BA00477) -L00(4) -FO7 -FD20000000 -FC800 -FN1 -FF0LM3S_256 -FS00 -FL040000)</FlashDriverDll>
-          <DeviceId>4305</DeviceId>
-          <RegisterFile>LM3Sxxxx.H</RegisterFile>
+          <FlashDriverDll>UL2CM3(-UU0101L5E -O14 -S0 -C0 -N00("ARM Cortex-M3") -D00(1BA00477) -L00(4) -FO7 -FD20000000 -FC800 -FN1 -FF0LM3S_64 -FS00 -FL010000)</FlashDriverDll>
+          <DeviceId>4146</DeviceId>
+          <RegisterFile>LM3Sxxx.H</RegisterFile>
           <MemoryEnv></MemoryEnv>
           <Cmp></Cmp>
           <Asm></Asm>
@@ -45,7 +45,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\</OutputDirectory>
-          <OutputName>UART2</OutputName>
+          <OutputName>SysTick</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -104,11 +104,11 @@
           <SimDllName>SARMCM3.DLL</SimDllName>
           <SimDllArguments></SimDllArguments>
           <SimDlgDll>DLM.DLL</SimDlgDll>
-          <SimDlgDllArguments>-pLM3S1968</SimDlgDllArguments>
+          <SimDlgDllArguments>-pLM3S811</SimDlgDllArguments>
           <TargetDllName>SARMCM3.DLL</TargetDllName>
           <TargetDllArguments></TargetDllArguments>
           <TargetDlgDll>TLM.DLL</TargetDlgDll>
-          <TargetDlgDllArguments>-pLM3S1968</TargetDlgDllArguments>
+          <TargetDlgDllArguments>-pLM3S811</TargetDlgDllArguments>
         </DllOption>
         <DebugOption>
           <OPTHX>
@@ -190,8 +190,8 @@
             <ldmm>1</ldmm>
             <ldXref>1</ldXref>
             <BigEnd>0</BigEnd>
-            <AdsALst>0</AdsALst>
-            <AdsACrf>0</AdsACrf>
+            <AdsALst>1</AdsALst>
+            <AdsACrf>1</AdsACrf>
             <AdsANop>0</AdsANop>
             <AdsANot>0</AdsANot>
             <AdsLLst>1</AdsLLst>
@@ -274,12 +274,12 @@
               <IRAM>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x10000</Size>
+                <Size>0x2000</Size>
               </IRAM>
               <IROM>
                 <Type>1</Type>
                 <StartAddress>0x0</StartAddress>
-                <Size>0x40000</Size>
+                <Size>0x10000</Size>
               </IROM>
               <XRAM>
                 <Type>0</Type>
@@ -304,7 +304,7 @@
               <OCR_RVCT4>
                 <Type>1</Type>
                 <StartAddress>0x0</StartAddress>
-                <Size>0x40000</Size>
+                <Size>0x10000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -329,7 +329,7 @@
               <OCR_RVCT9>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x10000</Size>
+                <Size>0x2000</Size>
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
@@ -404,45 +404,45 @@
               <FilePath>.\Startup.s</FilePath>
             </File>
             <File>
+              <FileName>SysTick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SysTick.c</FilePath>
+            </File>
+            <File>
+              <FileName>Globals.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Globals.c</FilePath>
+            </File>
+            <File>
+              <FileName>GPIO.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\GPIO.c</FilePath>
+            </File>
+            <File>
+              <FileName>PLL.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\PLL.c</FilePath>
+            </File>
+            <File>
+              <FileName>Switch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Switch.c</FilePath>
+            </File>
+            <File>
+              <FileName>Timer0A.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Timer0A.c</FilePath>
+            </File>
+            <File>
               <FileName>UART2.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\UART2.c</FilePath>
             </File>
             <File>
-              <FileName>UART2TestMain.c</FileName>
+              <FileName>XbeeOut.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\UART2TestMain.c</FilePath>
+              <FilePath>.\XbeeOut.c</FilePath>
             </File>
-            <File>
-              <FileName>fixed.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\fixed.c</FilePath>
-            </File>
-            <File>
-              <FileName>Output.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Output.c</FilePath>
-            </File>
-            <File>
-              <FileName>rit128x96x4.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\rit128x96x4.c</FilePath>
-            </File>
-            <File>
-              <FileName>Xbee.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Xbee.c</FilePath>
-            </File>
-            <File>
-              <FileName>SysTick.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\SysTick.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Library</GroupName>
-          <Files>
             <File>
               <FileName>driverlib.lib</FileName>
               <FileType>4</FileType>

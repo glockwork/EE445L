@@ -37,7 +37,7 @@ and baud rate (BD=3, for 9600 bits/sec)
  unsigned char ID;
  char response [10];
 void XBeeInit(){
-	char * commands [] = {"ATDL66", "ATDH0", "ATMY6D", "ATAP1", "ATCN", ""};
+	char * commands [] = {"ATDL66", "ATDH0", "ATMY6D", "ATAP1", "ATCN", ""}; 
 	int i = 0;
 	int j;
 	unsigned long i44 = 0;
@@ -82,8 +82,14 @@ void XBeeInit(){
  
  void XBeeSendTxFrame(char * frame, int len){
 	 
-	 int i;
+	 int i = 0;
+	 volatile int b = 5;
 	 char a;
+
+b++;
+	 b++;
+	 b--;
+	 
 //	 UART_OutArray(frame, len);
 //	 UART_OutString(frame);
 	 for (i=0;i<len;i++){
