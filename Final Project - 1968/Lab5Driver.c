@@ -1,5 +1,6 @@
 #include "Globals.h"
 #include "Music.h"
+#include "sed1335.h"
 
 
 void DisableInterrupts(void); // Disable interrupts
@@ -11,7 +12,7 @@ void WaitForInterrupt(void);  // low power mode
 int playing = 0;
 
 //debug code
-int main(void){ volatile unsigned long delay;
+/*int main(void){ volatile unsigned long delay;
 	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
 	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOC;  // activate port C
 	delay = SYSCTL_RCGC2_R;          // allow time to finish activating
@@ -26,4 +27,15 @@ int main(void){ volatile unsigned long delay;
 	EnableInterrupts();
   while(1){
   }
+}*/
+
+int main(void) {
+	volatile unsigned long delay;
+	
+	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
+	GLCD_Initialize();
+
+while(1){
+		GLCD_WriteText("Hello world!");
+	}	
 }
