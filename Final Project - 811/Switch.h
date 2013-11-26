@@ -1,3 +1,7 @@
+#ifndef __SWITCH_H__
+#define __SWITCH_H__
+
+
 // Switch.c
 // Runs on LM3S811
 // Provide functions that initialize a GPIO as an input pin and 
@@ -34,13 +38,7 @@
 #define SYSCTL_RCGC2_GPIOD      0x00000008  // port D Clock Gating Control
 
 #define PD5 (*((volatile unsigned long *)0x40007080))
-void Switch_Init(void){ volatile unsigned long delay;
-  SYSCTL_RCGC2_R |= 0x00000008;  // 1) activate clock for Port D
-  delay = SYSCTL_RCGC2_R;        // allow time for clock to settle
-  GPIO_PORTD_DIR_R &= ~0x20;     // 2) set direction register
-  GPIO_PORTD_AFSEL_R &= ~0x20;   // 3) regular port function
-  GPIO_PORTD_DEN_R |= 0x20;      // 4) enable digital port
-}
+void Switch_Init(void);
 unsigned long readD(void);
 unsigned long readB(void);
 
@@ -51,3 +49,4 @@ unsigned long readB(void);
 #define SYSCTL_RCGC2_GPIOC      0x00000004  // port C Clock Gating Control
 #define PC5 (*((volatile unsigned long *)0x40006080))
 
+#endif

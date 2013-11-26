@@ -20,6 +20,7 @@
 #include "driverlib/sysctl.h"
 #include "../inc/lm3s811.h"
 #include "../driverlib/gpio.h"
+#include "Switch.h"
 
 
 #define GPIO_PORTC_DATA_R       (*((volatile unsigned long *)0x400063FC))

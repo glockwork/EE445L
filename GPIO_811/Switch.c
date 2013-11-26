@@ -37,17 +37,23 @@
 
 #define PD5 (*((volatile unsigned long *)0x40007080))
 void Switch_Init(void){ volatile unsigned long delay;
-  SYSCTL_RCGC2_R |= 0x00000008;  // 1) activate clock for Port D
   delay = SYSCTL_RCGC2_R;        // allow time for clock to settle
   GPIO_PORTD_DIR_R &= ~0x20;     // 2) set direction register
   GPIO_PORTD_AFSEL_R &= ~0x20;   // 3) regular port function
   GPIO_PORTD_DEN_R |= 0x20;      // 4) enable digital port
+//	GPIO_PORTB_DIR_R |= 0xFF;     // 2) set direction register
+ GPIO_PORTB_DIR_R &= ~0xFF;     // 2) set direction register
+
+  GPIO_PORTB_AFSEL_R &= ~0xFF;   // 3) regular port function
+  GPIO_PORTB_DEN_R |= 0xFF;      // 4) enable digital port
+	//GPIO_PORTB_PUR_R |= 0xFF;
+
 }
 unsigned long readD(void){ 
   return GPIO_PORTD_DATA_R;      // port D
 }
 unsigned long readB(void){ 
-  return GPIO_PORTB_DATA_R;      // port D
+  return GPIO_PORTB_DATA_R;      // port B
 }
 
 //debug code

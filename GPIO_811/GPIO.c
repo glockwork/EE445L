@@ -48,6 +48,8 @@ void OutCRLF(void){
   UART_OutChar(LF);
 }
 
+char testData = 0;
+
 int main(void){  volatile unsigned long delay;
 	
 	unsigned char i;
@@ -59,21 +61,15 @@ int main(void){  volatile unsigned long delay;
   SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN |
                  SYSCTL_XTAL_6MHZ);
 	PLL_Init();
-  SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOD; // activate port D
+  SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOD | SYSCTL_RCGC2_GPIOB;; // activate port D
 
-//	SysTick_Init();
+	SysTick_Init();
 //  UART_Init();              // initialize UART
 //  OutCRLF();
+	Switch_Init();
 	XBeeInit();
-	Timer0A_Init();
-	XBee_sendDataFrame("1234\r");
-  delay = SYSCTL_RCGC2_R;      // allow time for clock to stabilize
-  GPIO_PORTD_DIR_R |= 0x0F;    // make PD3-0 out
-  GPIO_PORTD_AFSEL_R &= ~0x0F; // regular port function 
-  GPIO_PORTD_DEN_R |= 0x0F;    // enable digital I/O on PD3-0
-	GPIO_PORTB_DIR_R |= 0xFF;    // make PD3-0 out
-  GPIO_PORTB_AFSEL_R &= ~0xFF; // regular port function 
-  GPIO_PORTB_DEN_R |= 0xFF;    // enable digital I/O on PD3-0
+	Timer0A_Init(16000);
+//	XBee_sendDataFrame("1234\r");
 //  while(1){
 //    LEDS = 10; // 1010, LED is 0101
 //    LEDS = 9;  // 1001, LED is 0110
@@ -81,12 +77,12 @@ int main(void){  volatile unsigned long delay;
 //    LEDS = 6;  // 0110, LED is 1001
 //  }  
 //
-  // Set the clocking to run at 50MHz from the PLL.
-  //
-
 	while(1){
-		inp[0] = '1';
-		XBee_sendDataFrame(inp);
+		testData = readB();
+		SysTick_Wait10ms(100);
+
+	//	inp[0] = '1';
+	//	XBee_sendDataFrame(inp);
 	}
 
 }

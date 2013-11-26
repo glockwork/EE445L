@@ -4,7 +4,6 @@
 ".\systick.o"
 ".\xbeeout.o"
 ".\uart2.o"
-".\uart2testmain.o"
 ".\timer0a.o"
 ".\globals.o"
 ".\controller.o"

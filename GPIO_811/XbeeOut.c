@@ -33,7 +33,8 @@ ATCN<CR> wait 20ms OK<CR> Ends command mode
 Some of the default parameters are channel (CH=12), PAN (ID= 0x3332 or 13106) destination high address (DH=0),
 and baud rate (BD=3, for 9600 bits/sec)
  */
- 
+
+
  unsigned char ID;
  char response [10];
 void XBeeInit(){
@@ -49,18 +50,18 @@ void XBeeInit(){
 
 		ID = 1;
   UART_OutString("x");
- SysTick_Wait10ms(110);
+ SysTick_Wait10ms(1100);
 
-//	Delay(55000000);
+//	Delay(5500000);
 	 //SysTick_Wait10ms(110);		//wait waitTime number of ms;
-	sendATCommand("+++", 110, 0);
+	sendATCommand("+++", 1100, 0);
 	//UART_InString(response, 5);
 	//RIT128x96x4StringDraw(response, 10, 10 , 15);
 	
 	for (i=0;i<5;i++){
 		sendATCommand(commands[i], 20, 1);
 	}
-  SysTick_Wait10ms(110);
+  SysTick_Wait10ms(1100);
 
 //	Delay(55000000);
  }
@@ -193,7 +194,7 @@ char bb;
 //		Delay(500000);
 	}
 	j = 0;
-	while (frame2[j] != 'O' && j<=47) j++;
+	while (frame2[j] != 'O' && j<47) j++;
 	if (frame2[j] == 'O' && frame2[j+1] == 'K' && frame2[j+2] == CR)
 		done = 1;
 	count++;

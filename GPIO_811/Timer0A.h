@@ -1,5 +1,5 @@
 
-void Timer0A_Init(void);
+void Timer0A_Init(unsigned short period);
 
 unsigned long INTPERIOD;
 #define INTVARIATION 0

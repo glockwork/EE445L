@@ -69,7 +69,7 @@ void Timer0A_Handler(void){
 	TIMER0_TAILR_R = interrupt_cycles_a - 1; //TIMER0_TAILR_R + periodShift;
 	
 	newPortDValues = readD();
-	newPortBValues = readB();
+	newPortBValues = 0;//readB();
 
 	//read ports
 	//for each bit, if the value is different, send through zigbee 

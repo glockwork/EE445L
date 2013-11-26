@@ -44,9 +44,9 @@ void Switch_Init(void){ volatile unsigned long delay;
 unsigned long readD(void){ 
   return GPIO_PORTD_DATA_R;      // port D
 }
-unsigned long readB(void){ 
-  return GPIO_PORTB_DATA_R;      // port D
-}
+//unsigned long readB(void){ 
+ // return GPIO_PORTB_DATA_R;      // port D
+//}
 
 //debug code
 // debug hardware, LED on PC5
