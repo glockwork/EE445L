@@ -39,10 +39,10 @@ and baud rate (BD=3, for 9600 bits/sec)
 void XBeeInit(){
 	char * commands [] = {"ATDL66", "ATDH0", "ATMY6D", "ATAP1", "ATCN", ""}; 
 	int i = 0;
-	int j;
-	unsigned long i44 = 0;
-	unsigned long j44 = 0;
-	unsigned long delay = 110;
+	int j = 0;
+	int k = 0;
+	int h = 0;
+
 //	SysTick_Init();
 	UART_Init();
 
@@ -51,12 +51,12 @@ void XBeeInit(){
 	}
 
 		ID = 1;
-  UART_OutString("x");
+ UART_OutString("x");
 	
 
 //	volatile unsigned long dummy = 0;
-	for (i44 = 0; i44 < delay; i44++)
-		for (j44 = 0; j44 < 150000; j44++);
+	for(k = 0; k < 60000; k++)
+		for(h = 0; h < 100; h++)
 	//		dummy ++ ;
 	
  //wait10ms(110);
@@ -70,9 +70,9 @@ void XBeeInit(){
 	for (i=0;i<5;i++){
 		sendATCommand(commands[i], 20, 1);
 	}
-	for (i44 = 0; i44 < delay; i44++)
-		for (j44 = 0; j44 < 150000; j44++);
-//	Delay(55000000);
+	for(k = 0; k < 5; k++)
+		for(h = 0; h < 10000; h++)
+		Delay(55000000);
  }
 
 /*
@@ -202,7 +202,7 @@ char bb;
 		 if (CRout)
 			UART_OutChar(CR);
 	for (i44 = 0; i44 < waitTime; i44++)
-		for (j44 = 0; j44 < 150000; j44++);
+		for (j44 = 0; j44 < 50000; j44++);
 //	Delay(500000*waitTime); TODO
 	j = 0;
   size = RxFifo_Size();

@@ -50,6 +50,7 @@ void OutCRLF(void){
 
 char testData = 0;
 
+/*
 int main(void){  volatile unsigned long delay;
 	
 	unsigned char i;
@@ -58,15 +59,18 @@ int main(void){  volatile unsigned long delay;
 	char inp [1];
 
 	
-  SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN |
-                 SYSCTL_XTAL_6MHZ);
+  //SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN |
+   //              SYSCTL_XTAL_6MHZ);
 	PLL_Init();
   SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOD | SYSCTL_RCGC2_GPIOB;; // activate port D
 	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOB;
+//	 delay = SYSCTL_RCGC2_R;        // allow time for clock to settle
+//	 delay = SYSCTL_RCGC2_R;        // allow time for clock to settle
 //	SysTick_Init();
 //  UART_Init();              // initialize UART
 //  OutCRLF();
-	Switch_Init();
+	//Switch_Init();
+	//sendATCommand("+++", 110, 0);
 	XBeeInit();
 	Timer0A_Init(16000);
 //	XBee_sendDataFrame("1234\r");
@@ -86,3 +90,4 @@ int main(void){  volatile unsigned long delay;
 	}
 
 }
+*/

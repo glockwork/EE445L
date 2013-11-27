@@ -54,11 +54,18 @@ void SysTick_Wait(unsigned long delay){
 }
 // Time delay using busy wait.
 // 10000us equals 10ms
-void SysTick_Wait10ms(unsigned long delay){
-  unsigned long i;
+void SysTick_Wait10ms(int delay){
+  int i;
   for(i=0; i<delay; i++){
     SysTick_Wait(60000);  // wait 10ms (assumes 6 MHz clock)
   }
+}
+
+void dummyFunc(void){
+	int a = 0;
+	a += 5;
+	a /= 2;
+	return;
 }
 
 //debug code
@@ -68,16 +75,22 @@ void SysTick_Wait10ms(unsigned long delay){
 #define SYSCTL_RCGC2_R          (*((volatile unsigned long *)0x400FE108))
 #define SYSCTL_RCGC2_GPIOD      0x00000008  // port D Clock Gating Control
 
-//int main(void){
-//  SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOD; // activate port D
-//  SysTick_Init();           // initialize SysTick timer
-//  GPIO_PORTD_DIR_R |= 0x02; // make PD1 out
-//  GPIO_PORTD_DEN_R |= 0x02; // enable digital I/O on PD1
-//  while(1){
-//    GPIO_PORTD_DATA_R = GPIO_PORTD_DATA_R^0x02; // toggle PD1
-////    SysTick_Wait(1);        // approximately 5.80 us
-////    SysTick_Wait(2);        // approximately 5.80 us
-////    SysTick_Wait(10000);    // approximately 1.67 ms
-//    SysTick_Wait10ms(1);    // approximately 10 ms
-//  }
-//}
+int main(void){
+	int f = 0;
+	volatile unsigned int delay2;
+  SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOD; // activate port D
+	delay2 = SYSCTL_RCGC2_R;
+	
+  SysTick_Init();           // initialize SysTick timer
+  GPIO_PORTD_DIR_R |= 0x02; // make PD1 out
+  GPIO_PORTD_DEN_R |= 0x02; // enable digital I/O on PD1
+  while(1){
+    GPIO_PORTD_DATA_R = GPIO_PORTD_DATA_R^0x02; // toggle PD1
+    SysTick_Wait(1);        // approximately 5.80 us
+    SysTick_Wait(2);        // approximately 5.80 us
+    SysTick_Wait(10000);    // approximately 1.67 ms
+		for(f=0; f<7; f++)
+			SysTick_Wait10ms(10);    // approximately 10 ms
+		dummyFunc();
+  }
+}
