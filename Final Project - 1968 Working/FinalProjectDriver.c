@@ -2,6 +2,7 @@
 #include "Music.h"
 #include "Switch.h"
 #include "Output.h"
+#include "OLEDdraw.h"
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -13,6 +14,7 @@ int playing = 0;
 
 //debug code
 int main(void){ volatile unsigned long delay;
+	int loc = 0;
 	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
 	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOC;  // activate port C
 	delay = SYSCTL_RCGC2_R;          // allow time to finish activating
@@ -23,12 +25,25 @@ int main(void){ volatile unsigned long delay;
 	
 	DAC_Init(2048);
 	Timer0A_Init();       // initialize timer0A (~20,000 Hz)
-	Switch_Init();
+	//Switch_Init();
 	Output_Init();
 	EnableInterrupts();
 	
-  while(1){
+	
+	RIT128x96x4DisplayOn();
+	//RIT128x96x4_ClearImage();
+	
+	RIT128x96x4_Line(0,0,50,50,15);
+	RIT128x96x4_ShowImage();
+	
+	TIMER0_CTL_R |= TIMER_CTL_TAEN;
+	TIMER0_CTL_R |= TIMER_CTL_TBEN;
 		
+  while(1){
+		RIT128x96x4_ClearImage();
+		drawCircle(20, loc, 10);
+		loc = (loc+5)%100;
+		RIT128x96x4_ShowImage();
   }
 	
 }
