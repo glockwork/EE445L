@@ -1,0 +1,1 @@
+-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.. -I..\..\.. -I "D:\Keil\ARM\CMSIS\Include" -I "D:\Keil\ARM\INC\Luminary" -o "periodictimer0aints.o" --omf_browse "periodictimer0aints.crf" --depend "periodictimer0aints.d" "PeriodicTimer0AInts.c"
