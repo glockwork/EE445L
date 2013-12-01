@@ -23,9 +23,11 @@ int main(void){ volatile unsigned long delay;
 	GPIO_PORTC_DEN_R |= 0x20;        // enable digital I/O on PC5
 	
 	SYSCTL_RCGC1_R |= SYSCTL_RCGC1_TIMER0;// activate timer0
+	SYSCTL_RCGC1_R |= SYSCTL_RCGC1_TIMER1;// activate timer0
 	
 	DAC_Init(2048);
 	Timer0A_Init();       // initialize timer0A (~20,000 Hz)
+	Timer1A_Init();       // initialize timer0A (~20,000 Hz)
 	//Switch_Init();
 	Output_Init();
 	EnableInterrupts();
@@ -38,11 +40,16 @@ int main(void){ volatile unsigned long delay;
 	RIT128x96x4_ShowImage();
 	
 	TIMER0_CTL_R |= TIMER_CTL_TAEN;
+	TIMER1_CTL_R |= TIMER_CTL_TAEN;
 	TIMER0_CTL_R |= TIMER_CTL_TBEN;
+	TIMER1_CTL_R |= TIMER_CTL_TBEN;
 		
   while(1){
-		//RIT128x96x4_ClearImage();
-		//RIT128x96x4_ShowImage();
+		RIT128x96x4_ClearImage();
+		drawCircle(20, watch, 10);
+		watch = (watch+5)%100;
+		RIT128x96x4_ShowImage();
+		
   }
 	
 }

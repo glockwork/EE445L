@@ -9,8 +9,8 @@ extern const unsigned short Bassoon[];
 
 #define wave_len 64
 
-#define wavename1 Wave
-#define wavename2 Wave
+#define wavename1 Trumpet
+#define wavename2 Bassoon
 
 
 //notes

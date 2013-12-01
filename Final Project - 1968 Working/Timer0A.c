@@ -9,13 +9,24 @@ volatile unsigned long countb_overall = 0; //used for debouncing
 long count_a1 = 0; //count for interrupt a
 long count_a2 = 0; //count for interrupt a
 
+
 long count_b1 = 0; //count for interrupt b
-long count_b2 = 0; //count for interrupt b
 
 int score_loc = 0;
 int currently_playing_1;
+int currently_playing_2;
+
+int currently_left_1 = 0;
+int currently_left_2 = 0;
+
+int interrupt_time = 0;
 
 int wave_loc_1 = 0;
+int wave_loc_2 = 0;
+
+int num_playing = 0;
+int magnitude_1;
+int magnitude_2;
 
 void Timer0A_Init(){ 
 	//INTPERIOD = interrupt_cycles_a;
@@ -40,7 +51,7 @@ void Timer0A_Init(){
 	//TIMER 2 - note length
                                    // configure for periodic mode
   TIMER0_TBMR_R = TIMER_TBMR_TBMR_PERIOD;
-  TIMER0_TBILR_R = interrupt_cycles_b - 1;           //
+  TIMER0_TBILR_R = interrupt_cycles_b - 1;         //
   TIMER0_IMR_R |= TIMER_IMR_TBTOIM;// enable timeout (rollover) interrupt
   TIMER0_ICR_R = TIMER_ICR_TBTOCINT;// clear timer0B timeout flag
 
@@ -50,88 +61,76 @@ void Timer0A_Init(){
   EnableInterrupts();
 }
 
-unsigned long viewshit = 0;
-unsigned short viewshit2=0;
+void Timer1A_Init(){ 
+	//INTPERIOD = interrupt_cycles_a;
+  TIMER1_CFG_R = TIMER_CFG_16_BIT; // configure for 16-bit timer mode
+	
+	
+	//TIMER 1 - Frequency
+  TIMER1_TAMR_R = TIMER_TAMR_TAMR_PERIOD;// configure for periodic mode
+ 
+	//***** WORK WITH THE NUMBERS HERE ********** //
+	TIMER1_TAILR_R = interrupt_cycles_a - 1;  // start value to count down from
+  TIMER1_IMR_R |= TIMER_IMR_TATOIM;// enable timeout (rollover) interrupt
+  TIMER1_ICR_R = TIMER_ICR_TATOCINT;// clear timer0A timeout flag
+  
+	// **** interrupt initialization **** // Timer0A=priority 2
+  NVIC_PRI5_R = (NVIC_PRI4_R&0xFFFF00FF)|0x00004000; // top 3 bits
+  NVIC_EN0_R |= NVIC_EN0_INT21;    // enable interrupt 21 in NVIC
+  TIMER1_ICR_R = TIMER_ICR_TATOCINT;// clear timer0A timeout flag
+  //TIMER1_CTL_R |= TIMER_CTL_TAEN;  // enable timer0A 16-b, periodic, interrupts
+	
+	
+	//TIMER 2 - note length
+                                   // configure for periodic mode
+  TIMER1_TBMR_R = TIMER_TBMR_TBMR_PERIOD;
+  TIMER1_TBILR_R = interrupt_cycles_b - 1;           //
+  TIMER1_IMR_R |= TIMER_IMR_TBTOIM;// enable timeout (rollover) interrupt
+  TIMER1_ICR_R = TIMER_ICR_TBTOCINT;// clear timer0B timeout flag
 
-unsigned int cyclesLeft1 =0;
-unsigned int cyclesLeft2 =0;
-
-unsigned int cyclesCount1 = 0;
-unsigned int cyclesCount2 = 0;
-
-unsigned int noteToChange = 0; //1 for note1, 2 for note2, and 3 for both
+  NVIC_PRI5_R = (NVIC_PRI5_R&0xFF00FFFF)|0x00400000; // bits 5-7
+	NVIC_EN0_R |= NVIC_EN0_INT22;
+	
+  EnableInterrupts();
+}
 
 //Timer A: Outputs the 2 sin waves (1 for each instrument)
+
+
 void Timer0A_Handler(void){
 	TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
-	wave_loc_1 = (wave_loc_1+1)%wave_len;
-	DAC_Out(wavename1[wave_loc_1]);
 	
-/*
-	int ret = 0;
-	unsigned int minleft =0;
-	count_a1++;
-	count_a2++;
-	if (cyclesLeft1 < cyclesLeft2){
-			minleft = cyclesLeft1;
-			cyclesLeft1 = songname1[note_index1];
-			cyclesLeft2 -= cyclesLeft1;
-			noteToChange = 1;
-			cyclesCount1 = 0;
-	}
-	else 	if (cyclesLeft2 < cyclesLeft1){
-			minleft = cyclesLeft2;
-			cyclesLeft2 = songname2[note_index2];
-			cyclesLeft1 -= cyclesLeft2;
-			noteToChange = 2;
-			cyclesCount2 = 0;
-	} 
-	else {
-			minleft = cyclesLeft2;
-			cyclesLeft2 = songname2[note_index2];
-			cyclesLeft1 = songname1[note_index1];
-			noteToChange = 3;
-			cyclesCount1 = 0;
-			cyclesCount2 = 0;
-
-	}
-		
-	TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
-	TIMER0_TAILR_R = minleft - 1; //TIMER0_TAILR_R + periodShift;
-	
-		if (note_index2 == -1 || note_index1 == -1 || note_index1 >= song_len){
-		playing = 0;
-		note_index2 = 0;
-		note_index1 = 0;
-		count_b1 = 0;
-		count_b2 = 0;
-		cyclesLeft1 = 0;
-		cyclesLeft2 = 0;
-		TIMER0_CTL_R &= ~TIMER_CTL_TAEN;
-		TIMER0_CTL_R &= ~TIMER_CTL_TBEN;
+	if(currently_playing_1 <= 0)
 		return;
-	}
-
-	if (noteToChange == 1 || noteToChange == 3){
-		wave_loc_1+=1;
-		if (wave_loc_1>=wave_len)wave_loc_1 = 0;
-		ret=1;
-		count_a1 =0;
-	}
+	wave_loc_1 = (wave_loc_1+1)%wave_len;
+	magnitude_1 = wavename1[wave_loc_1];
 	
-	//checks if time to output next value in second waveform
-	//if(count_a2*interrupt_cycles_a / songname2[note_index2] >= 1){
-	if (noteToChange == 2 || noteToChange == 3){
-		wave_loc_2+=1;
-		if (wave_loc_2>=wave_len)wave_loc_2 = 0;
-		ret = 1;
-		count_a2 = 0;
-	}
-	
-	DAC_Out((short)(((long)(wavename1[wave_loc_1]))*note_mag_mult1_per/100 + ((long)(wavename2[wave_loc_2]))*note_mag_mult2_per/100)/2);
+	if(currently_playing_2 > 0)
+		DAC_Out((magnitude_1+magnitude_2)/2);
+	else
+		DAC_Out(magnitude_1);
+		
+	TIMER0_TAILR_R = currently_playing_1;
+}
 
-		cyclesCount1 += minleft;
-		cyclesCount2 += minleft;*/
+//handles 2nd half of sound wave
+void Timer1A_Handler(void){
+	TIMER1_ICR_R = TIMER_ICR_TATOCINT;
+	
+	if(currently_playing_2 <= 0)
+		return;
+	wave_loc_2 = (wave_loc_2+1)%wave_len;
+	//DAC_Out(wavename2[wave_loc_2]);
+	
+	magnitude_2 = wavename1[wave_loc_2];
+	
+	if(currently_playing_1 > 0)
+		DAC_Out((magnitude_1+magnitude_2)/2);
+	else
+		DAC_Out(magnitude_2);
+	
+	TIMER1_TAILR_R = currently_playing_2;
+
 }
 
 
@@ -143,77 +142,50 @@ void Timer0B_Handler(void){
 		return;
 	
 	while(score[score_loc]!=0 && score[score_loc]!=0xF0){
-		if(score[score_loc] == 0x90){
-			currently_playing_1 = NoteFrequency[score[score_loc+1]];
-			TIMER0_TAILR_R = NoteFrequency[score[score_loc+1]];
-			//currently_playing_1 = score[score_loc+1];
-			score_loc+=2;
-		}			
-		else if(score[score_loc] == 0x80){
-			currently_playing_1 = -1;
-			score_loc++;
+		switch(score[score_loc]){
+			case 0x90:
+				currently_playing_1 = NoteFrequency[score[score_loc+1]];
+				currently_left_1 = currently_playing_1;
+				num_playing++;
+				score_loc+=2;
+				break;
+			case 0x91:
+				currently_playing_2 = NoteFrequency[score[score_loc+1]];
+				currently_left_2 = currently_playing_2;
+				num_playing++;
+				score_loc+=2;
+				break;
+			case 0x80:
+				currently_playing_1 = -1;
+				score_loc++;
+				num_playing--;
+				break;
+			case 0x81:
+				currently_playing_2 = -1;
+				score_loc++;
+				num_playing--;
+				break;
+			default:
+				score_loc++;
+				
 		}
-		else //weird cases
-			score_loc++;
 	}
 	
 	//we want to set Timer0B to be interrupted after n MS
 	if(score[score_loc]==0xF0){
-		score_loc=0;
+		TIMER0_CTL_R &= ~TIMER_CTL_TAEN;
+		TIMER0_CTL_R &= ~TIMER_CTL_TBEN;
 	}
 	
 	if(score[score_loc]==0){
 		count_b1 = score[score_loc+1];
 		score_loc+=2;
 	}
-	/*
-  TIMER0_ICR_R = TIMER_ICR_TBTOCINT;// acknowledge timer0B timeout
-	TIMER0_TBILR_R = interrupt_cycles_b - 1; //TIMER0_TAILR_R + periodShift;
 	
-	if (note_index2 == -1 || note_index1 == -1 || note_index1 >= song_len){
-		playing = 0;
-		note_index2 = 0;
-		note_index1 = 0;
-		count_b1 = 0;
-		count_b2 = 0;
-		cyclesLeft1 = 0;
-		cyclesLeft2 = 0;
-		TIMER0_CTL_R &= ~TIMER_CTL_TAEN;
-		TIMER0_CTL_R &= ~TIMER_CTL_TBEN;
-		return;
-	}
-
-	countb_overall ++;
-	count_b1 ++ ;
-	count_b2 ++;
-	
-	//time to change note of instrument 1
-	if((count_b1*interrupt_cycles_b)/(note_len*songname_t1[note_index1]/note_len_divider) >= 1){
-		note_index1 += note_inc;
-		count_b1 = 0;
-		cyclesLeft1 = songname1[note_index1];
-
-	}
-	
-	//time to change note of instrument 2
-	if((count_b2*interrupt_cycles_b)/(note_len*songname_t2[note_index2]/note_len_divider) >= 1){
-		note_index2 += note_inc;
-		count_b2 = 0;
-		cyclesLeft2 = songname1[note_index2];
-
-	}
-	
-	if (note_index2 == -1 || note_index1 == -1 || note_index1 >= song_len)
-	{
-		playing = 0;
-		note_index2 = 0;
-		note_index1 = 0;
-		count_b1 = 0;
-		count_b2 = 0;
-		cyclesLeft1 = 0;
-		cyclesLeft2 = 0;
-		TIMER0_CTL_R &= ~TIMER_CTL_TAEN;
-		TIMER0_CTL_R &= ~TIMER_CTL_TBEN;
-	}		*/
 }
 	
+//this timer handles LCD shit
+void Timer1B_Handler(void){
+	TIMER1_ICR_R = TIMER_ICR_TBTOCINT;
+}
+
