@@ -113,7 +113,7 @@ void Timer1A_Handler(void){
 	wave_loc_2 = (wave_loc_2+1)%wave_len;
 	//DAC_Out(wavename2[wave_loc_2]);
 	
-	magnitude_2 = wavename1[wave_loc_2];
+	magnitude_2 = wavename2[wave_loc_2];
 	
 	if(currently_playing_1 > 0)
 		DAC_Out((magnitude_1+magnitude_2)/2);

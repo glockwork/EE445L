@@ -6,13 +6,14 @@ int width = 128;
 int buffer_1=0;
 int buffer_counter = 0;
 
+#define SONG_SIZE 5
 //start times in MS
-long start_times[5] = {
-	1000, 2000, 4000, 8000, 16000
+long start_times[SONG_SIZE] = {
+	1000, 1000, 1000, 1000, 1000
 };
 
-long start_locs[5] = {
-	1,2,3,4,1
+long start_locs[SONG_SIZE] = {
+	4,4,3,2,1
 };
 
 int location_pointer = 0;
@@ -40,13 +41,13 @@ void BufferDraw(){
 	drawCircle(width/8, buffer_1, width/8);
 	buffer_1+=4;*/
 	int i = 0;
-	for(i = buffer_pointer; i < buffer_pointer; i = (i+1)%BUFFER_SIZE){
+	for(i = 0; i < BUFFER_SIZE; i++){
 		if(buffer_y[i]>0 && buffer_y[i] <= 80){
-			drawCircle(width*buffer_col[buffer_pointer]/8, buffer_y[buffer_pointer], width/8);
-			buffer_y[buffer_pointer]+=4;
+			drawCircle(32*buffer_col[i]-16, buffer_y[i], width/8);
+			buffer_y[i]+=2;
 		}
-		else if(buffer_y[i] <= 80){
-			drawCircle(width*buffer_col[buffer_pointer]/8, 80, width/8);
+		else if(buffer_y[i] >= 80){
+			drawCircle(32*buffer_col[i]-16, 80, width/8);
 		}
 	}
 }
@@ -71,12 +72,14 @@ void OLEDTimerInit(){
 void Timer1B_Handler(void){
 	TIMER1_ICR_R = TIMER_ICR_TBTOCINT;
 	buffer_counter++;
-	if(buffer_counter < start_times[location_pointer])
+	if(buffer_counter < start_times[location_pointer] || location_pointer > SONG_SIZE)
 		return;
 	else{
+		location_pointer++;
 		buffer_y[buffer_pointer] = 1;
 		buffer_col[buffer_pointer] = start_locs[location_pointer];
 		buffer_pointer = (buffer_pointer+1)%BUFFER_SIZE;
+		buffer_counter = 0;
 		//buffer_1=0;
 		//buffer_counter = 5000;
 	}
