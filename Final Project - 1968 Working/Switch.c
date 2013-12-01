@@ -50,56 +50,16 @@ void GPIOPortG_Handler(void){
 //top button
 //play/pause functionality
 void handlerSW3 (void){
-	if (playing ==0){//if not playing, re-enable interrupts
-		TIMER0_CTL_R |= TIMER_CTL_TAEN;
-		TIMER0_CTL_R |= TIMER_CTL_TBEN;
 
-	}
-	else {		//if playing, disable interrupts
-		TIMER0_CTL_R &= ~TIMER_CTL_TAEN;
-		TIMER0_CTL_R &= ~TIMER_CTL_TBEN;
-	}
-	rewind_mode = 0; //reset to not rewinding if paused (such as if paused a rewind)
-	note_inc = 1;
-	note_len_divider = 1;
-	playing ^= 0x01;
 }
 
 //bottom button
-//rewind
-	//1 press - play song backward
-	//2 press - play song backward speed * 3
-	//3 press - put song at beginning, stop playing
 void handlerSW4 (void){
-	rewind_mode ++;
-	if (rewind_mode==1){
-		note_inc = -1;
-		note_len_divider = 1;
-	}
-	else if (rewind_mode == 2){
-		note_inc = -1;
-		note_len_divider = 3;
-	}
-	else if (rewind_mode == 3){
-		playing = 0;
-		note_index1 = 0;
-		note_index2 = 0;
-		note_inc = 1;
-		note_len_divider = 1;
-		rewind_mode = 0;
-		TIMER0_CTL_R &= ~TIMER_CTL_TAEN;
-		TIMER0_CTL_R &= ~TIMER_CTL_TBEN;
-
-	}
 	
 }
 
 //switch mode (switch instruments/mode and whatnot)
 void handlerSW5 (void){
-	if (note_len == 7000000)
-		note_len = 3500000;
-	else
-		note_len = 7000000;
 }
 
 void handlerSW6 (void){

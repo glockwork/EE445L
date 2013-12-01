@@ -3,6 +3,7 @@
 #include "Switch.h"
 #include "Output.h"
 #include "OLEDdraw.h"
+#include "rit128x96x4.h"
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -14,7 +15,7 @@ int playing = 0;
 
 //debug code
 int main(void){ volatile unsigned long delay;
-	int loc = 0;
+	int watch = 0;
 	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
 	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOC;  // activate port C
 	delay = SYSCTL_RCGC2_R;          // allow time to finish activating
@@ -40,10 +41,8 @@ int main(void){ volatile unsigned long delay;
 	TIMER0_CTL_R |= TIMER_CTL_TBEN;
 		
   while(1){
-		RIT128x96x4_ClearImage();
-		drawCircle(20, loc, 10);
-		loc = (loc+5)%100;
-		RIT128x96x4_ShowImage();
+		//RIT128x96x4_ClearImage();
+		//RIT128x96x4_ShowImage();
   }
 	
 }

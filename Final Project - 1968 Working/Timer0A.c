@@ -12,6 +12,11 @@ long count_a2 = 0; //count for interrupt a
 long count_b1 = 0; //count for interrupt b
 long count_b2 = 0; //count for interrupt b
 
+int score_loc = 0;
+int currently_playing_1;
+
+int wave_loc_1 = 0;
+
 void Timer0A_Init(){ 
 	//INTPERIOD = interrupt_cycles_a;
   TIMER0_CFG_R = TIMER_CFG_16_BIT; // configure for 16-bit timer mode
@@ -58,7 +63,11 @@ unsigned int noteToChange = 0; //1 for note1, 2 for note2, and 3 for both
 
 //Timer A: Outputs the 2 sin waves (1 for each instrument)
 void Timer0A_Handler(void){
-
+	TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
+	wave_loc_1 = (wave_loc_1+1)%wave_len;
+	DAC_Out(wavename1[wave_loc_1]);
+	
+/*
 	int ret = 0;
 	unsigned int minleft =0;
 	count_a1++;
@@ -122,11 +131,42 @@ void Timer0A_Handler(void){
 	DAC_Out((short)(((long)(wavename1[wave_loc_1]))*note_mag_mult1_per/100 + ((long)(wavename2[wave_loc_2]))*note_mag_mult2_per/100)/2);
 
 		cyclesCount1 += minleft;
-		cyclesCount2 += minleft;
+		cyclesCount2 += minleft;*/
 }
 
 
 void Timer0B_Handler(void){
+  TIMER0_ICR_R = TIMER_ICR_TBTOCINT;// acknowledge timer0B timeout
+	count_b1--;
+	
+	if(count_b1 > 0)
+		return;
+	
+	while(score[score_loc]!=0 && score[score_loc]!=0xF0){
+		if(score[score_loc] == 0x90){
+			currently_playing_1 = NoteFrequency[score[score_loc+1]];
+			TIMER0_TAILR_R = NoteFrequency[score[score_loc+1]];
+			//currently_playing_1 = score[score_loc+1];
+			score_loc+=2;
+		}			
+		else if(score[score_loc] == 0x80){
+			currently_playing_1 = -1;
+			score_loc++;
+		}
+		else //weird cases
+			score_loc++;
+	}
+	
+	//we want to set Timer0B to be interrupted after n MS
+	if(score[score_loc]==0xF0){
+		score_loc=0;
+	}
+	
+	if(score[score_loc]==0){
+		count_b1 = score[score_loc+1];
+		score_loc+=2;
+	}
+	/*
   TIMER0_ICR_R = TIMER_ICR_TBTOCINT;// acknowledge timer0B timeout
 	TIMER0_TBILR_R = interrupt_cycles_b - 1; //TIMER0_TAILR_R + periodShift;
 	
@@ -174,6 +214,6 @@ void Timer0B_Handler(void){
 		cyclesLeft2 = 0;
 		TIMER0_CTL_R &= ~TIMER_CTL_TAEN;
 		TIMER0_CTL_R &= ~TIMER_CTL_TBEN;
-	}		
+	}		*/
 }
 	
