@@ -12,6 +12,10 @@
 #define GPIO_PORTC_DEN_R        (*((volatile unsigned long *)0x4000651C))
 #define GPIO_PORTC5             (*((volatile unsigned long *)0x40006080))
 
-extern volatile unsigned long countb_overall;
+void DisableInterrupts(void); // Disable interrupts
+void EnableInterrupts(void);  // Enable interrupts
+long StartCritical (void);    // previous I bit, disable interrupts
+void EndCritical(long sr);    // restore I bit to previous value
+void WaitForInterrupt(void);  // low power mode
 
 #endif

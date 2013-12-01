@@ -928,6 +928,9 @@ void RIT128x96x4_Line(int x1, int y1, int x2, int y2, unsigned char color){
 	float m = ((float)(y2-y1)) / (x2-x1);
 	float b = y1 - m*x1;		
 	
+	if(y1 > 96 || y2 > 96 || y1 < 0 || y2 < 0 || x1 > 128 || x2 > 128 || x1 < 0 || x2 < 0)
+		return;
+	
 	minx = x1;
 	maxx = x2;
 	if(x1 > x2){

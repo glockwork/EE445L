@@ -4,12 +4,7 @@
 #include "Output.h"
 #include "OLEDdraw.h"
 #include "rit128x96x4.h"
-
-void DisableInterrupts(void); // Disable interrupts
-void EnableInterrupts(void);  // Enable interrupts
-long StartCritical (void);    // previous I bit, disable interrupts
-void EndCritical(long sr);    // restore I bit to previous value
-void WaitForInterrupt(void);  // low power mode
+#include "Timer0A.h"
 
 int playing = 0;
 
@@ -26,8 +21,13 @@ int main(void){ volatile unsigned long delay;
 	SYSCTL_RCGC1_R |= SYSCTL_RCGC1_TIMER1;// activate timer0
 	
 	DAC_Init(2048);
-	Timer0A_Init();       // initialize timer0A (~20,000 Hz)
-	Timer1A_Init();       // initialize timer0A (~20,000 Hz)
+	//Timer0A_Init();       // initialize timer0A (~20,000 Hz)
+	//Timer1A_Init();       // initialize timer0A (~20,000 Hz)
+	
+	FrequencyTimersInit();
+	MIDIParserInit();
+	OLEDTimerInit();
+	
 	//Switch_Init();
 	Output_Init();
 	EnableInterrupts();
@@ -36,7 +36,8 @@ int main(void){ volatile unsigned long delay;
 	RIT128x96x4DisplayOn();
 	//RIT128x96x4_ClearImage();
 	
-	RIT128x96x4_Line(0,0,50,50,15);
+	//RIT128x96x4_Line(0,0,50,50,15);
+	//drawCircle(50,50,10)
 	RIT128x96x4_ShowImage();
 	
 	TIMER0_CTL_R |= TIMER_CTL_TAEN;
@@ -46,8 +47,9 @@ int main(void){ volatile unsigned long delay;
 		
   while(1){
 		RIT128x96x4_ClearImage();
-		drawCircle(20, watch, 10);
-		watch = (watch+5)%100;
+		//drawCircle(20, watch, 10);
+		//watch = (watch+5)%100;
+		BufferDraw();
 		RIT128x96x4_ShowImage();
 		
   }

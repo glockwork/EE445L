@@ -28,12 +28,12 @@ int num_playing = 0;
 int magnitude_1;
 int magnitude_2;
 
-void Timer0A_Init(){ 
+void FrequencyTimersInit(){ 
 	//INTPERIOD = interrupt_cycles_a;
   TIMER0_CFG_R = TIMER_CFG_16_BIT; // configure for 16-bit timer mode
 	
 	
-	//TIMER 1 - Frequency
+	//TIMER0A - Frequency
   TIMER0_TAMR_R = TIMER_TAMR_TAMR_PERIOD;// configure for periodic mode
  
 	//***** WORK WITH THE NUMBERS HERE ********** //
@@ -48,20 +48,10 @@ void Timer0A_Init(){
   //TIMER0_CTL_R |= TIMER_CTL_TAEN;  // enable timer0A 16-b, periodic, interrupts
 	
 	
-	//TIMER 2 - note length
-                                   // configure for periodic mode
-  TIMER0_TBMR_R = TIMER_TBMR_TBMR_PERIOD;
-  TIMER0_TBILR_R = interrupt_cycles_b - 1;         //
-  TIMER0_IMR_R |= TIMER_IMR_TBTOIM;// enable timeout (rollover) interrupt
-  TIMER0_ICR_R = TIMER_ICR_TBTOCINT;// clear timer0B timeout flag
-
-  NVIC_PRI5_R = (NVIC_PRI5_R&0xFFFFFF00)|0x00000040; // bits 5-7
-	NVIC_EN0_R |= NVIC_EN0_INT19+NVIC_EN0_INT20;
 	
-  EnableInterrupts();
-}
-
-void Timer1A_Init(){ 
+	/***********/
+	//TONE GEN 2/
+	/***********/
 	//INTPERIOD = interrupt_cycles_a;
   TIMER1_CFG_R = TIMER_CFG_16_BIT; // configure for 16-bit timer mode
 	
@@ -80,23 +70,24 @@ void Timer1A_Init(){
   TIMER1_ICR_R = TIMER_ICR_TATOCINT;// clear timer0A timeout flag
   //TIMER1_CTL_R |= TIMER_CTL_TAEN;  // enable timer0A 16-b, periodic, interrupts
 	
-	
+  EnableInterrupts();
+}
+
+void MIDIParserInit(){
 	//TIMER 2 - note length
                                    // configure for periodic mode
-  TIMER1_TBMR_R = TIMER_TBMR_TBMR_PERIOD;
-  TIMER1_TBILR_R = interrupt_cycles_b - 1;           //
-  TIMER1_IMR_R |= TIMER_IMR_TBTOIM;// enable timeout (rollover) interrupt
-  TIMER1_ICR_R = TIMER_ICR_TBTOCINT;// clear timer0B timeout flag
+  TIMER0_TBMR_R = TIMER_TBMR_TBMR_PERIOD;
+  TIMER0_TBILR_R = interrupt_cycles_b - 1;         //
+  TIMER0_IMR_R |= TIMER_IMR_TBTOIM;// enable timeout (rollover) interrupt
+  TIMER0_ICR_R = TIMER_ICR_TBTOCINT;// clear timer0B timeout flag
 
-  NVIC_PRI5_R = (NVIC_PRI5_R&0xFF00FFFF)|0x00400000; // bits 5-7
-	NVIC_EN0_R |= NVIC_EN0_INT22;
+  NVIC_PRI5_R = (NVIC_PRI5_R&0xFFFFFF00)|0x00000040; // bits 5-7
+	NVIC_EN0_R |= NVIC_EN0_INT19+NVIC_EN0_INT20;
 	
   EnableInterrupts();
 }
 
 //Timer A: Outputs the 2 sin waves (1 for each instrument)
-
-
 void Timer0A_Handler(void){
 	TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
 	
@@ -184,8 +175,3 @@ void Timer0B_Handler(void){
 	
 }
 	
-//this timer handles LCD shit
-void Timer1B_Handler(void){
-	TIMER1_ICR_R = TIMER_ICR_TBTOCINT;
-}
-

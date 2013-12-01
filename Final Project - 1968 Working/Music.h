@@ -3,14 +3,16 @@
 
 extern const unsigned char score[];
 
+extern const unsigned short Flute[];
+extern const unsigned short Guitar[];
 extern const unsigned short Wave[];
 extern const unsigned short Trumpet[];
 extern const unsigned short Bassoon[];
 
 #define wave_len 64
 
-#define wavename1 Trumpet
-#define wavename2 Bassoon
+#define wavename1 Flute
+#define wavename2 Guitar
 
 
 //notes
