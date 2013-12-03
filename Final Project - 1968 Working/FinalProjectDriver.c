@@ -5,6 +5,8 @@
 #include "OLEDdraw.h"
 #include "rit128x96x4.h"
 #include "Timer0A.h"
+#include "UART2.h"
+#include "Xbee.h"
 
 int playing = 0;
 
@@ -17,6 +19,9 @@ int main(void){ volatile unsigned long delay;
 	GPIO_PORTC_DIR_R |= 0x20;        // make PC5 out (PC5 built-in LED)
 	GPIO_PORTC_DEN_R |= 0x20;        // enable digital I/O on PC5
 	
+	//Zigbee initalization
+	UART_Init();              // initialize UART
+	Xbee_Init(12);
 	SYSCTL_RCGC1_R |= SYSCTL_RCGC1_TIMER0;// activate timer0
 	SYSCTL_RCGC1_R |= SYSCTL_RCGC1_TIMER1;// activate timer0
 	

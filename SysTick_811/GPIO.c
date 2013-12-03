@@ -69,7 +69,7 @@ int main(void){  volatile unsigned long delay;
 	Switch_Init();
 	XBeeInit();
 	Timer0A_Init(16000);
-//	XBee_sendDataFrame("1234\r");
+	XBee_sendDataFrame("1234\r");
 //  while(1){
 //    LEDS = 10; // 1010, LED is 0101
 //    LEDS = 9;  // 1001, LED is 0110

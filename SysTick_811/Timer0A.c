@@ -81,6 +81,7 @@ void Timer0A_Init(unsigned short period){
 
 unsigned int portDValues = 0;
 unsigned int portBValues = 0;
+char oldHit = 0;
 
 void Timer0A_Handler(void){
 	unsigned int newPortDValues;
@@ -96,12 +97,12 @@ void Timer0A_Handler(void){
 	portDValues = newPortDValues;
 	
 	//look at portB bit corresponding to hit
-	portBsend[0] = (char)portBValues;
-	XBee_sendDataFrame(portBsend);	//if hit, then send all buttons through Zigbee
-	
-	
-	//read ports
-	//for each bit, if the value is different, send through zigbee 
+	if (oldHit != (portBValues & 0x20)){
+		portBsend[0] = (char)portBValues;
+		XBee_sendDataFrame(portBsend);	//if hit, then send all buttons through Zigbee
+		oldHit = portBValues & 0x20;
+	}
+
 }
 
 unsigned long countb = 0;

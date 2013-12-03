@@ -27,13 +27,11 @@
 
 #include "UART2.h"
 #include "lm3s1968.h"
-#include <stdio.h>
 #include "Xbee.h"
 #include "inc/hw_types.h"
 #include "driverlib/sysctl.h"
 #include "Output.h"
 #include "SysTick.h"
-#include "fixed.h"
 void EnableInterrupts(void);
 void WaitForInterrupt(void);
 //---------------------OutCRLF---------------------
@@ -47,7 +45,6 @@ void OutCRLF(void){
 //debug code
 int main(void){
   unsigned char i;
-	unsigned char * data;
 //  char string[20];  // global to assist in debugging
 //  unsigned long n;
 
@@ -93,10 +90,7 @@ int main(void){
 //    UART_OutString(" OutUHex="); UART_OutUHex(n); OutCRLF();
 //		WaitForInterrupt();
 		GPIO_PORTG_DATA_R ^= 0x04;
-		data = receiveData();
-		if (data!=0)
-			printf("%s", data);
-		//XBee_RecieveRxFrame();
+		XBee_RecieveRxFrame();
 //		XBee_TxStatus();
 //		XBee_Display();
   }
