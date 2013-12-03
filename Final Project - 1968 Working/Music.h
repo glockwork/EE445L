@@ -8,11 +8,13 @@ extern const unsigned short Guitar[];
 extern const unsigned short Wave[];
 extern const unsigned short Trumpet[];
 extern const unsigned short Bassoon[];
+extern const unsigned short Horn[];
 
 #define wave_len 64
 
-#define wavename1 Flute
-#define wavename2 Guitar
+#define wavename1 Horn
+#define wavename2 Flute
+#define wavename3 Guitar
 
 
 //notes

@@ -15,18 +15,22 @@ long count_b1 = 0; //count for interrupt b
 int score_loc = 0;
 int currently_playing_1;
 int currently_playing_2;
+int currently_playing_3;
 
 int currently_left_1 = 0;
 int currently_left_2 = 0;
+int currently_left_3 = 0;
 
 int interrupt_time = 0;
 
 int wave_loc_1 = 0;
 int wave_loc_2 = 0;
+int wave_loc_3 = 0;
 
 int num_playing = 0;
 int magnitude_1;
 int magnitude_2;
+int magnitude_3;
 
 void FrequencyTimersInit(){ 
 	//INTPERIOD = interrupt_cycles_a;
@@ -70,6 +74,30 @@ void FrequencyTimersInit(){
   TIMER1_ICR_R = TIMER_ICR_TATOCINT;// clear timer0A timeout flag
   //TIMER1_CTL_R |= TIMER_CTL_TAEN;  // enable timer0A 16-b, periodic, interrupts
 	
+	
+	
+	
+	/***********/
+	//TONE GEN 3/
+	/***********/
+	//INTPERIOD = interrupt_cycles_a;
+  TIMER2_CFG_R = TIMER_CFG_16_BIT; // configure for 16-bit timer mode
+	
+	
+	//TIMER 1 - Frequency
+  TIMER2_TAMR_R = TIMER_TAMR_TAMR_PERIOD;// configure for periodic mode
+ 
+	//***** WORK WITH THE NUMBERS HERE ********** //
+	TIMER2_TAILR_R = interrupt_cycles_a - 1;  // start value to count down from
+  TIMER2_IMR_R |= TIMER_IMR_TATOIM;// enable timeout (rollover) interrupt
+  TIMER2_ICR_R = TIMER_ICR_TATOCINT;// clear timer0A timeout flag
+  
+	// **** interrupt initialization **** // Timer0A=priority 2
+  NVIC_PRI5_R = (NVIC_PRI4_R&0x00FFFFFF)|0x40000000; // top 3 bits
+  NVIC_EN0_R |= NVIC_EN0_INT23;    // enable interrupt 21 in NVIC
+  TIMER2_ICR_R = TIMER_ICR_TATOCINT;// clear timer0A timeout flag
+  //TIMER1_CTL_R |= TIMER_CTL_TAEN;  // enable timer0A 16-b, periodic, interrupts
+	
   EnableInterrupts();
 }
 
@@ -96,10 +124,7 @@ void Timer0A_Handler(void){
 	wave_loc_1 = (wave_loc_1+1)%wave_len;
 	magnitude_1 = wavename1[wave_loc_1];
 	
-	if(currently_playing_2 > 0)
-		DAC_Out((magnitude_1+magnitude_2)/2);
-	else
-		DAC_Out(magnitude_1);
+	DAC_Out((magnitude_1+magnitude_2+magnitude_3));
 		
 	TIMER0_TAILR_R = currently_playing_1;
 }
@@ -113,17 +138,29 @@ void Timer1A_Handler(void){
 	wave_loc_2 = (wave_loc_2+1)%wave_len;
 	//DAC_Out(wavename2[wave_loc_2]);
 	
-	magnitude_2 = wavename2[wave_loc_2];
-	
-	if(currently_playing_1 > 0)
-		DAC_Out((magnitude_1+magnitude_2)/2);
-	else
-		DAC_Out(magnitude_2);
+	DAC_Out((magnitude_1+magnitude_2+magnitude_3));
 	
 	TIMER1_TAILR_R = currently_playing_2;
 
 }
 
+
+//handles 3rd of sound wave
+void Timer2A_Handler(void){
+	TIMER2_ICR_R = TIMER_ICR_TATOCINT;
+	
+	if(currently_playing_3 <= 0)
+		return;
+	wave_loc_3 = (wave_loc_3+1)%wave_len;
+	//DAC_Out(wavename2[wave_loc_2]);
+	
+	magnitude_3 = wavename3[wave_loc_3];
+	
+	DAC_Out((magnitude_1+magnitude_2+magnitude_3));
+	
+	TIMER2_TAILR_R = currently_playing_2;
+
+}
 
 void Timer0B_Handler(void){
   TIMER0_ICR_R = TIMER_ICR_TBTOCINT;// acknowledge timer0B timeout
@@ -132,7 +169,7 @@ void Timer0B_Handler(void){
 	if(count_b1 > 0)
 		return;
 	
-	while(score[score_loc]!=0 && score[score_loc]!=0xF0){
+	while(score[score_loc]!=0 && score[score_loc]!=0xF0 && score[score_loc] != 1){
 		switch(score[score_loc]){
 			case 0x90:
 				currently_playing_1 = NoteFrequency[score[score_loc+1]];
@@ -146,15 +183,29 @@ void Timer0B_Handler(void){
 				num_playing++;
 				score_loc+=2;
 				break;
+			case 0x92:
+				currently_playing_3 = NoteFrequency[score[score_loc+1]];
+				currently_left_3 = currently_playing_3;
+				num_playing++;
+				score_loc+=2;
+				break;
 			case 0x80:
 				currently_playing_1 = -1;
 				score_loc++;
 				num_playing--;
+				magnitude_1 = 0;
 				break;
 			case 0x81:
 				currently_playing_2 = -1;
 				score_loc++;
 				num_playing--;
+				magnitude_2 = 0;
+				break;
+			case 0x82:
+				currently_playing_3 = -1;
+				score_loc++;
+				num_playing--;
+				magnitude_3 = 0;
 				break;
 			default:
 				score_loc++;
@@ -165,10 +216,11 @@ void Timer0B_Handler(void){
 	//we want to set Timer0B to be interrupted after n MS
 	if(score[score_loc]==0xF0){
 		TIMER0_CTL_R &= ~TIMER_CTL_TAEN;
-		TIMER0_CTL_R &= ~TIMER_CTL_TBEN;
+		TIMER1_CTL_R &= ~TIMER_CTL_TAEN;
+		TIMER2_CTL_R &= ~TIMER_CTL_TAEN;
 	}
 	
-	if(score[score_loc]==0){
+	if(score[score_loc]==0 || score[score_loc] == 1){
 		count_b1 = score[score_loc+1];
 		score_loc+=2;
 	}
