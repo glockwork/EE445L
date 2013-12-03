@@ -24,6 +24,7 @@ int main(void){ volatile unsigned long delay;
 	Xbee_Init(12);
 	SYSCTL_RCGC1_R |= SYSCTL_RCGC1_TIMER0;// activate timer0
 	SYSCTL_RCGC1_R |= SYSCTL_RCGC1_TIMER1;// activate timer0
+	SYSCTL_RCGC1_R |= SYSCTL_RCGC1_TIMER2;// activate timer0
 	
 	DAC_Init(2048);
 	//Timer0A_Init();       // initialize timer0A (~20,000 Hz)
@@ -45,8 +46,11 @@ int main(void){ volatile unsigned long delay;
 	//drawCircle(50,50,10)
 	RIT128x96x4_ShowImage();
 	
+	//frequency timers
 	TIMER0_CTL_R |= TIMER_CTL_TAEN;
 	TIMER1_CTL_R |= TIMER_CTL_TAEN;
+	TIMER2_CTL_R |= TIMER_CTL_TAEN;
+	
 	TIMER0_CTL_R |= TIMER_CTL_TBEN;
 	TIMER1_CTL_R |= TIMER_CTL_TBEN;
 		
