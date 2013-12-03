@@ -68,8 +68,8 @@ int main(void){
 		XBee_sendDataFrame("1234\r");
 
 	while(1){
-		inp[0] = PCUART_InChar();
-		PCUART_OutChar(inp[0]);
+	//	inp[0] = PCUART_InChar();
+	//	PCUART_OutChar(inp[0]);
 		XBee_sendDataFrame(inp);
 		//Delay(5500000);
 	}

@@ -413,16 +413,6 @@
               <FilePath>.\XBeeOut.h</FilePath>
             </File>
             <File>
-              <FileName>XbeeOut.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\XbeeOut.c</FilePath>
-            </File>
-            <File>
-              <FileName>UART2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\UART2.c</FilePath>
-            </File>
-            <File>
               <FileName>UART2.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\UART2.h</FilePath>
@@ -463,9 +453,14 @@
               <FilePath>.\rit128x96x4.c</FilePath>
             </File>
             <File>
-              <FileName>PCUART2.c</FileName>
+              <FileName>PCUART2changed.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\PCUART2.c</FilePath>
+              <FilePath>.\PCUART2changed.c</FilePath>
+            </File>
+            <File>
+              <FileName>XbeeOutlab10changed.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\XbeeOutlab10changed.c</FilePath>
             </File>
           </Files>
         </Group>

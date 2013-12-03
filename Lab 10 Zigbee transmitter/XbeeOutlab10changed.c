@@ -32,8 +32,7 @@ ATCN<CR> wait 20ms OK<CR> Ends command mode
 Some of the default parameters are channel (CH=12), PAN (ID= 0x3332 or 13106) destination high address (DH=0),
 and baud rate (BD=3, for 9600 bits/sec)
  */
-
-  #ifdef __TI_COMPILER_VERSION__
+ #ifdef __TI_COMPILER_VERSION__
 	//Code Composer Studio Code
  	void Delay(unsigned long ulCount){
 	__asm (	"    subs    r0, #1\n"
@@ -52,49 +51,23 @@ and baud rate (BD=3, for 9600 bits/sec)
 	}
 
 #endif
-
+ 
+ 
  unsigned char ID;
  char response [10];
 void XBeeInit(){
-	char * commands [] = {"ATDL66", "ATDH0", "ATMY6D", "ATAP1", "ATCN"}; 
+	char * commands [] = {"ATDL66", "ATDH0", "ATMY6D", "ATAP1", "ATCN", ""};
 	int i = 0;
-	int j = 0;
-	int k = 0;
-	int h = 0;
-
-	SysTick_Init();
+	int j;
 	UART_Init();
-
 	while (RxFifo_Size()>0){ //flush FIFO
 		UART_InChar();
 	}
 
 		ID = 1;
- UART_OutString("x");
-	
-
-////	volatile unsigned long dummy = 0;
-//	for(k = 0; k < 60000; k++)
-//		for(h = 0; h < 100; h++)
-//	//		dummy ++ ;
-	
- SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
-	 SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
-
-//	Delay(5500000);
-	 //SysTick_SysTick_Wait10ms(110);		//wait waitTime number of ms;
+  UART_OutString("x");
+	Delay(55000000);
+	 //SysTick_Wait10ms(110);		//wait waitTime number of ms;
 	sendATCommand("+++", 110, 0);
 	//UART_InString(response, 5);
 	//RIT128x96x4StringDraw(response, 10, 10 , 15);
@@ -102,20 +75,7 @@ void XBeeInit(){
 	for (i=0;i<5;i++){
 		sendATCommand(commands[i], 20, 1);
 	}
- SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
-	 SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
- SysTick_Wait10ms(10);
+	Delay(55000000);
  }
 
 /*
@@ -125,14 +85,8 @@ void XBeeInit(){
  
  void XBeeSendTxFrame(char * frame, int len){
 	 
-	 int i = 0;
-	 volatile int b = 5;
+	 int i;
 	 char a;
-
-b++;
-	 b++;
-	 b--;
-	 
 //	 UART_OutArray(frame, len);
 //	 UART_OutString(frame);
 	 for (i=0;i<len;i++){
@@ -232,8 +186,6 @@ char bb;
 	 int j = 0;
 	 int size;
 	 int commandLen = strlen2(command);
-	 	unsigned long i44 = 0;
-	unsigned long j44 = 0;
 	 for (j = 0; j < 50; j++)
 		frame2[j] = 0;
 	 
@@ -244,28 +196,7 @@ char bb;
 		 UART_OutString(command);
 		 if (CRout)
 			UART_OutChar(CR);
-		 if (waitTime == 110){
-			 
-	 SysTick_Wait10ms(10);
-	 SysTick_Wait10ms(10);
-	 SysTick_Wait10ms(10);
-	 SysTick_Wait10ms(10);
-	 SysTick_Wait10ms(10);
-	 SysTick_Wait10ms(10);
-	 SysTick_Wait10ms(10);
-	 SysTick_Wait10ms(10);
-	 SysTick_Wait10ms(10);
-	 SysTick_Wait10ms(10);
-	 SysTick_Wait10ms(10);
-			 
-			 
-		 }
-		 else {			 
-		SysTick_Wait10ms(20);
-	 }
-//	for (i44 = 0; i44 < waitTime; i44++)
-//		for (j44 = 0; j44 < 50000; j44++);
-////	Delay(500000*waitTime); TODO
+	Delay(500000*waitTime);
 	j = 0;
   size = RxFifo_Size();
 	while (size>0){
@@ -274,7 +205,7 @@ char bb;
 //		Delay(500000);
 	}
 	j = 0;
-	while (frame2[j] != 'O' && j<47) j++;
+	while (frame2[j] != 'O') j++;
 	if (frame2[j] == 'O' && frame2[j+1] == 'K' && frame2[j+2] == CR)
 		done = 1;
 	count++;

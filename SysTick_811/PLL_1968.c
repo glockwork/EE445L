@@ -1,5 +1,5 @@
 // PLL.c
-// Runs on LM3S811
+// Runs on LM3S1968
 // A software function to change the bus speed using the PLL.
 // Commented lines in the function PLL_Init() initialize the PWM
 // to either 25 MHz or 50 MHz.  When using an oscilloscope to
@@ -7,7 +7,7 @@
 // about 2 (50/25) times faster with a 50 MHz clock than with a
 // 25 MHz clock.
 // Daniel Valvano
-// July 13, 2011
+// February 21, 2012
 
 /* This example accompanies the book
    "Embedded Systems: Real Time Interfacing to the Arm Cortex M3",
@@ -26,9 +26,6 @@
  http://users.ece.utexas.edu/~valvano/
  */
 
-#define GPIO_PORTC_DIR_R        (*((volatile unsigned long *)0x40006400))
-#define GPIO_PORTC_AFSEL_R      (*((volatile unsigned long *)0x40006420))
-#define GPIO_PORTC_DEN_R        (*((volatile unsigned long *)0x4000651C))
 #define SYSCTL_RIS_R            (*((volatile unsigned long *)0x400FE050))
 #define SYSCTL_RIS_PLLLRIS      0x00000040  // PLL Lock Raw Interrupt Status
 #define SYSCTL_RCC_R            (*((volatile unsigned long *)0x400FE060))
@@ -55,10 +52,6 @@
 #define SYSCTL_RCC_XTAL_8MHZ    0x00000380  // 8 MHz Crystal
 #define SYSCTL_RCC_OSCSRC_M     0x00000030  // Oscillator Source
 #define SYSCTL_RCC_OSCSRC_MAIN  0x00000000  // MOSC
-#define SYSCTL_RCGC2_R          (*((volatile unsigned long *)0x400FE108))
-#define SYSCTL_RCGC2_GPIOC      0x00000004  // port C Clock Gating Control
-#define GPIO_PORTC5             (*((volatile unsigned long *)0x40006080))
-// access PC5
 
 // configure the system to get its clock from the PLL
 void PLL_Init(void){
@@ -67,9 +60,9 @@ void PLL_Init(void){
   SYSCTL_RCC_R &= ~SYSCTL_RCC_USESYSDIV;
   // 2) select the crystal value and oscillator source
   SYSCTL_RCC_R &= ~SYSCTL_RCC_XTAL_M;   // clear XTAL field
-  SYSCTL_RCC_R += SYSCTL_RCC_XTAL_6MHZ; // configure for 6 MHz crystal (default setting)
+  SYSCTL_RCC_R += SYSCTL_RCC_XTAL_8MHZ; // configure for 8 MHz crystal
   SYSCTL_RCC_R &= ~SYSCTL_RCC_OSCSRC_M; // clear oscillator source field
-  SYSCTL_RCC_R += SYSCTL_RCC_OSCSRC_MAIN;// configure for main oscillator source (default setting)
+  SYSCTL_RCC_R += SYSCTL_RCC_OSCSRC_MAIN;// configure for main oscillator source
   // 3) activate PLL by clearing PWRDN and OEN
   SYSCTL_RCC_R &= ~(SYSCTL_RCC_PWRDN|SYSCTL_RCC_OEN);
   // 4) set the desired system divider and the USESYSDIV bit
@@ -78,7 +71,7 @@ void PLL_Init(void){
 //  SYSCTL_RCC_R += SYSCTL_RCC_SYSDIV_5;  // configure for 40 MHz clock
 //  SYSCTL_RCC_R += SYSCTL_RCC_SYSDIV_6;  // configure for 33.33 MHz clock
 //  SYSCTL_RCC_R += SYSCTL_RCC_SYSDIV_7;  // configure for 28.57 MHz clock
- // SYSCTL_RCC_R += SYSCTL_RCC_SYSDIV_8;  // configure for 25 MHz clock
+//  SYSCTL_RCC_R += SYSCTL_RCC_SYSDIV_8;  // configure for 25 MHz clock
 //  SYSCTL_RCC_R += SYSCTL_RCC_SYSDIV_9;  // configure for 22.22 MHz clock
 //  SYSCTL_RCC_R += SYSCTL_RCC_SYSDIV_10; // configure for 20 MHz clock
 //  SYSCTL_RCC_R += SYSCTL_RCC_SYSDIV_11; // configure for 18.18 MHz clock
@@ -93,40 +86,3 @@ void PLL_Init(void){
   // 6) enable use of PLL by clearing BYPASS
   SYSCTL_RCC_R &= ~SYSCTL_RCC_BYPASS;
 }
-
-//debug code
-// delay function for testing from sysctl.c
-// which delays 3*ulCount cycles
-//#ifdef __TI_COMPILER_VERSION__
-//	//Code Composer Studio Code
-//	void Delay(unsigned long ulCount){
-//	__asm (	"    subs    r0, #1\n"
-//			"    bne     Delay\n"
-//			"    bx      lr\n");
-//}
-
-//#else
-//	//Keil uVision Code
-//	__asm void
-//	Delay(unsigned long ulCount)
-//	{
-//    subs    r0, #1
-//    bne     Delay
-//    bx      lr
-//	}
-
-//#endif
-//int main(void){  volatile unsigned long delay;
-//  PLL_Init();
-//  SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOC; // activate port C
-//  delay = SYSCTL_RCGC2_R;      // allow time for clock to stabilize
-//  GPIO_PORTC_DIR_R |= 0x20;    // make PC5 out (PC5 built-in LED)
-//  GPIO_PORTC_AFSEL_R &= ~0x20; // regular port function (default setting)
-//  GPIO_PORTC_DEN_R |= 0x20;    // enable digital I/O on PC5 (default setting)
-//  while(1){
-//    GPIO_PORTC5 = 0x20;        // turn on LED0
-//    Delay(16666667);           // delay ~1 sec at 50 MHz
-//    GPIO_PORTC5 = 0x00;        // turn off LED0
-//    Delay(16666667);           // delay ~1 sec at 50 MHz
-//  }
-//}

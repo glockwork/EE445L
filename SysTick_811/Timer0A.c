@@ -85,6 +85,7 @@ unsigned int portBValues = 0;
 void Timer0A_Handler(void){
 	unsigned int newPortDValues;
   unsigned int newPortBValues;
+	char portBsend [1];
   TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
 
 	TIMER0_TAILR_R = interrupt_cycles_a - 1; //TIMER0_TAILR_R + periodShift;
@@ -93,9 +94,14 @@ void Timer0A_Handler(void){
 	newPortBValues = readB();
 	portBValues = newPortBValues;
 	portDValues = newPortDValues;
+	
+	//look at portB bit corresponding to hit
+	portBsend[0] = (char)portBValues;
+	XBee_sendDataFrame(portBsend);	//if hit, then send all buttons through Zigbee
+	
+	
 	//read ports
 	//for each bit, if the value is different, send through zigbee 
- // (*PeriodicTask)();                // execute user task
 }
 
 unsigned long countb = 0;
