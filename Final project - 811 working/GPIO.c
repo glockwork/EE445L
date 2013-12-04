@@ -56,20 +56,29 @@ int main(void){  volatile unsigned long delay;
   char string[20];  // global to assist in debugging
   unsigned long n;
 	char inp [1];
+	char testggg [3];
 
 	
   SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN |
                  SYSCTL_XTAL_6MHZ);
+	testData = 0;
 	PLL_Init();
+	testData = 0;
   SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOD | SYSCTL_RCGC2_GPIOB;; // activate port D
-
+	testData = 0;
 //	SysTick_Init();
 //  UART_Init();              // initialize UART
 //  OutCRLF();
+	testData = 0;
 	Switch_Init();
 	XBeeInit();
+	//DisableInterrupts();
 	Timer0A_Init(16000);
-	XBee_sendDataFrame("1234\r");
+	EnableInterrupts();
+//	testggg[0] = '2';
+//	testggg[1] = '\n';
+//	testggg[2] = 0;
+	XBee_sendDataFrame(testggg);
 //  while(1){
 //    LEDS = 10; // 1010, LED is 0101
 //    LEDS = 9;  // 1001, LED is 0110
@@ -78,8 +87,16 @@ int main(void){  volatile unsigned long delay;
 //  }  
 //
 	while(1){
-		testData = readB();
-	//	SysTick_Wait10ms(100);
+//		testData = readB();
+//			XBee_sendDataFrame(testggg);
+
+//		SysTick_Wait10ms(10);
+//				SysTick_Wait10ms(10);
+//		SysTick_Wait10ms(10);
+//		SysTick_Wait10ms(10);
+//		SysTick_Wait10ms(10);
+//		SysTick_Wait10ms(10);
+
 
 	//	inp[0] = '1';
 	//	XBee_sendDataFrame(inp);

@@ -152,8 +152,8 @@ the Frame Id (byte 5 in the figure at the bottom page 57) from 1 to 255, and the
  char frame [20];
 
 void XBee_sendDataFrame(char * data){
-	XBee_CreateTxFrame(strlen2(data), 1, data,frame);
-	XBeeSendTxFrame(frame, strlen2(data) + 9);
+	XBee_CreateTxFrame(strlen(data), 1, data,frame);
+	XBeeSendTxFrame(frame, strlen(data) + 9);
 
 }
 void XBee_CreateTxFrame(unsigned int len, char api, char * data, char * frame){
@@ -231,7 +231,7 @@ char bb;
 	 char count = 0;
 	 int j = 0;
 	 int size;
-	 int commandLen = strlen2(command);
+	 int commandLen = strlen(command);
 	 	unsigned long i44 = 0;
 	unsigned long j44 = 0;
 	 for (j = 0; j < 50; j++)

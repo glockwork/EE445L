@@ -57,7 +57,7 @@ void Timer0A_Init(unsigned short period){
   NVIC_PRI4_R = (NVIC_PRI4_R&0x00FFFFFF)|0x40000000; // 8) priority 2
   NVIC_EN0_R |= NVIC_EN0_INT19;    // 9) enable interrupt 19 in NVIC
   TIMER0_CTL_R |= 0x00000001;      // 10) enable timer0A
-  EnableInterrupts();
+//  EnableInterrupts();
 }
 
 //void Timer0B_Init(unsigned short period){ 
@@ -82,11 +82,11 @@ void Timer0A_Init(unsigned short period){
 unsigned int portDValues = 0;
 unsigned int portBValues = 0;
 char oldHit = 0;
+	char portBsend [4];
 
 void Timer0A_Handler(void){
 	unsigned int newPortDValues;
   unsigned int newPortBValues;
-	char portBsend [4];
   TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
 
 	TIMER0_TAILR_R = interrupt_cycles_a - 1; //TIMER0_TAILR_R + periodShift;
@@ -98,7 +98,11 @@ void Timer0A_Handler(void){
 	
 	//look at portB bit corresponding to hit
 	if (oldHit != (portBValues & 0x20)){
-		portBsend[0] = (char)((~portBValues) & 0x0F);
+		portBsend[0] = (char)(((~portBValues) & 0x0F) | 0x10);
+		portBsend[1] = 0;
+		portBsend[2] = 0;
+		portBsend[3] = 0;
+
 		XBee_sendDataFrame(portBsend);	//if hit, then send all buttons through Zigbee
 		oldHit = portBValues & 0x20;
 	}

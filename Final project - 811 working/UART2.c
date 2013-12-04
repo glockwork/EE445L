@@ -91,9 +91,11 @@ AddIndexFifo(Tx, FIFOSIZE, char, FIFOSUCCESS, FIFOFAIL)
 // 8 bit word length, no parity bits, one stop bit, FIFOs enabled
 // Input: none
 // Output: none
+int delay;
 void UART_Init(void){
   SYSCTL_RCGC1_R |= SYSCTL_RCGC1_UART0; // activate UART0
   SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOA; // activate port A
+	delay = 1;
   RxFifo_Init();                        // initialize empty FIFOs
   TxFifo_Init();
   UART0_CTL_R &= ~UART_CTL_UARTEN;      // disable UART

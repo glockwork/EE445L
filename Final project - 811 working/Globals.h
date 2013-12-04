@@ -22,7 +22,7 @@
 #include "../driverlib/gpio.h"
 #include "Switch.h"
 #include "Timer0A.h"
-
+#include "string.h"
 
 #define GPIO_PORTC_DATA_R       (*((volatile unsigned long *)0x400063FC))
 #define GPIO_PORTC_DIR_R        (*((volatile unsigned long *)0x40006400))
@@ -30,7 +30,7 @@
 #define GPIO_PORTC5             (*((volatile unsigned long *)0x40006080))
 
 extern volatile unsigned long countb_overall;
-int strlen2(char * str);
+//int strlen2(char * str);
 void wait10ms(unsigned long);
 #endif
 
