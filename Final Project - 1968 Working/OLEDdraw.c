@@ -1,10 +1,14 @@
 #include "globals.h"
 #include "RIT128x96x4.h"
 #include "OLEDdraw.h"
+#include "Xbee.h"
 
 int width = 128;
 int buffer_1=0;
 int buffer_counter = 0;
+
+int corrects = 0;
+int errors = 0;
 
 #define SONG_SIZE 5
 //start times in MS
@@ -34,22 +38,35 @@ float sinlut[60] = {
 unsigned char color  = 15;
 
 void BufferDraw(){
-	/*if(buffer_1 >= 80) {
-		drawCircle(width/8, 80, width/8);
-		return;
-	}
-	drawCircle(width/8, buffer_1, width/8);
-	buffer_1+=4;*/
 	int i = 0;
+	unsigned char* data = 0;
+	char buttons = 0;
+	int oldCorrects = corrects;
+	
+	data = receiveData();
+	if(data!=0)
+		buttons = data[0]&0x0F;
+	
+	RIT128x96x4_Line(0, 70, 128, 70, 5);
 	for(i = 0; i < BUFFER_SIZE; i++){
-		if(buffer_y[i]>0 && buffer_y[i] <= 80){
+		if(buffer_y[i]>0 && buffer_y[i] <= 70){
+			drawCircle(32*buffer_col[i]-16, buffer_y[i], width/8);
+			buffer_y[i]+=4;
+		}
+		if(buffer_y[i] >= 70 && buffer_y[i] < 108){
 			drawCircle(32*buffer_col[i]-16, buffer_y[i], width/8);
 			buffer_y[i]+=2;
+			if(buttons == buffer_col[i] && buttons < 3) corrects++;
+			else if(buffer_col[i]==3 && buttons==4) corrects++;
+			else if(buffer_col[i]==4 && buttons==8) corrects++;
 		}
-		else if(buffer_y[i] >= 80){
-			drawCircle(32*buffer_col[i]-16, 80, width/8);
+		else if(buffer_y[i] >= 108){
+			buffer_y[i]=0;
 		}
 	}
+	
+	if(oldCorrects==corrects && buttons > 0)
+		errors++;
 }
 
 

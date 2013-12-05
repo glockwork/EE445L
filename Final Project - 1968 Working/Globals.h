@@ -28,5 +28,8 @@ extern long FMcountNoteLength;
 extern long FMcyclesLeft1;
 extern long FMcyclesLeft2;
 
+extern int corrects;
+extern int errors;
+
 #define FMNOTELENGTH 50000
 #endif

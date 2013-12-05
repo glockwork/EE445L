@@ -31,7 +31,7 @@
 
 #include "FIFO.h"
 #include "UART2.h"
-#include "lm3s1968.h"
+#include "Globals.h"//"lm3s1968.h"
 
 #define NVIC_EN0_INT5           0x00000020  // Interrupt 5 enable
 #define NVIC_EN0_R              (*((volatile unsigned long *)0xE000E100))  // IRQ 0 to 31 Set Enable Register

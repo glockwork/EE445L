@@ -33,6 +33,7 @@ extern int note_len_divider;
 
 
 //notes
+/*
 #define C_2 11945   // 65.406 Hz
 #define DF_1 11274   // 69.296 Hz
 #define D_1 10641   // 73.416 Hz
@@ -57,7 +58,7 @@ extern int note_len_divider;
 #define A0 3551   // 220.000 Hz
 #define BF0 3352   // 233.082 Hz
 #define B0 3164   // 246.942 Hz
-#define C0 2986   // 261.626 Hz
+#define C0 2986   // 261.626 Hz*/
 #define DF 2819   // 277.183 Hz
 #define D 2660   // 293.665 Hz
 #define EF 2511   // 311.127 Hz
@@ -70,7 +71,7 @@ extern int note_len_divider;
 #define BF 1676   // 466.164 Hz
 #define B 1582   // 493.883 Hz
 #define C 1493   // 523.251 Hz
-#define DF1 1409   // 554.365 Hz
+/*#define DF1 1409   // 554.365 Hz
 #define D1 1330   // 587.330 Hz
 #define EF1 1256   // 622.254 Hz
 #define E1 1185   // 659.255 Hz
@@ -93,6 +94,6 @@ extern int note_len_divider;
 #define A2 444   // 1760.000 Hz
 #define BF2 419   // 1864.655 Hz
 #define B2 395   // 1975.533 Hz
-#define C2 373   // 2093.005 Hz
+#define C2 373   // 2093.005 Hz*/
 
 #endif

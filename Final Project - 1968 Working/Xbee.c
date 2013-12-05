@@ -1,4 +1,4 @@
-#include "lm3s1968.h"
+#include "Globals.h"
 #include "UART2.h"
 #include "FIFO.h"
 #include "SysTick.h" 

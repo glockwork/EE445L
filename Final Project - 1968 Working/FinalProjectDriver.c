@@ -13,8 +13,13 @@ int playing = 0;
 
 //debug code
 void freeMode(void);
-int main(void){ volatile unsigned long delay;
+int main(void){ 
+	volatile unsigned long delay;
+	unsigned char * data = 0;
+	char buttons = 0;
 	int watch = 0;
+	char printBuffer[50];
+	
 	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
 	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOC;  // activate port C
 	delay = SYSCTL_RCGC2_R;          // allow time to finish activating
@@ -47,6 +52,21 @@ int main(void){ volatile unsigned long delay;
 	//RIT128x96x4_Line(0,0,50,50,15);
 	//drawCircle(50,50,10)
 	RIT128x96x4_ShowImage();
+	printf("Hit Button 0 For Free Mode\nHit Button 1 To Play Guitar Hero!\n");
+	
+	
+	while(data==0){
+		data= receiveData();
+		buttons = data[0] & 0x0F;
+		if(buttons == 1) {
+			playMode = 1;
+			freeMode();
+		}
+		else if(buttons == 2){
+			playMode = 0;
+			break;
+		}
+	}
 	
 	//frequency timers
 	TIMER0_CTL_R |= TIMER_CTL_TAEN;
@@ -57,10 +77,11 @@ int main(void){ volatile unsigned long delay;
 	TIMER1_CTL_R |= TIMER_CTL_TBEN;
 		
   while(1){
-		if (playMode ==1) freeMode();
+		//if (playMode ==1) freeMode();
 		RIT128x96x4_ClearImage();
-		//drawCircle(20, watch, 10);
-		//watch = (watch+5)%100;
+		sprintf(printBuffer, "Errors: %d\nCorrects: %d", errors, corrects);
+		//printf("Corrects: %d\n", corrects);
+		RIT128x96x4StringDraw(printBuffer, 0, 0, 10);
 		BufferDraw();
 		RIT128x96x4_ShowImage();
 		
@@ -80,6 +101,7 @@ void freeMode(void){ 		//if hit, play note corresponding to given hit pattern
 		TIMER2_CTL_R &= ~TIMER_CTL_TAEN;
 		TIMER1_CTL_R &= ~TIMER_CTL_TBEN;
 		TIMER2_CTL_R &= ~TIMER_CTL_TBEN;
+		
 	while(playMode == 1){
 		while (data ==0) 
 			data = receiveData(); // poll zigbee queue

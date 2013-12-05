@@ -41,7 +41,7 @@ output = 0;
 unsigned short DAC_Out(unsigned short code){
   while((SSI1_SR_R&SSI_SR_TNF)==0){};// wait until room in FIFO
 //output = code;
-		code/=6;
+		code/=12;
 code &= 0x0FFF;
 code |= 0x4000;
   SSI1_DR_R = code;                  // data out
