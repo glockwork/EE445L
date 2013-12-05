@@ -50,13 +50,31 @@ void OutCRLF(void){
 
 char testData = 0;
 
+//0 for 811 normal, 1 for fakepresses, 
+#define testMode 0 
+char fakePresses [11] = {0, 1, 2, 4, 8, 3, 5, 9, 6, 10};
+char testggg [3];
+
+void wait1second(){
+	
+			SysTick_Wait10ms(10);
+				SysTick_Wait10ms(10);
+		SysTick_Wait10ms(10);
+		SysTick_Wait10ms(10);
+		SysTick_Wait10ms(10);
+
+
+
+
+}
+
 int main(void){  volatile unsigned long delay;
 	
 	unsigned char i;
   char string[20];  // global to assist in debugging
   unsigned long n;
 	char inp [1];
-	char testggg [3];
+	char index = 0;
 
 	
   SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN |
@@ -78,7 +96,7 @@ int main(void){  volatile unsigned long delay;
 //	testggg[0] = '2';
 //	testggg[1] = '\n';
 //	testggg[2] = 0;
-	XBee_sendDataFrame(testggg);
+//	XBee_sendDataFrame(testggg);
 //  while(1){
 //    LEDS = 10; // 1010, LED is 0101
 //    LEDS = 9;  // 1001, LED is 0110
@@ -87,6 +105,17 @@ int main(void){  volatile unsigned long delay;
 //  }  
 //
 	while(1){
+		
+		if (testMode == 1){ //1968 fake button presses
+			testggg[0] = fakePresses[index];
+			testggg[1] = 0;
+			index++;
+			index%=5;
+			XBee_sendDataFrame(testggg);
+			wait1second();
+			
+}
+		
 //		testData = readB();
 //			XBee_sendDataFrame(testggg);
 

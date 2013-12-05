@@ -14,7 +14,7 @@ char ATCMD5[6] = {'A','T','C','N',0x0D,0};
 
 void Xbee_Init(unsigned char ChannelNum){
 	unsigned char nextStep = 0;
-//	printf("Initializing...%c",NEWLINE);
+	printf("Initializing...%c",NEWLINE);
 	while(nextStep == 0){
 		UART_OutChar('x');
 		SysTick_Wait10ms(110);//wait 1.1ms
@@ -24,42 +24,42 @@ void Xbee_Init(unsigned char ChannelNum){
 		SysTick_Wait10ms(110);//wait 1.1ms
 		nextStep = lookforCR();
 	}
-//	printf("okay1%c",NEWLINE);
+	printf("okay1%c",NEWLINE);
 	nextStep = 0;
 	while(nextStep == 0){
 		UART_OutString(ATCMD1);
 		SysTick_Wait10ms(2);
 		nextStep = lookforCR();
 	}
-//	printf("okay2%c",NEWLINE);
+	printf("okay2%c",NEWLINE);
 	nextStep = 0;
 	while(nextStep == 0){
 		UART_OutString(ATCMD2);
 		SysTick_Wait10ms(2);
 		nextStep = lookforCR();
 	}
-//	printf("okay3%c",NEWLINE);
+	printf("okay3%c",NEWLINE);
 	nextStep = 0;
 	while(nextStep == 0){
 		UART_OutString(ATCMD3);
 		SysTick_Wait10ms(2);
 		nextStep = lookforCR();
 	}
-//	printf("okay4%c",NEWLINE);
+	printf("okay4%c",NEWLINE);
 	nextStep = 0;
 	while(nextStep == 0){
 		UART_OutString(ATCMD4);
 		SysTick_Wait10ms(2);
 		nextStep = lookforCR();
 	}
-	//printf("okay5%c",NEWLINE);
+	printf("okay5%c",NEWLINE);
 	nextStep = 0;
 	while(nextStep == 0){
 		UART_OutString(ATCMD5);
 		SysTick_Wait10ms(2);
 		nextStep = lookforCR();
 	}
-//	printf("okay6%c",NEWLINE);
+	printf("okay6%c",NEWLINE);
 }
 
 unsigned char frameCheckSum = 0;

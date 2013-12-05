@@ -14,6 +14,8 @@ char ATCMD5[6] = {'A','T','C','N',0x0D,0};
 
 void Xbee_Init(unsigned char ChannelNum){
 	unsigned char nextStep = 0;
+	SysTick_Init();
+
 //	printf("Initializing...%c",NEWLINE);
 	while(nextStep == 0){
 		UART_OutChar('x');

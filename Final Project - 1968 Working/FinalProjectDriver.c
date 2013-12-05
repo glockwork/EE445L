@@ -7,10 +7,12 @@
 #include "Timer0A.h"
 #include "UART2.h"
 #include "Xbee.h"
-
+#include "music.h"
+#include <stdio.h>
 int playing = 0;
 
 //debug code
+void freeMode(void);
 int main(void){ volatile unsigned long delay;
 	int watch = 0;
 	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
@@ -55,6 +57,7 @@ int main(void){ volatile unsigned long delay;
 	TIMER1_CTL_R |= TIMER_CTL_TBEN;
 		
   while(1){
+		if (playMode ==1) freeMode();
 		RIT128x96x4_ClearImage();
 		//drawCircle(20, watch, 10);
 		//watch = (watch+5)%100;
@@ -63,4 +66,47 @@ int main(void){ volatile unsigned long delay;
 		
   }
 	
+}
+
+void freeMode(void){ 		//if hit, play note corresponding to given hit pattern
+	  long notes [4] = {C, G, D, A};
+		unsigned char * data = 0;
+		char buttons = 0;
+		printf("start free mode\n");
+
+		TIMER0_CTL_R &= ~TIMER_CTL_TAEN;
+		TIMER0_CTL_R &= ~TIMER_CTL_TBEN;
+		TIMER1_CTL_R &= ~TIMER_CTL_TAEN;
+		TIMER2_CTL_R &= ~TIMER_CTL_TAEN;
+		TIMER1_CTL_R &= ~TIMER_CTL_TBEN;
+		TIMER2_CTL_R &= ~TIMER_CTL_TBEN;
+	while(playMode == 1){
+		while (data ==0) 
+			data = receiveData(); // poll zigbee queue
+		
+		buttons = (data[0] & 0x0F);
+		printf("hit: %d                \n", buttons);
+		switch(buttons){
+			case 1: FMNote1 = FMNote2 = notes[0]; break;
+			case 2: FMNote1 = FMNote2 = notes[1]; break;
+			case 4: FMNote1 = FMNote2 = notes[2]; break;
+			case 8: FMNote1 = FMNote2 = notes[3]; break;
+			case 3: FMNote1 = notes[0]; FMNote2 = notes[1]; break;
+			case 5: FMNote1 = notes[0]; FMNote2 = notes[2]; break;
+			case 6: FMNote1 = notes[1]; FMNote2 = notes[2]; break;
+		  case 9: FMNote1 = notes[0]; FMNote2 = notes[3]; break;
+			case 10: FMNote1 = notes[1]; FMNote2 = notes[3]; break;
+			case 12: FMNote1 = notes[2]; FMNote2 = notes[3]; break;
+			case 0x0F: playMode = 0; printf("free mode done\n");break; //press all 4 buttons together to end play mode
+		}
+		if (buttons > 0 && buttons < 15){
+			FMcountNoteLength =0;
+			FMcyclesLeft1 = 0;
+			FMcyclesLeft2 = 0;
+			TIMER0_CTL_R |= TIMER_CTL_TAEN;
+			TIMER1_CTL_R |= TIMER_CTL_TAEN;
+			//start playing
+		}
+		data = 0;
+	}
 }

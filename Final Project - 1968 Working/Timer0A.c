@@ -2,6 +2,11 @@
 #include "Timer0A.h"
 #include "Music.h"
 
+
+
+char playMode  = 1; //0 for guiter hero, 1 for free play
+
+
 int interrupt_cycles_a = 200;
 int interrupt_cycles_b = 50000;
 
@@ -9,6 +14,17 @@ volatile unsigned long countb_overall = 0; //used for debouncing
 long count_a1 = 0; //count for interrupt a
 long count_a2 = 0; //count for interrupt a
 
+long FMcount_a1 = 0; //free mode count for interrupt a
+long FMcount_a2 = 0; //freemode  count for interrupt a
+long FMcountNoteLength = 0;
+long FMcyclesLeft1 = 0;
+long FMcyclesLeft2 = 0;
+long FMNote1;
+long FMNote2;
+
+unsigned int FMnoteToChange = 0; //1 for note1, 2 for note2, and 3 for both
+unsigned int FMcyclesCount1 = 0;
+unsigned int FMcyclesCount2 = 0;
 
 long count_b1 = 0; //count for interrupt b
 
@@ -119,6 +135,7 @@ void MIDIParserInit(){
 void Timer0A_Handler(void){
 	TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
 	
+	if (playMode ==0){
 	if(currently_playing_1 <= 0)
 		return;
 	wave_loc_1 = (wave_loc_1+1)%wave_len;
@@ -128,11 +145,70 @@ void Timer0A_Handler(void){
 		
 	TIMER0_TAILR_R = currently_playing_1;
 }
+else{
+	
+	//free mode stuff (play a given note (the actual sin wave values)
+	int ret = 0;
+	unsigned int minleft =0;
+	FMcount_a1++;
+	FMcount_a2++;
+	if (FMcyclesLeft1 < FMcyclesLeft2){
+			minleft = FMcyclesLeft1;
+			FMcyclesLeft1 = FMNote1;
+			FMcyclesLeft2 -= FMcyclesLeft1;
+			FMnoteToChange = 1;
+			FMcyclesCount1 = 0;
+	}
+	else 	if (FMcyclesLeft2 < FMcyclesLeft1){
+			minleft = FMcyclesLeft2;
+			FMcyclesLeft2 = FMNote2;
+			FMcyclesLeft1 -= FMcyclesLeft2;
+			FMnoteToChange = 2;
+			FMcyclesCount2 = 0;
+	} 
+	else {
+			minleft = FMcyclesLeft2;
+			FMcyclesLeft2 = FMNote1;
+			FMcyclesLeft1 = FMNote2;
+			FMnoteToChange = 3;
+			FMcyclesCount1 = 0;
+			FMcyclesCount2 = 0;
+
+	}
+		
+	TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
+	TIMER0_TAILR_R = minleft - 1; //TIMER0_TAILR_R + periodShift;
+	
+
+	if (FMnoteToChange == 1 || FMnoteToChange == 3){
+		wave_loc_1+=1;
+		if (wave_loc_1>=wave_len)wave_loc_1 = 0;
+		ret=1;
+		count_a1 =0;
+	}
+	
+	//checks if time to output next value in second waveform
+	//if(count_a2*interrupt_cycles_a / songname2[note_index2] >= 1){
+	if (FMnoteToChange == 2 || FMnoteToChange == 3){
+		wave_loc_2+=1;
+		if (wave_loc_2>=wave_len)wave_loc_2 = 0;
+		ret = 1;
+		count_a2 = 0;
+	}
+	
+	DAC_Out((short)((((long)(Guitar[wave_loc_1])) + ((long)(Guitar[wave_loc_2])))*5/2/4));
+
+		FMcyclesCount1 += minleft;
+		FMcyclesCount2 += minleft;
+}
+
+	}
+
 
 //handles 2nd half of sound wave
 void Timer1A_Handler(void){
 	TIMER1_ICR_R = TIMER_ICR_TATOCINT;
-	
+	if (playMode ==0){
 	if(currently_playing_2 <= 0)
 		return;
 	wave_loc_2 = (wave_loc_2+1)%wave_len;
@@ -141,7 +217,20 @@ void Timer1A_Handler(void){
 	DAC_Out((magnitude_1+magnitude_2+magnitude_3));
 	
 	TIMER1_TAILR_R = currently_playing_2;
+	}
+	else{ 		//freeMode stuff (count how long to play the note)
 
+		FMcountNoteLength ++;
+		if (FMcountNoteLength == FMNOTELENGTH){
+			FMcountNoteLength =0;
+			FMcyclesLeft1 = 0;
+			FMcyclesLeft2 = 0;
+			TIMER0_CTL_R &= ~TIMER_CTL_TAEN;
+			TIMER1_CTL_R &= ~TIMER_CTL_TAEN;
+			return;
+		}
+		
+	}
 }
 
 

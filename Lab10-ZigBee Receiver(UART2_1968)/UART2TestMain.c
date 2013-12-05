@@ -95,7 +95,7 @@ int main(void){
 		GPIO_PORTG_DATA_R ^= 0x04;
 		data = receiveData();
 		if (data!=0)
-			printf("%s", data);
+			printf("%c", data[0] + 0x20);
 		//XBee_RecieveRxFrame();
 //		XBee_TxStatus();
 //		XBee_Display();

@@ -438,9 +438,9 @@
               <FilePath>..\driverlib\rvmdk\driverlib.lib</FilePath>
             </File>
             <File>
-              <FileName>PLL.c</FileName>
+              <FileName>PLL_1968.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\PLL.c</FilePath>
+              <FilePath>.\PLL_1968.c</FilePath>
             </File>
           </Files>
         </Group>

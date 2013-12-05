@@ -18,4 +18,15 @@ long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
 
+extern char playMode;
+extern long FMNote1;
+extern long FMNote2;
+
+extern long FMcount_a1; //free mode count for interrupt a
+extern long FMcount_a2; //freemode  count for interrupt a
+extern long FMcountNoteLength;
+extern long FMcyclesLeft1;
+extern long FMcyclesLeft2;
+
+#define FMNOTELENGTH 50000
 #endif
