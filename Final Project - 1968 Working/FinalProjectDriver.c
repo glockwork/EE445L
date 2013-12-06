@@ -90,7 +90,7 @@ int main(void){
 }
 
 void freeMode(void){ 		//if hit, play note corresponding to given hit pattern
-	  long notes [4] = {C, G, D, A};
+	  long notes [4] = {C, D, E, F};
 		unsigned char * data = 0;
 		char buttons = 0;
 		printf("start free mode\n");
@@ -107,21 +107,33 @@ void freeMode(void){ 		//if hit, play note corresponding to given hit pattern
 			data = receiveData(); // poll zigbee queue
 		
 		buttons = (data[0] & 0x0F);
-		printf("hit: %d                \n", buttons);
+		//printf("hit: %d                \n", buttons);
+		RIT128x96x4_ClearImage();
+	
+		if (buttons & 0x01)
+			drawCircle(32*1-16, 44, 128/8);
+		if (buttons & 0x02)
+			drawCircle(32*2-16, 44, 128/8);
+		if (buttons & 0x04)
+			drawCircle(32*3-16, 44, 128/8);
+		if (buttons & 0x08)
+			drawCircle(32*4-16, 44, 128/8);
+		RIT128x96x4_ShowImage();
+
 		switch(buttons){
 			case 1: FMNote1 = FMNote2 = notes[0]; break;
 			case 2: FMNote1 = FMNote2 = notes[1]; break;
 			case 4: FMNote1 = FMNote2 = notes[2]; break;
 			case 8: FMNote1 = FMNote2 = notes[3]; break;
-			case 3: FMNote1 = notes[0]; FMNote2 = notes[1]; break;
-			case 5: FMNote1 = notes[0]; FMNote2 = notes[2]; break;
-			case 6: FMNote1 = notes[1]; FMNote2 = notes[2]; break;
-		  case 9: FMNote1 = notes[0]; FMNote2 = notes[3]; break;
-			case 10: FMNote1 = notes[1]; FMNote2 = notes[3]; break;
-			case 12: FMNote1 = notes[2]; FMNote2 = notes[3]; break;
-			case 0x0F: playMode = 0; printf("free mode done\n");break; //press all 4 buttons together to end play mode
+			case 3: FMNote1 = FMNote2 = E; break;
+			case 5: FMNote1 = FMNote2 = F; break;
+			case 6: FMNote1 = FMNote2 = EF; break;
+		  case 9: FMNote1 = FMNote2 = G; break;
+			case 10: FMNote1 = FMNote2 = GF; break;
+			case 12: FMNote1 = FMNote2 = AF; break;
+			default: FMNote1 = FMNote2 = DF; break;
 		}
-		if (buttons > 0 && buttons < 15){
+		if (buttons > 0){
 			FMcountNoteLength =0;
 			FMcyclesLeft1 = 0;
 			FMcyclesLeft2 = 0;

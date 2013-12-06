@@ -31,5 +31,5 @@ extern long FMcyclesLeft2;
 extern int corrects;
 extern int errors;
 
-#define FMNOTELENGTH 50000
+#define FMNOTELENGTH 100000
 #endif

@@ -221,7 +221,10 @@ void Timer1A_Handler(void){
 	else{ 		//freeMode stuff (count how long to play the note)
 
 		FMcountNoteLength ++;
-		if (FMcountNoteLength == FMNOTELENGTH){
+		if (FMcountNoteLength >= FMNOTELENGTH){
+			RIT128x96x4_ClearImage();
+			RIT128x96x4_ShowImage();
+
 			FMcountNoteLength =0;
 			FMcyclesLeft1 = 0;
 			FMcyclesLeft2 = 0;
