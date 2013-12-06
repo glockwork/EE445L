@@ -19,6 +19,9 @@ int main(void){
 	char buttons = 0;
 	int watch = 0;
 	char printBuffer[50];
+	char numCorrect[50];
+	char numError[50];
+	char numIncorrect[50];
 	
 	SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
 	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOC;  // activate port C
@@ -54,7 +57,7 @@ int main(void){
 	RIT128x96x4_ShowImage();
 	printf("Hit Button 0 For Free Mode\nHit Button 1 To Play Guitar Hero!\n");
 	
-	
+	/*
 	while(data==0){
 		data= receiveData();
 		buttons = data[0] & 0x0F;
@@ -66,9 +69,10 @@ int main(void){
 			playMode = 0;
 			break;
 		}
-	}
+	}*/
 	
 	//frequency timers
+	game_running = 1;
 	TIMER0_CTL_R |= TIMER_CTL_TAEN;
 	TIMER1_CTL_R |= TIMER_CTL_TAEN;
 	TIMER2_CTL_R |= TIMER_CTL_TAEN;
@@ -76,7 +80,7 @@ int main(void){
 	TIMER0_CTL_R |= TIMER_CTL_TBEN;
 	TIMER1_CTL_R |= TIMER_CTL_TBEN;
 		
-  while(1){
+  while(game_running == 1){
 		//if (playMode ==1) freeMode();
 		RIT128x96x4_ClearImage();
 		sprintf(printBuffer, "Errors: %d\nCorrects: %d", errors, corrects);
@@ -84,8 +88,29 @@ int main(void){
 		RIT128x96x4StringDraw(printBuffer, 0, 0, 10);
 		BufferDraw();
 		RIT128x96x4_ShowImage();
-		
   }
+	
+		TIMER0_CTL_R &= ~TIMER_CTL_TAEN;
+		TIMER0_CTL_R &= ~TIMER_CTL_TBEN;
+		TIMER1_CTL_R &= ~TIMER_CTL_TAEN;
+		TIMER2_CTL_R &= ~TIMER_CTL_TAEN;
+		TIMER1_CTL_R &= ~TIMER_CTL_TBEN;
+		TIMER2_CTL_R &= ~TIMER_CTL_TBEN;
+		game_running = 0;
+	
+	RIT128x96x4_ClearImage();
+	RIT128x96x4_ShowImage();
+	sprintf(numCorrect, "Correct Notes: %d", corrects);
+	sprintf(numIncorrect, "Missed Notes: %d", SONG_SIZE - corrects);
+	sprintf(numError, "Incorrect Notes: %d", errors);
+	RIT128x96x4StringDraw("Well Played!", 20, 20, 15);
+	RIT128x96x4StringDraw(numCorrect, 20, 40, 15);
+	RIT128x96x4StringDraw(numIncorrect, 20, 60, 15);
+	RIT128x96x4StringDraw(numError, 20, 80, 15);
+	
+	while(1){
+		
+	}
 	
 }
 

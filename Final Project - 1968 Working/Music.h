@@ -12,9 +12,9 @@ extern const unsigned short Horn[];
 
 #define wave_len 64
 
-#define wavename1 Horn
-#define wavename2 Flute
-#define wavename3 Guitar
+#define wavename1 Guitar
+#define wavename2 Horn
+#define wavename3 Bassoon
 
 
 //notes

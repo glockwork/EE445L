@@ -21,6 +21,7 @@ void WaitForInterrupt(void);  // low power mode
 extern char playMode;
 extern long FMNote1;
 extern long FMNote2;
+extern char game_running;
 
 extern long FMcount_a1; //free mode count for interrupt a
 extern long FMcount_a2; //freemode  count for interrupt a
@@ -32,4 +33,6 @@ extern int corrects;
 extern int errors;
 
 #define FMNOTELENGTH 100000
+#define SONG_SIZE 74
+
 #endif

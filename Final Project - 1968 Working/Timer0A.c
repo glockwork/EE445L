@@ -5,7 +5,7 @@
 
 
 char playMode  = 0; //0 for guiter hero, 1 for free play
-
+char game_running = 0;
 
 int interrupt_cycles_a = 200;
 int interrupt_cycles_b = 50000;
@@ -308,8 +308,12 @@ void Timer0B_Handler(void){
 	//we want to set Timer0B to be interrupted after n MS
 	if(score[score_loc]==0xF0){
 		TIMER0_CTL_R &= ~TIMER_CTL_TAEN;
+		TIMER0_CTL_R &= ~TIMER_CTL_TBEN;
 		TIMER1_CTL_R &= ~TIMER_CTL_TAEN;
 		TIMER2_CTL_R &= ~TIMER_CTL_TAEN;
+		TIMER1_CTL_R &= ~TIMER_CTL_TBEN;
+		TIMER2_CTL_R &= ~TIMER_CTL_TBEN;
+		game_running = 0;
 	}
 	
 	if(score[score_loc]==0 || score[score_loc] == 1){
